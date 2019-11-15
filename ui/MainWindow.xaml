@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid"
+        xmlns:uc="clr-namespace:sbid.UserControl.QuickTab"
         mc:Ignorable="d"
         Title="SBID" Height="450" Width="800" WindowState="Maximized">
     <Grid>
@@ -25,10 +26,12 @@
                 <MenuItem Header="保存" InputGestureText="Ctrl+S"/>
                 <MenuItem Header="另存为..."/>
                 <Separator/>
-                <MenuItem Header="退出" InputGestureText="Ctrl+Q"/>
+                <MenuItem Header="退出" Click="MenuItem_Click_Exit" InputGestureText="Ctrl+Q"/>
             </MenuItem>
             <MenuItem Header="图">
                 <MenuItem Header="SysML图">
+                    <MenuItem Header="测试用" Click="MenuItem_Click_Test"/>
+                    <Separator/>
                     <MenuItem Header="需求图"/>
                     <MenuItem Header="块定义图"/>
                     <MenuItem Header="参数图"/>
@@ -39,23 +42,28 @@
             </MenuItem>
         </Menu>
         <!--1,0 快捷按键-->
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">
-            
-        </StackPanel>
+        <!--<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">-->
+        <!--</StackPanel>-->
+        <uc:QuickTab Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray"/>
         <!--2,0 左侧条目-->
         <StackPanel Grid.Row="2" Grid.Column="0" Background="AliceBlue">
-            
+
         </StackPanel>
-        
+
         <!--2,1 右侧大面板-->
         <Grid Grid.Row="2" Grid.Column="1" Background="AntiqueWhite">
-            
+            <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Red">
+                <TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid Background="LightYellow">
+                        <!--<TextBox  Margin="0" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+                    </Grid>
+                </TabItem>
+            </TabControl>
         </Grid>
-        
+
         <!--3,0 底下的提示条-->
-        
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="LightCyan">
-            
+            <TextBlock Name="bottomTextBlock" Text=""/>
         </StackPanel>
     </Grid>
 </Window>
