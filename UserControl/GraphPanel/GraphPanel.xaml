@@ -1,13 +1,11 @@
-﻿<UserControl x:Class="sbid.UserControl.QuickTab"
+﻿<UserControl x:Class="sbid.UserControl.GraphPanel"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sbid.UserControl"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="400">
-    <StackPanel Orientation="Horizontal">
-        <Button Content="新建"></Button>
-        <Button Content="保存"></Button>
+             d:DesignHeight="300" d:DesignWidth="400">
+    <StackPanel Name="rootStackPanel" Background="AntiqueWhite">
     </StackPanel>
 </UserControl>

@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace sbid.UserControl.QuickTab
+namespace sbid.UserControl
 {
     /// <summary>
     /// QuickTab.xaml 的交互逻辑

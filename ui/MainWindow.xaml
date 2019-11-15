@@ -4,9 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid"
-        xmlns:uc="clr-namespace:sbid.UserControl.QuickTab"
+        xmlns:uc="clr-namespace:sbid.UserControl"
         mc:Ignorable="d"
-        Title="SBID" Height="450" Width="800" WindowState="Maximized">
+        Title="SBID-内生安全建模工具" Height="450" Width="800" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="23px"/>
@@ -19,7 +19,7 @@
             <ColumnDefinition Width="84*"/>
         </Grid.ColumnDefinitions>
         <!--0,0 菜单栏-->
-        <Menu x:Name="menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Height="23px" VerticalAlignment="Top">
+        <Menu x:Name="menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="23px" VerticalAlignment="Top">
             <MenuItem Header="文件">
                 <MenuItem Header="新建" IsCheckable="True" InputGestureText="Ctrl+N"/>
                 <MenuItem Header="打开..." InputGestureText="Ctrl+O"/>
@@ -46,17 +46,28 @@
         <!--</StackPanel>-->
         <uc:QuickTab Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray"/>
         <!--2,0 左侧条目-->
-        <StackPanel Grid.Row="2" Grid.Column="0" Background="AliceBlue">
-
-        </StackPanel>
+        <TabControl Grid.Row="2" Grid.Column="0" Background="AliceBlue">
+            <TabItem Header="项目结构">
+                
+            </TabItem>
+            <TabItem Header="图形">
+                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    <Button Content="Use Case"/>
+                    <Button Content="Class"/>
+                    <Button Content="xxx"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
 
         <!--2,1 右侧大面板-->
         <Grid Grid.Row="2" Grid.Column="1" Background="AntiqueWhite">
             <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Red">
                 <TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <Grid Background="LightYellow">
+                    <!--<Grid Background="LightYellow">-->
                         <!--<TextBox  Margin="0" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
-                    </Grid>
+                    <!--</Grid>-->
+                    <uc:GraphPanel/>
+                    <!--<Button Content="ok"/>-->
                 </TabItem>
             </TabControl>
         </Grid>

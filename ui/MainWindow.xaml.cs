@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using sbid.UserControl;
 
 namespace sbid
 {
@@ -42,6 +43,7 @@ namespace sbid
         //[菜单]图 > SysML图 > 测试用
         private void MenuItem_Click_Test(object sender, RoutedEventArgs e)
         {
+            /*
             //创建新的选项卡
             TabItem ti = new TabItem();
             ti.Header = "xx图" + (tabIndex + 1);
@@ -52,6 +54,13 @@ namespace sbid
             Grid gd = new Grid();
             gd.Background = brush;
             ti.Content = gd;
+            */
+            TabItem ti = new TabItem();
+            ti.VerticalAlignment = VerticalAlignment.Stretch;
+            ti.HorizontalAlignment = HorizontalAlignment.Stretch;
+            ti.Header = "xx图" + (tabIndex + 1);
+            TabControl1.Items.Add(ti);
+            ti.Content = new GraphPanel();
 
             //每造一个新窗口便默认突出显示为新窗口
             TabControl1.SelectedIndex = tabIndex + 1;
