@@ -21,14 +21,26 @@
         <!--0,0 菜单栏-->
         <Menu x:Name="menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="23px" VerticalAlignment="Top">
             <MenuItem Header="文件">
-                <MenuItem Header="新建" IsCheckable="True" InputGestureText="Ctrl+N"/>
+                <MenuItem Header="新模型" Click="MenuItem_Click_NewModel" InputGestureText="Ctrl+N"/>
                 <MenuItem Header="打开..." InputGestureText="Ctrl+O"/>
                 <MenuItem Header="保存" InputGestureText="Ctrl+S"/>
                 <MenuItem Header="另存为..."/>
                 <Separator/>
                 <MenuItem Header="退出" Click="MenuItem_Click_Exit" InputGestureText="Ctrl+Q"/>
             </MenuItem>
-            <MenuItem Header="图">
+            <MenuItem Header="模型">
+                <MenuItem Header="添加状态机(State Machine)" Click="MenuItem_Click_Add_State_Machine"/>
+            </MenuItem>
+            <!--<MenuItem Header="图">
+                <MenuItem Header="UML图">
+                    <MenuItem Header="用例图" Click="MenuItem_Click_Graph"/>
+                    <MenuItem Header="时序图" Click="MenuItem_Click_Graph"/>
+                    <MenuItem Header="类图"/>
+                    <MenuItem Header="状态图/活动图"/>
+                    <MenuItem Header="部署图"/>
+                    <MenuItem Header="组件图"/>
+                    <MenuItem Header="实体关系图"/>
+                </MenuItem>
                 <MenuItem Header="SysML图">
                     <MenuItem Header="测试用" Click="MenuItem_Click_Test"/>
                     <Separator/>
@@ -39,11 +51,12 @@
                     <MenuItem Header="用例图"/>
                     <MenuItem Header="状态机图"/>
                 </MenuItem>
+            </MenuItem>-->
+            <MenuItem Header="视图">
+                <MenuItem Header="xxx" IsCheckable="True"/>
             </MenuItem>
         </Menu>
         <!--1,0 快捷按键-->
-        <!--<StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">-->
-        <!--</StackPanel>-->
         <uc:QuickTab Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray"/>
         <!--2,0 左侧条目-->
         <TabControl Grid.Row="2" Grid.Column="0" Background="AliceBlue">
@@ -51,24 +64,16 @@
                 
             </TabItem>
             <TabItem Header="图形">
-                <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                    <Button Content="Use Case"/>
-                    <Button Content="Class"/>
-                    <Button Content="xxx"/>
-                </StackPanel>
+                <uc:GraphButtonStack/>
             </TabItem>
         </TabControl>
 
         <!--2,1 右侧大面板-->
-        <Grid Grid.Row="2" Grid.Column="1" Background="AntiqueWhite">
-            <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="Red">
-                <TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                    <!--<Grid Background="LightYellow">-->
-                        <!--<TextBox  Margin="0" TextWrapping="Wrap" Text="" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
-                    <!--</Grid>-->
+        <Grid Grid.Row="2" Grid.Column="1" Background="AliceBlue">
+            <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray">
+                <!--<TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <uc:GraphPanel/>
-                    <!--<Button Content="ok"/>-->
-                </TabItem>
+                </TabItem>-->
             </TabControl>
         </Grid>
 
