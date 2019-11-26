@@ -1,0 +1,28 @@
+﻿<UserControl x:Class="sbid.UserControl.ModelFuncPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sbid.UserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="96*"/>
+        </Grid.RowDefinitions>
+        <!--0, 工具栏-->
+        <StackPanel Orientation="Horizontal" Background="AliceBlue">
+            <Button Content="进程模板"/>
+            <Button Content="自定义类型"/>
+            <Button Content="公理"/>
+            <Button Content="Initial Knowledge"/>
+            <Button Content="Safety Property"/>
+            <Button Content="Security Property"/>
+        </StackPanel>
+        <!--1, 绘图面板-->
+        <TabControl Grid.Row="1" x:Name="tabControl">
+            <TabItem Header="全局" Name="globalTabItem"/>
+        </TabControl>
+    </Grid>
+</UserControl>

@@ -29,7 +29,7 @@
                 <MenuItem Header="退出" Click="MenuItem_Click_Exit" InputGestureText="Ctrl+Q"/>
             </MenuItem>
             <MenuItem Header="模型">
-                <MenuItem Header="添加状态机(State Machine)" Click="MenuItem_Click_Add_State_Machine"/>
+                <MenuItem Header="添加状态机(State Machine)"/>
             </MenuItem>
             <!--<MenuItem Header="图">
                 <MenuItem Header="UML图">
@@ -70,7 +70,7 @@
 
         <!--2,1 右侧大面板-->
         <Grid Grid.Row="2" Grid.Column="1" Background="AliceBlue">
-            <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray">
+            <TabControl Name="mainTabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray">
                 <!--<TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <uc:GraphPanel/>
                 </TabItem>-->
