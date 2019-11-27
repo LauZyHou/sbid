@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <!--0, 工具栏-->
         <StackPanel Orientation="Horizontal" Background="AliceBlue">
-            <Button Content="进程模板"/>
+            <Button Content="进程模板" Click="Button_Click_Process"/>
             <Button Content="自定义类型"/>
             <Button Content="公理"/>
             <Button Content="Initial Knowledge"/>
@@ -22,7 +22,7 @@
         </StackPanel>
         <!--1, 绘图面板-->
         <TabControl Grid.Row="1" x:Name="tabControl">
-            <TabItem Header="全局" Name="globalTabItem"/>
+            <local:CloseableTabItem Title="全局" x:Name="globalTabItem"/>
         </TabControl>
     </Grid>
 </UserControl>

@@ -22,8 +22,7 @@ namespace sbid
     public partial class MainWindow : Window
     {
         UserVM _uvm;
-        private int tabId = 0; // 在新建模型选项卡时用于区分的自增数字
-        private int tabNum = 0; //记录实际存在的模型选项卡的数目
+        private int tabId = 1; // 在新建模型选项卡时用于区分的自增数字
 
         public MainWindow()
         {
@@ -42,7 +41,7 @@ namespace sbid
         //[菜单]图 > SysML图 > 测试用
         private void MenuItem_Click_Test(object sender, RoutedEventArgs e)
         {
-           
+
         }
 
         //[菜单]文件 > 退出
@@ -59,8 +58,6 @@ namespace sbid
             //移除选项卡
             TabItem s = (TabItem)sender;
             mainTabControl.Items.Remove(s);
-            //维护总选项卡数目
-            this.tabNum--;
         }
 
         //点击菜单[图]之下的菜单项时触发
@@ -77,20 +74,14 @@ namespace sbid
         private void MenuItem_Click_NewModel(object sender, RoutedEventArgs e)
         {
             //创建TabItem并包含新的模型控件
-            TabItem tabItem = new TabItem
+            CloseableTabItem tabItem = new CloseableTabItem
             {
+                Title = "模型" + (this.tabId++).ToString(),
                 Content = new ModelFuncPanel()
             };
             mainTabControl.Items.Add(tabItem);
-
             //每造一个新窗口便默认突出显示为活动窗口
-            mainTabControl.SelectedIndex = this.tabNum;
-            this.tabId++;
-            this.tabNum++;
-
-            //[新模型的TabItem的参数设定]
-            tabItem.MouseDoubleClick += TabItem_DoubleClick;
-            tabItem.Header = "模型" + this.tabId.ToString();
+            tabItem.Focus();
         }
 
         //todo 放到模型控件里面去做
