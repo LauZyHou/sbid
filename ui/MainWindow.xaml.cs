@@ -73,12 +73,23 @@ namespace sbid
         //菜单 > 文件 > 新模型
         private void MenuItem_Click_NewModel(object sender, RoutedEventArgs e)
         {
-            //创建TabItem并包含新的模型控件
+            //创建新的模型面板
+            //先创建模型面板内包含的全局面板，放到TabControl里
+            TabControl modelTabControl = new TabControl();
+            modelTabControl.Items.Add(
+                new CloseableTabItem()
+                {
+                    Title = "全局",
+                    Content = new GlobalPanel()
+                }
+            );
+            //再创建包含它的模型TabItem
             CloseableTabItem tabItem = new CloseableTabItem
             {
                 Title = "模型" + (this.tabId++).ToString(),
-                Content = new ModelFuncPanel()
+                Content = modelTabControl
             };
+            //整个模型TabItem放到大的mainTabControl里面
             mainTabControl.Items.Add(tabItem);
             //每造一个新窗口便默认突出显示为活动窗口
             tabItem.Focus();
