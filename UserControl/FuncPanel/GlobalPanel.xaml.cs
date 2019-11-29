@@ -18,7 +18,7 @@ namespace sbid.UserControl
     /// </summary>
     public partial class GlobalPanel : System.Windows.Controls.UserControl
     {
-        private int processId = 1;
+        //private int processId = 1;
         //private int tabNum = 0;
 
 
@@ -30,7 +30,24 @@ namespace sbid.UserControl
         //[按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
-            //todo
+            //fixme
+            //创建图形
+            ContentControl contentControl = new ContentControl()
+            {
+                Width = 120,
+                Height = 120,
+                Template = FindResource("DesignerItemTemplate") as ControlTemplate,
+                Content = new Ellipse()
+                {
+                    Fill = Brushes.Red,
+                    IsHitTestVisible = false
+                }
+            };
+            //设置附加属性
+            Canvas.SetLeft(contentControl, 100);
+            Canvas.SetTop(contentControl, 50);
+            //添加到Canvas
+            mainCanvas.Children.Add(contentControl);
         }
     }
 }
