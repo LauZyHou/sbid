@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:uc="clr-namespace:sbid.UserControl"
+                    x:Class="sbid.Resources.DesignerIem">
+    <!-- MoveThumb Template -->
+    <!--需要移动的对象，设置样式用的控件模板，作用于MoveThumb-->
+    <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type uc:MoveThumb}">
+        <!--Fill="Transparent"透明填充矩形，这样图形实际上包在矩形里但是矩形不可见，这些透明部分也可以用来拖拽-->
+        <Rectangle Fill="Transparent"/>
+    </ControlTemplate>
+
+    <!-- Designer Item Template-->
+    <!--这个控件模板用来组合上面那些控件模板，以给图形使用-->
+    <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
+        <!--??大概是把图形绑定到Grid的DataContext-->
+        <!--TemplatedParent是RelativeSource的其中一种方式，使用该方式将使源元素成为模板目标类型—即TargetType-->
+        <!--如果该绑定是在模板中，那么它的作为范围也只限于该模板.-->
+        <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
+            <!--用于移动的透明矩形，鼠标格式SizeAll-->
+            <uc:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll">
+                <!--右键菜单-->
+                <uc:MoveThumb.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Name="MenuItem1" Header="测试" Click="Button_Click"/>
+                        <MenuItem Name="MenuItem2" Header="编辑"/>
+                    </ContextMenu>
+                </uc:MoveThumb.ContextMenu>
+            </uc:MoveThumb>
+            <!--?为什么用ContentPresenter?-->
+            <!--内容模型不仅仅只是呈现文字而已,如果只是为了呈现文字的话,是不需要ContentPresenter的-->
+            <!--其内容绑定自ContentControl.Content-->
+            <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
+        </Grid>
+    </ControlTemplate>
+</ResourceDictionary>

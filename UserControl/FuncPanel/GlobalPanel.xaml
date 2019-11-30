@@ -7,38 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <!-- MoveThumb Template -->
-        <!--需要移动的对象，设置样式用的控件模板，作用于MoveThumb-->
-        <ControlTemplate x:Key="MoveThumbTemplate" TargetType="{x:Type local:MoveThumb}">
-            <!--Fill="Transparent"透明填充矩形，这样图形实际上包在矩形里但是矩形不可见，这些透明部分也可以用来拖拽-->
-            <Rectangle Fill="Transparent"/>
-        </ControlTemplate>
-
-        <!-- Designer Item Template-->
-        <!--这个控件模板用来组合上面那些控件模板，以给图形使用-->
-        <ControlTemplate x:Key="DesignerItemTemplate" TargetType="ContentControl">
-            <!--??大概是把图形绑定到Grid的DataContext-->
-            <!--TemplatedParent是RelativeSource的其中一种方式，使用该方式将使源元素成为模板目标类型—即TargetType-->
-            <!--如果该绑定是在模板中，那么它的作为范围也只限于该模板.-->
-            <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
-                <!--用于移动的透明矩形，鼠标格式SizeAll-->
-                <local:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll">
-                    <!--右键菜单-->
-                    <local:MoveThumb.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Name="MenuItem1" Header="文件"/>
-                            <MenuItem Name="MenuItem2" Header="编辑"/>
-                        </ContextMenu>
-                    </local:MoveThumb.ContextMenu>
-                </local:MoveThumb>
-                <!--?为什么用ContentPresenter?-->
-                <!--内容模型不仅仅只是呈现文字而已,如果只是为了呈现文字的话,是不需要ContentPresenter的-->
-                <!--其内容绑定自ContentControl.Content-->
-                <ContentPresenter Content="{TemplateBinding ContentControl.Content}"/>
-            </Grid>
-        </ControlTemplate>
+    <!--这里的东西移动到Resources下各个资源字典中，再由全局App.xaml包含-->
     </UserControl.Resources>
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
@@ -47,7 +18,7 @@
         <!--0, 工具栏-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="AliceBlue">
             <Button Content="进程模板" Click="Button_Click_Process"/>
-            <Button Content="自定义类型"/>
+            <Button Content="自定义类型" Click="Button_Click_UserType"/>
             <Button Content="公理"/>
             <Button Content="Initial Knowledge"/>
             <Button Content="Safety Property"/>
@@ -67,6 +38,7 @@
                 <!--把IsHitTestVisible设置为False,看起来没有变化,但操作上已经把他完全忽视了,不触发事件,可以直接点到它下面的东西-->
                 <Ellipse Fill="Red" IsHitTestVisible="False"/>
             </ContentControl>
+            <!--<local:UserTypeBlock Canvas.Top="100" Canvas.Left="270"/>-->
         </Canvas>
     </Grid>
 </UserControl>
