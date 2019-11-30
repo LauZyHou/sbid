@@ -10,6 +10,7 @@
                     MinWidth="50"
                     Height="130"
                     MinHeight="50"
+                    Name="contentControl"
                     Template="{StaticResource DesignerItemTemplate}">
         <!--ContentControl的Content放具体的图形-->
         <!--把IsHitTestVisible设置为False,看起来没有变化,但操作上已经把他完全忽视了,不触发事件,可以直接点到它下面的东西-->
@@ -19,5 +20,11 @@
                 <RectangleGeometry Rect="100,100,100,100"/>
             </Path.Data>
         </Path>
+        <ContentControl.ContextMenu>
+            <ContextMenu>
+                <MenuItem Name="menuEdit" Header="编辑" Click="Menu_Click_Edit"/>
+                <MenuItem Name="menuDelete" Header="删除" Click="Menu_Click_Delete"/>
+            </ContextMenu>
+        </ContentControl.ContextMenu>
     </ContentControl>
 </UserControl>

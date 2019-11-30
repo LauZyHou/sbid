@@ -18,13 +18,13 @@
         <Grid DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}">
             <!--用于移动的透明矩形，鼠标格式SizeAll-->
             <uc:MoveThumb Template="{StaticResource MoveThumbTemplate}" Cursor="SizeAll">
-                <!--右键菜单-->
-                <uc:MoveThumb.ContextMenu>
+                <!--右键菜单，不要放在这，还是放到每个控件自己那里去-->
+                <!--<uc:MoveThumb.ContextMenu>
                     <ContextMenu>
                         <MenuItem Name="MenuItem1" Header="测试" Click="Button_Click"/>
                         <MenuItem Name="MenuItem2" Header="编辑"/>
                     </ContextMenu>
-                </uc:MoveThumb.ContextMenu>
+                </uc:MoveThumb.ContextMenu>-->
             </uc:MoveThumb>
             <!--?为什么用ContentPresenter?-->
             <!--内容模型不仅仅只是呈现文字而已,如果只是为了呈现文字的话,是不需要ContentPresenter的-->

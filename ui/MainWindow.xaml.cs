@@ -21,20 +21,15 @@ namespace sbid
     /// </summary>
     public partial class MainWindow : Window
     {
-        UserVM _uvm;
         private int tabId = 1; // 在新建模型选项卡时用于区分的自增数字
 
         public MainWindow()
         {
             InitializeComponent();
-            _uvm = base.DataContext as UserVM;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            _uvm.UserName = "刘知昊";
-            _uvm.CompanyName = "ecnu";
-            Console.WriteLine("okk");
             MessageBox.Show("123");
         }
 

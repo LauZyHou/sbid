@@ -22,5 +22,18 @@ namespace sbid.UserControl
         {
             InitializeComponent();
         }
+
+        //【右键菜单】编辑
+        private void Menu_Click_Edit(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("edit");
+        }
+
+        //【右键菜单】删除
+        private void Menu_Click_Delete(object sender, RoutedEventArgs e)
+        {
+            Canvas canvas = contentControl.Parent as Canvas;
+            canvas.Children.Remove(contentControl);
+        }
     }
 }
