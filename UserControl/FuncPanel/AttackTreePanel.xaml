@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="sbid.UserControl.AttackTreePanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:sbid.UserControl"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" MinHeight="23px"/>
+            <RowDefinition Height="96*"/>
+        </Grid.RowDefinitions>
+        <!--0, 工具栏-->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Background="AliceBlue">
+            <Button Content="攻击结点" Click="Button_Click_Attack"/>
+            <Button Content="关系NEG" Click="Button_Click_NEG"/>
+            <Button Content="关系AND" Click="Button_Click_AND"/>
+            <Button Content="关系OR" Click="Button_Click_OR"/>
+        </StackPanel>
+        <!--1, 绘图面板-->
+        <Canvas x:Name="mainCanvas" Grid.Row="1" Background="#CDD4FF">
+        </Canvas>
+    </Grid>
+</UserControl>

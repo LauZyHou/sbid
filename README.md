@@ -10,6 +10,7 @@
 tree -d -I "[a-z]*" >> README.md
 ```
 ## 目录结构
+```
 .
 ├── Model（MVVM的Model）
 ├── Resources（存放资源字典）
@@ -24,3 +25,4 @@ tree -d -I "[a-z]*" >> README.md
 │   └── Thumb（存放Thumb控件等相关操作的继承类）
 ├── Utils
 └── ViewModel（MVVM的ViewModel）
+```

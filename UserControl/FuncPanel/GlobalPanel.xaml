@@ -12,7 +12,7 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*" MinHeight="23px"/>
             <RowDefinition Height="96*"/>
         </Grid.RowDefinitions>
         <!--0, 工具栏-->
