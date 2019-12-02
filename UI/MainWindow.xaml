@@ -1,0 +1,87 @@
+﻿<Window x:Class="sbid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:sbid"
+        xmlns:uc="clr-namespace:sbid.UserControl"
+        mc:Ignorable="d"
+        Title="SBID-内生安全建模工具" Height="450" Width="800" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="23px"/>
+            <RowDefinition Height="5*" MinHeight="23px"/>
+            <RowDefinition Height="90*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="16*"/>
+            <ColumnDefinition Width="84*"/>
+        </Grid.ColumnDefinitions>
+        <!--0,0 菜单栏-->
+        <Menu x:Name="menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="23px" VerticalAlignment="Top">
+            <MenuItem Header="文件">
+                <MenuItem Header="新模型" Click="MenuItem_Click_NewModel" InputGestureText="Ctrl+N"/>
+                <MenuItem Header="打开..." InputGestureText="Ctrl+O"/>
+                <MenuItem Header="保存" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="另存为..."/>
+                <Separator/>
+                <MenuItem Header="退出" Click="MenuItem_Click_Exit" InputGestureText="Ctrl+Q"/>
+            </MenuItem>
+            <MenuItem Header="模型">
+                <!--<MenuItem Header="添加状态机(State Machine)"/>-->
+                <MenuItem Header="添加攻击树(Attack Tree)" Click="MenuItem_Click_AttackTree"/>
+                <MenuItem Header="添加计算树逻辑(CTL)" Click="MenuItem_Click_CTL"/>
+            </MenuItem>
+            <!--<MenuItem Header="图">
+                <MenuItem Header="UML图">
+                    <MenuItem Header="用例图" Click="MenuItem_Click_Graph"/>
+                    <MenuItem Header="时序图" Click="MenuItem_Click_Graph"/>
+                    <MenuItem Header="类图"/>
+                    <MenuItem Header="状态图/活动图"/>
+                    <MenuItem Header="部署图"/>
+                    <MenuItem Header="组件图"/>
+                    <MenuItem Header="实体关系图"/>
+                </MenuItem>
+                <MenuItem Header="SysML图">
+                    <MenuItem Header="测试用" Click="MenuItem_Click_Test"/>
+                    <Separator/>
+                    <MenuItem Header="需求图"/>
+                    <MenuItem Header="块定义图"/>
+                    <MenuItem Header="参数图"/>
+                    <Separator/>
+                    <MenuItem Header="用例图"/>
+                    <MenuItem Header="状态机图"/>
+                </MenuItem>
+            </MenuItem>-->
+            <MenuItem Header="视图">
+                <MenuItem Header="xxx" IsCheckable="True"/>
+            </MenuItem>
+        </Menu>
+        <!--1,0 快捷按键-->
+        <uc:QuickTab Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray"/>
+        <!--2,0 左侧条目-->
+        <TabControl Grid.Row="2" Grid.Column="0" Background="AliceBlue">
+            <TabItem Header="项目结构">
+                
+            </TabItem>
+            <!--<TabItem Header="图形">
+                <uc:GraphButtonStack/>
+            </TabItem>-->
+        </TabControl>
+
+        <!--2,1 右侧大面板-->
+        <Grid Grid.Row="2" Grid.Column="1" Background="AliceBlue">
+            <TabControl Name="mainTabControl" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray">
+                <!--<TabItem Header="原始窗口" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <uc:GraphPanel/>
+                </TabItem>-->
+            </TabControl>
+        </Grid>
+
+        <!--3,0 底下的提示条-->
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Background="LightCyan">
+            <TextBlock Name="bottomTextBlock" Text=""/>
+        </StackPanel>
+    </Grid>
+</Window>
