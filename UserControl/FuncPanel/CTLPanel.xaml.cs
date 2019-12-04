@@ -41,44 +41,50 @@ namespace sbid.UserControl
             //todo
         }
 
-        //【工具栏按钮】量词A
-        private void Button_Click_A(object sender, RoutedEventArgs e)
+        //【工具栏按钮】AX
+        private void Button_Click_AX(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】量词E
-        private void Button_Click_E(object sender, RoutedEventArgs e)
+        //【工具栏按钮】EX
+        private void Button_Click_EX(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】连接词X
-        private void Button_Click_X(object sender, RoutedEventArgs e)
+        //【工具栏按钮】AF
+        private void Button_Click_AF(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】连接词F
-        private void Button_Click_F(object sender, RoutedEventArgs e)
+        //【工具栏按钮】EF
+        private void Button_Click_EF(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】连接词G
-        private void Button_Click_G(object sender, RoutedEventArgs e)
+        //【工具栏按钮】AG
+        private void Button_Click_AG(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】连接词U
-        private void Button_Click_U(object sender, RoutedEventArgs e)
+        //【工具栏按钮】EG
+        private void Button_Click_EG(object sender, RoutedEventArgs e)
         {
             //todo
         }
 
-        //【工具栏按钮】连接词R
-        private void Button_Click_R(object sender, RoutedEventArgs e)
+        //【工具栏按钮】AU
+        private void Button_Click_AU(object sender, RoutedEventArgs e)
+        {
+            //todo
+        }
+
+        //【工具栏按钮】EU
+        private void Button_Click_EU(object sender, RoutedEventArgs e)
         {
             //todo
         }
