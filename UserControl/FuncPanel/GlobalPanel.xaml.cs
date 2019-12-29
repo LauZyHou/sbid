@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sbid.Model;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -20,8 +21,6 @@ namespace sbid.UserControl
     {
         //private int processId = 1;
         //private int tabNum = 0;
-
-
         public GlobalPanel()
         {
             InitializeComponent();
@@ -53,11 +52,13 @@ namespace sbid.UserControl
         //[按钮]添加自定义类型
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-            UserTypeBlock userTypeBlock = new UserTypeBlock();
+            int globalUserTypeId = UserTypeBlock.getGlobalUserTypeId();
+            UserTypeBlock userTypeBlock = new UserTypeBlock(globalUserTypeId);
+            UserType userType = new UserType(globalUserTypeId);
             ContentControl contentControl = userTypeBlock.Content as ContentControl;
             userTypeBlock.SetValue(ContentPresenter.ContentProperty, null);
             //设置附加属性
-            Canvas.SetLeft(contentControl, 100);
+            Canvas.SetLeft(contentControl, 5);
             Canvas.SetTop(contentControl, 50);
             //添加到Canvas
             mainCanvas.Children.Add(contentControl);
