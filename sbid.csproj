@@ -7,4 +7,17 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="ExtraApps\**" />
+    <EmbeddedResource Remove="ExtraApps\**" />
+    <None Remove="ExtraApps\**" />
+    <Page Remove="ExtraApps\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="ExtraApps\NetworkModel\SimpleNetworkModel.2010.csproj" />
+    <ProjectReference Include="ExtraApps\NetworkUI\NetworkUI.2010.csproj" />
+    <ProjectReference Include="ExtraApps\Utils\Utils.2010.csproj" />
+  </ItemGroup>
+
 </Project>

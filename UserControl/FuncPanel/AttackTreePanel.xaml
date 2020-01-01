@@ -4,9 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sbid.UserControl"
+             xmlns:vm="clr-namespace:sbid.ViewModel"
+             xmlns:NetworkModel="clr-namespace:NetworkModel;assembly=NetworkModel"
+             xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             FocusManager.FocusedElement="{Binding ElementName=networkControl}">
+
+    <Grid Focusable="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" MinHeight="23px"/>
             <RowDefinition Height="96*"/>
@@ -19,7 +24,115 @@
             <Button Content="关系OR" Click="Button_Click_OR"/>
         </StackPanel>
         <!--1, 绘图面板-->
-        <Canvas x:Name="mainCanvas" Grid.Row="1" Background="#CDD4FF">
-        </Canvas>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" Focusable="False" 
+                      Background="DarkGray" Name="scrollViewer">
+            <!--[*]设置资源-->
+            <ScrollViewer.Resources>
+                <!--RoutedCommand类创建自己的命令,RoutedUICommand只多添加了Text属性作为命令显示的文本-->
+                <RoutedUICommand x:Key="Commands.DeleteSelectedNodes" />
+                <RoutedUICommand x:Key="Commands.CreateNodes" />
+
+                <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
+                <DataTemplate DataType="{x:Type NetworkModel:ConnectionViewModel}">
+                    <!--用一个简单的箭头表达连线,见Arrow类-->
+                    <NetworkUI:Arrow Stroke="Black" StrokeThickness="2" Fill="Black"
+                         Start="{Binding SourceConnectorHotspot}"
+                         End="{Binding DestConnectorHotspot}"
+                         IsHitTestVisible="False"/>
+                </DataTemplate>
+
+                <!--设置NodeItem的控件模板-->
+                <Style TargetType="{x:Type NetworkUI:NodeItem}">
+                    <Setter Property="X" Value="{Binding X}"/>
+                    <Setter Property="Y" Value="{Binding Y}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+
+                <!--设置ConnectorItem的控件模板-->
+                <Style TargetType="{x:Type NetworkUI:ConnectorItem}">
+                    <!--锚点中心-->
+                    <Setter Property="Hotspot" Value="{Binding Hotspot, Mode=OneWayToSource}"/>
+                    <!--外面的小正方形-->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type NetworkUI:ConnectorItem}">
+                                <Rectangle Stroke="Black" Fill="White" Cursor="Hand"
+                                   Width="12" Height="12" RadiusX="1" RadiusY="1"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <!--攻击树结点的数据模板,这里用RelationNode和AttackNode的基类NodeViewModel做多态实现-->
+                <DataTemplate DataType="{x:Type NetworkModel:NodeViewModel}">
+                    <Grid Width="120" Height="60">
+                        <!--显示出来的矩形-->
+                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
+                        <!--携带结点名称(Name)和四个锚点(Connector)的Grid-->
+                        <Grid Margin="-8">
+                            <!--分成3*3=9个区域,上3下3放锚点,中间放带有Name的大区域-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" MinWidth="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!--中间居中放Node的Name属性-->
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+                            <!--绑定锚点数组中的锚点-->
+                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="0"
+                                             DataContext="{Binding Connectors[0]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="0"
+                                             DataContext="{Binding Connectors[1]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="0"
+                                             DataContext="{Binding Connectors[2]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="2"
+                                             DataContext="{Binding Connectors[3]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="2"
+                                             DataContext="{Binding Connectors[4]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="2"
+                                             DataContext="{Binding Connectors[5]}"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ScrollViewer.Resources>
+            <!--[*]设置对应的ViewModel,在.cs文件中取DataContext即得到-->
+            <ScrollViewer.DataContext>
+                <vm:AttackTreePanelVM/>
+            </ScrollViewer.DataContext>
+            <!--[*]设置添加和删除结点的命令-->
+            <ScrollViewer.CommandBindings>
+                <CommandBinding Command="{StaticResource Commands.CreateNodes}" Executed="CreateNode_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.DeleteSelectedNodes}" Executed="DeleteSelectedNodes_Executed"/>
+            </ScrollViewer.CommandBindings>
+            <!--[*]设置右键菜单-->
+            <ScrollViewer.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="添加结点" Command="{StaticResource Commands.CreateNodes}" ToolTip="添加新结点"/>
+                </ContextMenu>
+            </ScrollViewer.ContextMenu>
+            <!--[*]设置绑定按键触发的命令-->
+            <ScrollViewer.InputBindings>
+                <KeyBinding Key="Delete" Command="{StaticResource Commands.DeleteSelectedNodes}"/>
+            </ScrollViewer.InputBindings>
+            <!--[*]放入NetworkView,并添加各个事件的处理函数-->
+            <NetworkUI:NetworkView
+            x:Name="networkControl"
+            Width="1000"
+            Height="1000"
+            NodesSource="{Binding Network.Nodes}"
+            ConnectionsSource="{Binding Network.Connections}"
+            ConnectionDragStarted="networkControl_ConnectionDragStarted"
+            ConnectionDragging="networkControl_ConnectionDragging"
+            ConnectionDragCompleted="networkControl_ConnectionDragCompleted"
+            />
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -33,27 +33,6 @@
                 <MenuItem Header="添加攻击树(Attack Tree)" Click="MenuItem_Click_AttackTree"/>
                 <MenuItem Header="添加计算树逻辑(CTL)" Click="MenuItem_Click_CTL"/>
             </MenuItem>
-            <!--<MenuItem Header="图">
-                <MenuItem Header="UML图">
-                    <MenuItem Header="用例图" Click="MenuItem_Click_Graph"/>
-                    <MenuItem Header="时序图" Click="MenuItem_Click_Graph"/>
-                    <MenuItem Header="类图"/>
-                    <MenuItem Header="状态图/活动图"/>
-                    <MenuItem Header="部署图"/>
-                    <MenuItem Header="组件图"/>
-                    <MenuItem Header="实体关系图"/>
-                </MenuItem>
-                <MenuItem Header="SysML图">
-                    <MenuItem Header="测试用" Click="MenuItem_Click_Test"/>
-                    <Separator/>
-                    <MenuItem Header="需求图"/>
-                    <MenuItem Header="块定义图"/>
-                    <MenuItem Header="参数图"/>
-                    <Separator/>
-                    <MenuItem Header="用例图"/>
-                    <MenuItem Header="状态机图"/>
-                </MenuItem>
-            </MenuItem>-->
             <MenuItem Header="视图">
                 <MenuItem Header="xxx" IsCheckable="True"/>
             </MenuItem>

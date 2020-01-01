@@ -127,6 +127,5 @@ namespace sbid
             currentModel_TabControl.Items.Add(tabItem);
             tabItem.Focus();
         }
-
     }
 }
