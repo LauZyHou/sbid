@@ -151,6 +151,76 @@ namespace sbid.ViewModel
             }
         }
 
+        public void SetNodeFalse()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "False";
+                }
+            }
+        }
+
+        public void SetNodeTrue()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "True";
+                }
+            }
+        }
+
+        public void SetNodeActive()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "Active";
+                }
+            }
+        }
+
+        public void Calculate()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            NodeViewModel root = null;
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    root = node;
+                }
+            }
+            bool ans = recursiveCalculate(root);
+
+            if (ans)
+            {
+                root.Condition = "True";
+            }
+            else
+            {
+                root.Condition = "False";
+            }
+        }
+
+        public void Check()
+        {
+
+        }
+
+        private bool recursiveCalculate(NodeViewModel root)
+        {
+            bool ans = false;
+            return ans;
+        }
+
         /// <summary>
         /// Delete the node from the view-model.
         /// Also deletes any connections to or from the node.

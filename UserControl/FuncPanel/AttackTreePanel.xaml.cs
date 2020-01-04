@@ -116,5 +116,30 @@ namespace sbid.UserControl
             // 创建新结点
             this.ViewModel.CreateNode("New Node!", newNodeLocation);
         }
+
+        private void SetNodeFalse_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.ViewModel.SetNodeFalse();
+        }
+
+        private void SetNodeTrue_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.ViewModel.SetNodeTrue();
+        }
+
+        private void SetNodeActive_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.ViewModel.SetNodeActive();
+        }
+
+        private void Check_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.ViewModel.Check();
+        }
+
+        private void Calculate_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.ViewModel.Calculate();
+        }
     }
 }

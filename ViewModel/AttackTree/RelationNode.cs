@@ -25,6 +25,7 @@ namespace sbid.ViewModel
             this.Type = RelationType.OR;
             this.Name = "OR";
             this.Color = "#CC9999"; // 灰红色
+            
         }
 
         // 传参构造:按枚举类型
