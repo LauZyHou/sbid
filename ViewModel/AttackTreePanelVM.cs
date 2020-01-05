@@ -258,62 +258,52 @@ namespace sbid.ViewModel
         private bool recursiveCalculate(NodeViewModel root)
         {
             bool ans = false;
-            foreach (var son in root.ChildNodes)
+            if (root.condition == NodeViewModel.ConditionType.ACTIVE)
             {
-                if ((!son.Name.Equals("AND")) && (!son.Name.Equals("OR")) && (!son.Name.Equals("NEG")))
+                var son = root.ChildNodes[0];
+                return recursiveCalculate(son);
+            }
+            else if (root.condition == NodeViewModel.ConditionType.TRUE)
+            {
+                return true;
+            }
+            else if (root.condition == NodeViewModel.ConditionType.FALSE)
+            {
+                return false;
+            }
+            else if (root.condition == NodeViewModel.ConditionType.OTHERS)
+            {
+                if (root.Name.Equals("AND"))
                 {
-                    if (son.condition == NodeViewModel.ConditionType.TRUE)
+                    bool ret = true;
+                    foreach (var c in root.ChildNodes)
                     {
-                        return true;
-                    }
-                    else if (son.condition == NodeViewModel.ConditionType.FALSE)
-                    {
-                        return false;
-                    }
-                    else if (son.condition == NodeViewModel.ConditionType.ACTIVE)
-                    {
-                        Calculate(son);
-                        if (son.condition == NodeViewModel.ConditionType.TRUE)
+                        if (!recursiveCalculate(c))
                         {
-                            return true;
+                            ret = false;
                         }
-                        return false;
                     }
+                    return ret;
                 }
-                else
+                if (root.Name.Equals("OR"))
                 {
-                    if (son.Name.Equals("AND"))
+                    bool ret = false;
+                    foreach (var c in root.ChildNodes)
                     {
-                        var grandsons = son.ChildNodes;
-                        bool ret = true;
-                        foreach (var gs in grandsons)
+                        if (recursiveCalculate(c))
                         {
-                            if (!recursiveCalculate(gs))
-                            {
-                                ret = false;
-                            }
+                            ret = true;
                         }
-                        return ret;
                     }
-                    if (son.Name.Equals("OR"))
-                    {
-                        var grandsons = son.ChildNodes;
-                        bool ret = false;
-                        foreach (var gs in grandsons)
-                        {
-                            if (recursiveCalculate(gs))
-                            {
-                                ret = true;
-                            }
-                        }
-                        return ret;
-                    }
-                    if (son.Name.Equals("NEG"))
-                    {
+                    return ret;
+                }
+                if (root.Name.Equals("NEG"))
+                {
 
-                    }
                 }
             }
+
+
             return ans;
         }
 
