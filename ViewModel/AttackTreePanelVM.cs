@@ -5,6 +5,7 @@ using System.Text;
 using NetworkModel;
 using Utils;
 using System.Windows;
+using System.Collections;
 
 namespace sbid.ViewModel
 {
@@ -198,8 +199,11 @@ namespace sbid.ViewModel
                     root = node;
                 }
             }
-            bool ans = recursiveCalculate(root);
+            
 
+
+
+            bool ans = recursiveCalculate(root);
             if (ans)
             {
                 root.Condition = "True";
@@ -218,7 +222,79 @@ namespace sbid.ViewModel
         private bool recursiveCalculate(NodeViewModel root)
         {
             bool ans = false;
+            // This step may cause some bugs.
+            NodeViewModel[] sons = getConnectedNodeViewModels(root);
+            foreach (var son in sons)
+            {
+                if ((!son.Name.Equals("AND")) && (!son.Name.Equals("OR")) && (!son.Name.Equals("NEG")))
+                {
+                    if (son.condition == NodeViewModel.ConditionType.TRUE)
+                    {
+                        return true;
+                    }
+                    else if (son.condition == NodeViewModel.ConditionType.FALSE)
+                    {
+                        return false;
+                    }
+                    else if (son.condition == NodeViewModel.ConditionType.ACTIVE)
+                    {
+                        return recursiveCalculate(son);
+                    }
+                }
+                else
+                {
+                    if (son.Name.Equals("AND"))
+                    {
+                        var grandsons = getConnectedNodeViewModels(son);
+                        bool ret = true;
+                        foreach (var gs in grandsons)
+                        {
+                            if (!recursiveCalculate(gs))
+                            {
+                                ret = false;
+                            }
+                        }
+                        return ret;
+                    }
+                    if (son.Name.Equals("OR"))
+                    {
+                        var grandsons = getConnectedNodeViewModels(son);
+                        bool ret = false;
+                        foreach (var gs in grandsons)
+                        {
+                            if (recursiveCalculate(gs))
+                            {
+                                ret = true;
+                            }
+                        }
+                        return ret;
+                    }
+                    if (son.Name.Equals("NEG"))
+                    {
+
+                    }
+                }
+            }
             return ans;
+        }
+
+        private NodeViewModel[] getConnectedNodeViewModels(NodeViewModel node)
+        {
+            List<NodeViewModel> ans = new List<NodeViewModel>();
+            var connections = this.Network.Connections;
+            foreach (var c in connections)
+            {
+                if (c.DestConnector.ParentNode == node)
+                {
+                    ans.Add(c.SourceConnector.ParentNode);
+                }
+                if (c.SourceConnector.ParentNode == node)
+                {
+                    ans.Add(c.DestConnector.ParentNode);
+                }
+            }
+            MessageBox.Show("number of sons " + ans.Count);
+            return ans.ToArray(); 
         }
 
         /// <summary>

@@ -42,7 +42,11 @@ namespace NetworkModel
         /// </summary>
         private ImpObservableCollection<ConnectorViewModel> connectors = null;
         private string color;
-        private ConditionType condition = ConditionType.OTHERS;
+        public ConditionType condition = ConditionType.OTHERS;
+
+        public List<NodeViewModel> childNodes = new List<NodeViewModel>();
+
+
 
         public enum ConditionType
         {
