@@ -29,8 +29,13 @@
             <!--[*]设置资源-->
             <ScrollViewer.Resources>
                 <!--RoutedCommand类创建自己的命令,RoutedUICommand只多添加了Text属性作为命令显示的文本-->
-                <RoutedUICommand x:Key="Commands.DeleteSelectedNodes" />
-                <RoutedUICommand x:Key="Commands.CreateNodes" />
+                <RoutedUICommand x:Key="Commands.DeleteSelectedNodes"/>
+                <RoutedUICommand x:Key="Commands.CreateNodes"/>
+                <RoutedUICommand x:Key="Commands.SetNodeFalse"/>
+                <RoutedUICommand x:Key="Commands.SetNodeTrue"/>
+                <RoutedUICommand x:Key="Commands.SetNodeActive"/>
+                <RoutedUICommand x:Key="Commands.Check"/>
+                <RoutedUICommand x:Key="Commands.Calculate"/>
 
                 <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
                 <DataTemplate DataType="{x:Type NetworkModel:ConnectionViewModel}">
@@ -85,6 +90,7 @@
                             <!--中间居中放Node的Name属性-->
                             <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Name}"
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Condition}"/>
 
                             <!--绑定锚点数组中的锚点-->
                             <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="0"
@@ -111,11 +117,23 @@
             <ScrollViewer.CommandBindings>
                 <CommandBinding Command="{StaticResource Commands.CreateNodes}" Executed="CreateNode_Executed"/>
                 <CommandBinding Command="{StaticResource Commands.DeleteSelectedNodes}" Executed="DeleteSelectedNodes_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.SetNodeFalse}" Executed="SetNodeFalse_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.SetNodeTrue}" Executed="SetNodeTrue_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.SetNodeActive}" Executed="SetNodeActive_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.Check}" Executed="Check_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.Calculate}" Executed="Calculate_Executed"/>
             </ScrollViewer.CommandBindings>
             <!--[*]设置右键菜单-->
             <ScrollViewer.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="添加结点" Command="{StaticResource Commands.CreateNodes}" ToolTip="添加新结点"/>
+                    <MenuItem Header="删除节点" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除节点"/>
+                    <MenuItem Header="设为[False]" Command="{StaticResource Commands.SetNodeFalse}" ToolTip="设为False"/>
+                    <MenuItem Header="设为[True]" Command="{StaticResource Commands.SetNodeTrue}" ToolTip="设为True"/>
+                    <MenuItem Header="设为[活动]" Command="{StaticResource Commands.SetNodeActive}" ToolTip="设为活动的"/>
+                    <MenuItem Header="Check" Command="{StaticResource Commands.Check}" ToolTip="Check"/>
+                    <MenuItem Header="计算" Command="{StaticResource Commands.Calculate}" ToolTip="计算"/>
+
                 </ContextMenu>
             </ScrollViewer.ContextMenu>
             <!--[*]设置绑定按键触发的命令-->

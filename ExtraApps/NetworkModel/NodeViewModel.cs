@@ -42,6 +42,55 @@ namespace NetworkModel
         /// </summary>
         private ImpObservableCollection<ConnectorViewModel> connectors = null;
         private string color;
+        public ConditionType condition = ConditionType.OTHERS;
+
+        public List<NodeViewModel> ChildNodes = new List<NodeViewModel>();
+        public List<NodeViewModel> ParentNodes = new List<NodeViewModel>();
+ 
+
+        public enum ConditionType
+        {
+            TRUE, FALSE, ACTIVE, OTHERS
+        }
+
+        public string Condition
+        {
+            get
+            {
+                if (this.condition == ConditionType.OTHERS)
+                {
+                    return "";
+                }
+                else if (this.condition == ConditionType.ACTIVE)
+                {
+                    return "活动";
+                }
+                else return this.condition.ToString();
+            }
+
+            set
+            {
+                if (value.Equals("False"))
+                {
+                    this.condition = ConditionType.FALSE;
+                }
+                else if (value.Equals("True"))
+                {
+                    this.condition = ConditionType.TRUE;
+                }
+                else if (value.Equals("Active"))
+                {
+                    this.condition = ConditionType.ACTIVE;
+                }
+                else
+                {
+                    this.condition = ConditionType.OTHERS;
+                }
+                OnPropertyChanged("Condition");
+            }
+        }
+
+
 
         #endregion Internal Data Members
 

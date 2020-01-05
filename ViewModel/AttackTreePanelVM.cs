@@ -5,6 +5,7 @@ using System.Text;
 using NetworkModel;
 using Utils;
 using System.Windows;
+using System.Collections;
 
 namespace sbid.ViewModel
 {
@@ -149,6 +150,161 @@ namespace sbid.ViewModel
                     DeleteNode(node);
                 }
             }
+        }
+
+        public void SetNodeFalse()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "False";
+                }
+            }
+        }
+
+        public void SetNodeTrue()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "True";
+                }
+            }
+        }
+
+        public void SetNodeActive()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    node.Condition = "Active";
+                }
+            }
+        }
+
+        public void Check()
+        {
+
+        }
+
+        public void Calculate()
+        {
+            var nodesCopy = this.Network.Nodes.ToArray();
+            NodeViewModel root = null;
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    root = node;
+                }
+            }
+            recursiveBuildTree(root);
+            bool ans = recursiveCalculate(root);
+            if (ans)
+            {
+                root.Condition = "True";
+            }
+            else
+            {
+                root.Condition = "False";
+            }
+        }
+
+        private void Calculate(NodeViewModel root)
+        {
+            bool ans = recursiveCalculate(root);
+            if (ans)
+            {
+                root.Condition = "True";
+            }
+            else
+            {
+                root.Condition = "False";
+            }
+        }
+
+        private void recursiveBuildTree(NodeViewModel root)
+        {
+            var connections = this.Network.Connections.ToArray();
+            foreach (var c in connections)
+            {
+                var source = c.SourceConnector.ParentNode;
+                var dest = c.DestConnector.ParentNode;
+                if (root == source && (!root.ParentNodes.Contains(dest)))
+                {
+                    root.ChildNodes.Add(dest);
+                    dest.ParentNodes.Add(root);
+                }
+                if (root == dest && (!root.ParentNodes.Contains(source)))
+                {
+                    root.ChildNodes.Add(source);
+                    source.ParentNodes.Add(root);
+                }
+            }
+            for (int i = 0; i < root.ChildNodes.Count; i++)
+            {
+                var node = root.ChildNodes[i];
+                recursiveBuildTree(node);
+            }
+        }
+
+
+        private bool recursiveCalculate(NodeViewModel root)
+        {
+            bool ans = false;
+            if (root.condition == NodeViewModel.ConditionType.ACTIVE)
+            {
+                var son = root.ChildNodes[0];
+                return recursiveCalculate(son);
+            }
+            else if (root.condition == NodeViewModel.ConditionType.TRUE)
+            {
+                return true;
+            }
+            else if (root.condition == NodeViewModel.ConditionType.FALSE)
+            {
+                return false;
+            }
+            else if (root.condition == NodeViewModel.ConditionType.OTHERS)
+            {
+                if (root.Name.Equals("AND"))
+                {
+                    bool ret = true;
+                    foreach (var c in root.ChildNodes)
+                    {
+                        if (!recursiveCalculate(c))
+                        {
+                            ret = false;
+                        }
+                    }
+                    return ret;
+                }
+                if (root.Name.Equals("OR"))
+                {
+                    bool ret = false;
+                    foreach (var c in root.ChildNodes)
+                    {
+                        if (recursiveCalculate(c))
+                        {
+                            ret = true;
+                        }
+                    }
+                    return ret;
+                }
+                if (root.Name.Equals("NEG"))
+                {
+
+                }
+            }
+
+
+            return ans;
         }
 
         /// <summary>
