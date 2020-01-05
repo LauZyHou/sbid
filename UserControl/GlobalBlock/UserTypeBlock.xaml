@@ -16,35 +16,33 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"></RowDefinition>
-                <RowDefinition Height="15*"></RowDefinition>
-                <RowDefinition Height="15*"></RowDefinition>
-                <RowDefinition Height="70*"></RowDefinition>
+                <RowDefinition Height="85*"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"></ColumnDefinition>
                 <ColumnDefinition Width="50*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Wheat" Margin="1">
                 <Label Background="AliceBlue" Margin="1" Name="userTypeLable"></Label>
-                <Button Content="×" Height="30" HorizontalAlignment="Right" Click="Button_Click_Close" VerticalAlignment="Stretch" Width="40" FontFamily="Courier" FontWeight="Light" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontStretch="Normal" Visibility="Visible" FontSize="13" Padding="0" ToolTip="Close"/>
+                <Button Content="×" Height="30" HorizontalAlignment="Right" Click="Button_Click_Delete" VerticalAlignment="Stretch" Width="40" FontFamily="Courier" FontWeight="Light" Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}" FontStretch="Normal" Visibility="Visible" FontSize="13" Padding="0" ToolTip="Close"/>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="edit" Click="Button_Click_Edit"></MenuItem>
+                        <MenuItem Header="delete" Click="Button_Click_Delete"></MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
             </Grid>
-            <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="Wheat" Margin="3">
-                <Button Content="添加属性"  Padding="3" Height="23" HorizontalAlignment="Left" Name="attributeAdd" VerticalAlignment="Stretch" FontFamily="Courier" FontSize="13" Click="Button_Click_Add"/>
-                <Button Content="删除属性"  Padding="3" Height="23" HorizontalAlignment="Right" Name="attributeDelete" VerticalAlignment="Stretch" FontFamily="Courier" FontSize="13" Click="Button_Click_Delete" />
+            <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="3">
+                <ListBox Margin="3" Name="attributeList">
+                </ListBox>
+                <Grid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="edit" Click="Button_Click_Edit"></MenuItem>
+                        <MenuItem Header="delete" Click="Button_Click_Delete"></MenuItem>
+                    </ContextMenu>
+                </Grid.ContextMenu>
             </Grid>
-            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="已有属性如下：" Background="AliceBlue" Margin="2"></Label>
-            <ListBox Grid.Row="3" Grid.ColumnSpan="2" Margin="3" Name="attribueList" SelectionMode="Multiple">
-                <!--<ListBoxItem>
-                    <TextBlock>int a</TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock>bool b</TextBlock>
-                </ListBoxItem>
-                <ListBoxItem>
-                    <TextBlock>bool c</TextBlock>
-                </ListBoxItem>-->
-            </ListBox>
         </Grid>
     </ContentControl>
 </UserControl>

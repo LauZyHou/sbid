@@ -31,7 +31,7 @@ namespace sbid.UserControl.GlobalBlock
         public UserTypeAddHelper()
         {
             InitializeComponent();
-            setBinding();
+            setUserTypeAddHelperName();
         }
         public UserTypeAddHelper(int userTypeId, UserTypeBlock userTypeBlock, UserType userType)
         {
@@ -39,7 +39,7 @@ namespace sbid.UserControl.GlobalBlock
             this.userTypeId = userTypeId;
             this.userTypeBlock = userTypeBlock;
             this.userType = userType;
-            setBinding();
+            setUserTypeAddHelperName();
         }
         public int UserTypeId
         {
@@ -78,12 +78,16 @@ namespace sbid.UserControl.GlobalBlock
             //to the user
             str += " ";
             str += textBox.Text;
-            ListBox listBox = this.userTypeBlock.FindName("attribueList") as ListBox;
+            ListBox listBoxInUserTypeBlock = this.userTypeBlock.FindName("attributeList") as ListBox;
+            ListBox listBoxInUserTypeAddHelper = this.FindName("attributeList") as ListBox;
             TextBlock textBlock = new TextBlock();
             textBlock.Text = str;
-            ListBoxItem listBoxItem = new ListBoxItem();
-            listBoxItem.Content = textBlock;
-            listBox.Items.Add(listBoxItem);
+            ListBoxItem listBoxItem1 = new ListBoxItem();
+            ListBoxItem listBoxItem2 = new ListBoxItem();
+            listBoxItem1.Content = textBlock;
+            listBoxItem2.Content = textBlock;
+            listBoxInUserTypeAddHelper.Items.Add(listBoxItem2);
+            listBoxInUserTypeBlock.Items.Add(listBoxItem1);         
             MessageBox.Show("添加属性成功");
         }
         private Model.Type convertToType(String str)
@@ -93,9 +97,32 @@ namespace sbid.UserControl.GlobalBlock
             //  2 每次转换都先判断是否已经存储，若已经存储，则只需要读出，否则重新创建
             return hashTable.GetValueOrDefault(str);
         }
-        private void setBinding()
+        private void setUserTypeAddHelperName()
         {
-            this.label_TabTitle.SetBinding(Label.ContentProperty, new Binding("UserTypeId") {Source = this });
+            Label label = this.FindName("label_TabTitle") as Label;
+            label.Content = "编辑" + "UserType " + this.userTypeId ;
+        }
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
+        {
+            ListBox listBoxInUserTypeHelper = this.FindName("attributeList") as ListBox;
+            ListBox listBoxInUserTypeBlock = this.userTypeBlock.FindName("attributeList") as ListBox;
+            if (listBoxInUserTypeHelper.SelectedItem == null)
+            {
+                MessageBox.Show("要删除的属性不能为空！");
+                return;
+            }
+            int toBeDeletedIndex = listBoxInUserTypeHelper.SelectedIndex;
+            ListBoxItem listBoxItem = listBoxInUserTypeHelper.SelectedItem as ListBoxItem;
+            TextBlock textBlock = (TextBlock)listBoxItem.Content;
+            String fullStr = textBlock.Text; //这里就是因为每一条数据包括类型和变量名，所以要拆分
+            String[] str = fullStr.Split(" ");
+            if (!this.userType.deleteAttribute(str[1]))  //将属性从后端userType map中删除
+            {
+                return;
+            }
+            listBoxInUserTypeHelper.Items.RemoveAt(toBeDeletedIndex); //将属性从UserTypeHelper删掉
+            listBoxInUserTypeBlock.Items.RemoveAt(toBeDeletedIndex); //将属性从UserTypeBlock删掉
+            MessageBox.Show("已为您删除选中属性: " + textBlock.Text);
         }
     }
 }

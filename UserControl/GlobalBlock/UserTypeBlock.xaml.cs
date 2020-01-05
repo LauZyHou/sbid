@@ -30,7 +30,7 @@ namespace sbid.UserControl
             this.userType = new UserType(globalUserTypeId);
             userTypeAddHelper =  new UserTypeAddHelper(globalUserTypeId, this, this.userType);
             userType = new UserType(globalUserTypeId);
-            setBinding();
+            setUserTypeName();
             increaseGlobalUserType();
         }
 
@@ -40,7 +40,7 @@ namespace sbid.UserControl
             this.userTypeId = userTypeId;
             userType = new UserType(userTypeId);
             userTypeAddHelper = new UserTypeAddHelper(userTypeId, this, this.userType);
-            setBinding();
+            setUserTypeName();
             increaseGlobalUserType();
         }
 
@@ -78,7 +78,7 @@ namespace sbid.UserControl
             return ++globalUserTypeId;
         }
         //【右键菜单】添加属性
-        private void Button_Click_Add(object sender, RoutedEventArgs e)
+        private void Button_Click_Edit(object sender, RoutedEventArgs e)
         { 
             Canvas canvas = contentControl.Parent as Canvas;
             userTypeAddHelper = new UserTypeAddHelper(this.userTypeId, this, this.userType);
@@ -91,34 +91,16 @@ namespace sbid.UserControl
             canvas.Children.Add(toAdd);
         }
         //【右键菜单】删除
-        private void Button_Click_Close(object sender, RoutedEventArgs e)
+        private void Button_Click_Delete(object sender, RoutedEventArgs e)
         {
             globalUserTypeId--;
             Canvas canvas = contentControl.Parent as Canvas;
             canvas.Children.Remove(contentControl);
         }
-        private void Button_Click_Delete(object sender, RoutedEventArgs e)
+        private void setUserTypeName()
         {
-            ListBox listBox = this.FindName("attribueList") as ListBox;
-            if(listBox.SelectedItem == null)
-            {
-                MessageBox.Show("要删除的属性不能为空！");
-                return;
-            }
-            ListBoxItem listBoxItem = listBox.SelectedItem as ListBoxItem;
-            TextBlock textBlock = (TextBlock)listBoxItem.Content;
-            String fullStr = textBlock.Text; //这里就是因为每一条数据包括类型和变量名，所以要拆分
-            String[] str = fullStr.Split(" ");
-            listBox.Items.RemoveAt(listBox.SelectedIndex); //将属性从前端删掉
-            if (!this.userType.deleteAttribute(str[1]))  //将属性从后端userType map中删除
-            {
-                return;
-            }
-            MessageBox.Show("已为您删除选中属性: " + textBlock.Text);
-        }
-        private void setBinding()
-        {
-            this.userTypeLable.SetBinding(Label.ContentProperty, new Binding("UserTypeId") { Source= this });
+            Label label = this.FindName("userTypeLable") as Label;
+            label.Content = "UserType " + this.userTypeId;
         }
     }
 }
