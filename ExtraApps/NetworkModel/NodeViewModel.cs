@@ -44,9 +44,9 @@ namespace NetworkModel
         private string color;
         public ConditionType condition = ConditionType.OTHERS;
 
-        public List<NodeViewModel> childNodes = new List<NodeViewModel>();
-
-
+        public List<NodeViewModel> ChildNodes = new List<NodeViewModel>();
+        public List<NodeViewModel> ParentNodes = new List<NodeViewModel>();
+ 
 
         public enum ConditionType
         {

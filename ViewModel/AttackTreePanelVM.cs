@@ -188,6 +188,11 @@ namespace sbid.ViewModel
             }
         }
 
+        public void Check()
+        {
+
+        }
+
         public void Calculate()
         {
             var nodesCopy = this.Network.Nodes.ToArray();
@@ -199,10 +204,7 @@ namespace sbid.ViewModel
                     root = node;
                 }
             }
-            
-
-
-
+            recursiveBuildTree(root);
             bool ans = recursiveCalculate(root);
             if (ans)
             {
@@ -214,17 +216,49 @@ namespace sbid.ViewModel
             }
         }
 
-        public void Check()
+        private void Calculate(NodeViewModel root)
         {
-
+            bool ans = recursiveCalculate(root);
+            if (ans)
+            {
+                root.Condition = "True";
+            }
+            else
+            {
+                root.Condition = "False";
+            }
         }
+
+        private void recursiveBuildTree(NodeViewModel root)
+        {
+            var connections = this.Network.Connections.ToArray();
+            foreach (var c in connections)
+            {
+                var source = c.SourceConnector.ParentNode;
+                var dest = c.DestConnector.ParentNode;
+                if (root == source && (!root.ParentNodes.Contains(dest)))
+                {
+                    root.ChildNodes.Add(dest);
+                    dest.ParentNodes.Add(root);
+                }
+                if (root == dest && (!root.ParentNodes.Contains(source)))
+                {
+                    root.ChildNodes.Add(source);
+                    source.ParentNodes.Add(root);
+                }
+            }
+            for (int i = 0; i < root.ChildNodes.Count; i++)
+            {
+                var node = root.ChildNodes[i];
+                recursiveBuildTree(node);
+            }
+        }
+
 
         private bool recursiveCalculate(NodeViewModel root)
         {
             bool ans = false;
-            // This step may cause some bugs.
-            NodeViewModel[] sons = getConnectedNodeViewModels(root);
-            foreach (var son in sons)
+            foreach (var son in root.ChildNodes)
             {
                 if ((!son.Name.Equals("AND")) && (!son.Name.Equals("OR")) && (!son.Name.Equals("NEG")))
                 {
@@ -238,14 +272,19 @@ namespace sbid.ViewModel
                     }
                     else if (son.condition == NodeViewModel.ConditionType.ACTIVE)
                     {
-                        return recursiveCalculate(son);
+                        Calculate(son);
+                        if (son.condition == NodeViewModel.ConditionType.TRUE)
+                        {
+                            return true;
+                        }
+                        return false;
                     }
                 }
                 else
                 {
                     if (son.Name.Equals("AND"))
                     {
-                        var grandsons = getConnectedNodeViewModels(son);
+                        var grandsons = son.ChildNodes;
                         bool ret = true;
                         foreach (var gs in grandsons)
                         {
@@ -258,7 +297,7 @@ namespace sbid.ViewModel
                     }
                     if (son.Name.Equals("OR"))
                     {
-                        var grandsons = getConnectedNodeViewModels(son);
+                        var grandsons = son.ChildNodes;
                         bool ret = false;
                         foreach (var gs in grandsons)
                         {
@@ -276,25 +315,6 @@ namespace sbid.ViewModel
                 }
             }
             return ans;
-        }
-
-        private NodeViewModel[] getConnectedNodeViewModels(NodeViewModel node)
-        {
-            List<NodeViewModel> ans = new List<NodeViewModel>();
-            var connections = this.Network.Connections;
-            foreach (var c in connections)
-            {
-                if (c.DestConnector.ParentNode == node)
-                {
-                    ans.Add(c.SourceConnector.ParentNode);
-                }
-                if (c.SourceConnector.ParentNode == node)
-                {
-                    ans.Add(c.DestConnector.ParentNode);
-                }
-            }
-            MessageBox.Show("number of sons " + ans.Count);
-            return ans.ToArray(); 
         }
 
         /// <summary>
