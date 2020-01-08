@@ -78,6 +78,14 @@ namespace sbid
                     Content = new GlobalPanel().Content as Grid
                 }
             );
+            //[!]新的全局面板，第二类实现
+            modelTabControl.Items.Add(
+                new CloseableTabItem()
+                {
+                    Title = "全局2",
+                    Content = new GlobalPanel2().Content as Grid
+                }
+            );
             //再创建包含它的模型TabItem
             CloseableTabItem tabItem = new CloseableTabItem
             {

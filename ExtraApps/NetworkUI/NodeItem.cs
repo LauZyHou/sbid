@@ -16,6 +16,7 @@ namespace NetworkUI
 {
     /// <summary>
     /// This is a UI element that represents a network/flow-chart node.
+    /// 网络中结点的ViewModel
     /// </summary>
     public class NodeItem : ListBoxItem
     {
@@ -51,6 +52,7 @@ namespace NetworkUI
         {
             //
             // By default, we don't want this UI element to be focusable.
+            // 默认情况下，不允许这个结点能获取焦点
             //
             Focusable = false;
         }
@@ -104,6 +106,7 @@ namespace NetworkUI
 
         /// <summary>
         /// Reference to the data-bound parent NetworkView.
+        /// 对所在网络的引用
         /// </summary>
         internal NetworkView ParentNetworkView
         {
@@ -119,11 +122,13 @@ namespace NetworkUI
 
         /// <summary>
         /// The point the mouse was last at when dragging.
+        /// 拖动时鼠标最后所在的位置
         /// </summary>
         private Point lastMousePoint;
 
         /// <summary>
         /// Set to 'true' when left mouse button is held down.
+        /// 鼠标左键是否按下
         /// </summary>
         private bool isLeftMouseDown = false;
 
@@ -134,11 +139,13 @@ namespace NetworkUI
 
         /// <summary>
         /// Set to 'true' when dragging has started.
+        /// 指示拖动已经开始
         /// </summary>
         private bool isDragging = false;
 
         /// <summary>
         /// The threshold distance the mouse-cursor must move before dragging begins.
+        /// 阈值：移动了多少菜认为拖动开始
         /// </summary>
         private static readonly double DragThreshold = 5;
 
@@ -156,6 +163,7 @@ namespace NetworkUI
 
         /// <summary>
         /// Bring the node to the front of other elements.
+        /// 将结点放到最上面
         /// </summary>
         internal void BringToFront()
         {
