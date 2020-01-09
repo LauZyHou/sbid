@@ -65,7 +65,35 @@
                 </Style>
 
                 <!--类图的数据模板-->
-                <DataTemplate DataType="{x:Type NetworkModel:NodeViewModel}">
+                <!--<DataTemplate DataType="{x:Type NetworkModel:NodeViewModel}">
+                    <Grid MinWidth="120" MinHeight="120">
+                        --><!--显示出来的矩形--><!--
+                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
+                        --><!--套着内容的Grid--><!--
+                        <Grid Margin="-8">
+                            --><!--分成5个区域：类图名,分割线1,属性区域,分割线2,方法区域--><!--
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" MinHeight="20px"/>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="40*"/>
+                            </Grid.RowDefinitions>
+
+                            --><!--中间居中放Node的Name属性--><!--
+                            <TextBlock Grid.Row="0" Text="{Binding Name}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,17,0,9"/>
+
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+
+                            <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            
+                        </Grid>
+                    </Grid>
+                </DataTemplate>-->
+
+                <!--进程模板的数据模板-->
+                <DataTemplate DataType="{x:Type vm:ProcessVM}">
                     <Grid MinWidth="120" MinHeight="120">
                         <!--显示出来的矩形-->
                         <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
@@ -75,20 +103,43 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" MinHeight="20px"/>
                                 <RowDefinition Height="2"/>
+                                <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
                                 <RowDefinition Height="2"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
 
                             <!--中间居中放Node的Name属性-->
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,17,0,9"/>
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,12,0,4"/>
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
 
-                            <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
-                            
+                            <TextBlock Grid.Row="2" Text="Attribute:"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+
+                            <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+
+                            <TextBlock Grid.Row="5" Text="Method:"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+
+                            <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+
+                            <TextBlock Grid.Row="8" Text="CommMethod:"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+
                         </Grid>
+                        <!--图形上的右键菜单-->
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
+                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
             </ScrollViewer.Resources>
@@ -106,8 +157,8 @@
             <ScrollViewer.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="添加类图" Command="{StaticResource Commands.CreateNodes}" ToolTip="添加新类图"/>
-                    <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
-                    <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
+                    <!--<MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
+                    <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>-->
                 </ContextMenu>
             </ScrollViewer.ContextMenu>
             <!--[*]设置绑定按键触发的命令-->
@@ -117,8 +168,8 @@
             <!--放入NetworkView,并添加各个事件的处理函数-->
             <NetworkUI:NetworkView
             x:Name="networkControl"
-            Width="1800"
-            Height="1800"
+            Width="1000"
+            Height="1000"
             NodesSource="{Binding Network.Nodes}"
             ConnectionsSource="{Binding Network.Connections}"
             ConnectionDragStarted="networkControl_ConnectionDragStarted"

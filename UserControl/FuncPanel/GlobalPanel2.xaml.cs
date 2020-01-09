@@ -22,6 +22,9 @@ namespace sbid.UserControl
     /// </summary>
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
+        // 每次创建时自增
+        private int processId = 1;
+
         public GlobalPanel2()
         {
             InitializeComponent();
@@ -41,7 +44,8 @@ namespace sbid.UserControl
         //[按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
-
+            this.ViewModel.CreatProcessVM(processId, new Point(100, 100));
+            this.processId += 1;
         }
 
         //[按钮]添加自定义类型
@@ -72,8 +76,24 @@ namespace sbid.UserControl
         /// 编辑类图(创建并打开相应对话框)
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            DemoWindow demoWindow = new DemoWindow();
-            demoWindow.ShowDialog();
+            // 判断具体是在哪种类图上点击的右键编辑，即判断选中的类图
+            var nodesCopy = this.ViewModel.Network.Nodes.ToArray(); 
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    if (node is ProcessVM)
+                    {
+                        new ProcessWindow(node.Name).ShowDialog();
+                    }
+                    else
+                    {
+                        DemoWindow demoWindow = new DemoWindow();
+                        demoWindow.ShowDialog();
+                    }
+                    break;
+                }
+            }
         }
         #endregion
 

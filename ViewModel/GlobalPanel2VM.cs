@@ -169,7 +169,8 @@ namespace sbid.ViewModel
         {
             //var node = new NodeViewModel(name);
             //var node = new RelationNode(RelationType.AND);
-            var node = new BlockDemo();
+            //var node = new BlockDemo();
+            var node = new ProcessVM();
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -224,5 +225,16 @@ namespace sbid.ViewModel
         }
 
         #endregion Private Methods
+
+        #region 创建结点
+        public NodeViewModel CreatProcessVM(int processIdx, Point nodeLocation)
+        {
+            var node = new ProcessVM(processIdx);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+        #endregion 创建结点
     }
 }
