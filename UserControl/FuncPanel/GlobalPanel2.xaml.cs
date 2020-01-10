@@ -95,6 +95,28 @@ namespace sbid.UserControl
                 }
             }
         }
+
+        /// 编辑状态机(创建并打开相应对话框)
+        private void EditStateMachine_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            // 判断具体是在哪个上点击的右键编辑，即判断选中的类图
+            var nodesCopy = this.ViewModel.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    if (node is ProcessVM)
+                    {
+                        new StateMachineWindow(node.Name).ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("错误!");
+                    }
+                    break;
+                }
+            }
+        }
         #endregion
 
         #region 用于NewworkView的事件回调
