@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
+using System.Windows.Controls;
 
 namespace NetworkUI
 {
@@ -182,19 +183,17 @@ namespace NetworkUI
             // 添加到图形组中
             geometryGroup.Children.Add(pathGeometry);
 
-            // 【3】在线段中间添加文字
-            // 计算线段中点
-            double midX = (this.Start.X + this.End.X) / 2;
-            double midY = (this.Start.Y + this.End.Y) / 2;
-            // 给定矩形的宽高
-            int myW = 30;
-            int myH = 20;
-            //EllipseGeometry lzh = new EllipseGeometry(middlePoint, DotSize, DotSize);
-            RectangleGeometry lzh = new RectangleGeometry(new Rect(midX - myW / 2, midY - myH / 2, myW, myH));
-            // 添加到图形组中
-            geometryGroup.Children.Add(lzh);
-
-
+            //// 【3】在线段中间添加文字
+            //// 计算线段中点
+            //double midX = (this.Start.X + this.End.X) / 2;
+            //double midY = (this.Start.Y + this.End.Y) / 2;
+            //// 给定矩形的宽高
+            //int myW = 30;
+            //int myH = 20;
+            ////EllipseGeometry lzh = new EllipseGeometry(middlePoint, DotSize, DotSize);
+            //RectangleGeometry midRect = new RectangleGeometry(new Rect(midX - myW / 2, midY - myH / 2, myW, myH));
+            ///// 添加到图形组中
+            //geometryGroup.Children.Add(midRect);
         }
 
         #endregion Private Methods

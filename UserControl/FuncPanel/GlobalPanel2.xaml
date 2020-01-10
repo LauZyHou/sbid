@@ -65,42 +65,6 @@
                     </Setter>
                 </Style>
 
-                <!--类图的数据模板-->
-                <!--<DataTemplate DataType="{x:Type NetworkModel:NodeViewModel}">
-                    <Grid MinWidth="120" MinHeight="120">
-                        -->
-                <!--显示出来的矩形-->
-                <!--
-                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
-                        -->
-                <!--套着内容的Grid-->
-                <!--
-                        <Grid Margin="-8">
-                            -->
-                <!--分成5个区域：类图名,分割线1,属性区域,分割线2,方法区域-->
-                <!--
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="20*" MinHeight="20px"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="40*"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="40*"/>
-                            </Grid.RowDefinitions>
-
-                            -->
-                <!--中间居中放Node的Name属性-->
-                <!--
-                            <TextBlock Grid.Row="0" Text="{Binding Name}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,17,0,9"/>
-
-                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
-
-                            <GridSplitter Grid.Row="3" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
-                            
-                        </Grid>
-                    </Grid>
-                </DataTemplate>-->
-
                 <!--进程模板的数据模板-->
                 <DataTemplate DataType="{x:Type vm:ProcessVM}">
                     <Grid MinWidth="120" MinHeight="120">
@@ -147,7 +111,8 @@
                         </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
-                <!--userType模板的数据模板-->
+                
+                <!--UserType的数据模板-->
                 <DataTemplate DataType="{x:Type vm:UserTypeVM}">
                     <Grid MinWidth="120" MinHeight="120">
                         <!--显示出来的矩形-->
@@ -167,14 +132,9 @@
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
                             </Grid.RowDefinitions>
-
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,12,0,4"/>
-
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
-
-                           
-
                         </Grid>
                         <!--图形上的右键菜单-->
                         <Grid.ContextMenu>
@@ -212,7 +172,7 @@
             <!--放入NetworkView,并添加各个事件的处理函数-->
             <NetworkUI:NetworkView
             x:Name="networkControl"
-            Width="590"
+            Width="800"
             Height="918"
             NodesSource="{Binding Network.Nodes}"
             ConnectionsSource="{Binding Network.Connections}"

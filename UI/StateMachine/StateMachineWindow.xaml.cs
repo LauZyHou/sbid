@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using sbid.ViewModel;
 using NetworkModel;
 using NetworkUI;
+using System.Windows.Threading;
 
 namespace sbid.UI
 {
@@ -20,6 +21,8 @@ namespace sbid.UI
     /// </summary>
     public partial class StateMachineWindow : Window
     {
+        private int clkNum = 0; // 记录鼠标点击的次数,用于判断双击事件
+
         public StateMachineWindow()
         {
             InitializeComponent();
@@ -109,5 +112,23 @@ namespace sbid.UI
         }
 
         #endregion 命令操作
+
+        //【按下】边上的文本区域
+        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // 判断是否是双击，在双击时打开对边上Guard和Action的编辑
+            clkNum += 1;
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 300);
+            timer.Tick += (s, e1) => { timer.IsEnabled = false; clkNum = 0; };
+            timer.IsEnabled = true;
+            if (clkNum % 2 == 0)
+            {
+                timer.IsEnabled = false;
+                clkNum = 0;
+                // 打开编辑箭头(Gurad和Action)的窗口
+                new ArrowEditWindow().ShowDialog();
+            }
+        }
     }
 }

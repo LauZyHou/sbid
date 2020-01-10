@@ -130,6 +130,7 @@ namespace NetworkModel
                 sourceConnectorHotspot = value;
 
                 OnPropertyChanged("SourceConnectorHotspot");
+                OnPropertyChanged("MidConnectorPoint");// 还要通知重新计算中心点
             }
         }
 
@@ -144,6 +145,19 @@ namespace NetworkModel
                 destConnectorHotspot = value;
 
                 OnPropertyChanged("DestConnectorHotspot");
+                OnPropertyChanged("MidConnectorPoint");
+            }
+        }
+
+        // 额外添加一个计算出的中心点
+        public Point MidConnectorPoint
+        {
+            get
+            {
+                return new Point(
+                    (this.destConnectorHotspot.X + this.sourceConnectorHotspot.X) / 2,
+                    (this.destConnectorHotspot.Y + this.sourceConnectorHotspot.Y) / 2
+                    );
             }
         }
 

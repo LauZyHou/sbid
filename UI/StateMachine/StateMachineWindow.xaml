@@ -20,13 +20,17 @@
 
         <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
         <DataTemplate DataType="{x:Type NetworkModel:ConnectionViewModel}">
-            <Grid>
+            <Canvas Background="AliceBlue" Width="Auto" Height="Auto">
                 <!--用一个简单的箭头表达连线,见Arrow类-->
                 <NetworkUI:Arrow Stroke="Black" StrokeThickness="2" Fill="Black"
                              Start="{Binding SourceConnectorHotspot}"
                              End="{Binding DestConnectorHotspot}"
                              IsHitTestVisible="False"/>
-            </Grid>
+                <!--边中间的文本框-->
+                <TextBlock Text="双击编辑" MinHeight="20" MinWidth="40" 
+                         Canvas.Left="{Binding MidConnectorPoint.X}" Canvas.Top="{Binding MidConnectorPoint.Y}"
+                         MouseDown="TextBlock_MouseDown"/>
+            </Canvas>
         </DataTemplate>
 
         <!--设置NodeItem的控件模板-->
@@ -75,7 +79,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        
+
         <!--普通状态的数据模板-->
         <DataTemplate DataType="{x:Type vm:StateVM}">
             <Grid Width="100" Height="50">
@@ -139,7 +143,7 @@
                 </Grid>
             </Grid>
         </DataTemplate>
-        
+
     </Window.Resources>
 
     <!--绑定窗口上的按键触发的命令-->
