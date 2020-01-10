@@ -9,7 +9,7 @@ namespace sbid.ViewModel
     public class UserTypeVM: NodeViewModel
     {
         UserType userType = new UserType();
-
+        private int id;
         public UserTypeVM()
         {
             this.Name = "UserType";
@@ -23,6 +23,7 @@ namespace sbid.ViewModel
         }
         public UserTypeVM(int userTypeId)
         {
+            this.id = userTypeId;
             this.Name = "UserType " + userTypeId;
             this.Color = "#00FFFF";
         }

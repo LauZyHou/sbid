@@ -26,5 +26,32 @@ namespace sbid.UI
             InitializeComponent();
             this.Title += suffixName;
         }
+
+        private void button_add_click(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = this.FindName("varName") as TextBox;
+            String varName = textBox.Text;
+            ComboBox typeDropDownList = this.FindName("typeDropDownList") as ComboBox;
+            String str = typeDropDownList.SelectedItem.ToString().Substring(38);
+            ListBox listBoxInUserTypeWindow = this.FindName("attributeList") as ListBox;
+            listBoxInUserTypeWindow.Items.Add(str + " " + varName);
+
+
+        }
+
+        private void button_update_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void button_delete_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void attributeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

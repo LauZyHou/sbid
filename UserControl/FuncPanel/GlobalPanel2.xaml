@@ -157,23 +157,17 @@
                             <!--分成5个区域：类图名,分割线1,属性区域,分割线2,方法区域-->
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" MinHeight="20px"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
-                                <RowDefinition Height="2"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="80*"/>
+                                
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,12,0,4"/>
 
-                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            <ListBox Background="#00FFFF" Grid.Row="1" Margin="10 10 10 10" Name="attributeList" SelectionChanged="attributeList_SelectionChanged">
+                                <ListBoxItem Tag="Red1">Red</ListBoxItem>
+                            </ListBox>
 
-                           
 
                         </Grid>
                         <!--图形上的右键菜单-->
@@ -221,5 +215,19 @@
             ConnectionDragCompleted="networkControl_ConnectionDragCompleted"
             />
         </ScrollViewer>
+        <Canvas x:Name="mainCanvas">
+            <!--ContentControl内容控件，设置宽高、最小宽高、在Canvas中的位置，模板使用前面整合的DesignerItemTemplate-->
+            <ContentControl Width="130"
+                    MinWidth="50"
+                    Height="130"
+                    MinHeight="50"
+                    Canvas.Top="150"
+                    Canvas.Left="470"
+                    Template="{StaticResource DesignerItemTemplate}">
+                <!--ContentControl的Content放具体的图形-->
+                <!--把IsHitTestVisible设置为False,看起来没有变化,但操作上已经把他完全忽视了,不触发事件,可以直接点到它下面的东西-->
+            </ContentControl>
+            <!--<local:UserTypeBlock Canvas.Top="100" Canvas.Left="270"/>-->
+        </Canvas>
     </Grid>
 </UserControl>
