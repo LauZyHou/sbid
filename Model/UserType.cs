@@ -5,8 +5,9 @@ using System.Windows;
 
 namespace sbid.Model
 {
-    public class UserType: Type
+    public class UserType : Type
     {
+        public int id;
         private String name;
         private Dictionary<String, Attribute> dictionary = new Dictionary<string, Attribute>();
 
@@ -17,13 +18,14 @@ namespace sbid.Model
 
         public UserType(int userTypeId)
         {
-            name ="UserType " + userTypeId.ToString();
+            name = "UserType " + userTypeId.ToString();
         }
         public String Name
         {
             get;
             set;
         }
+      
 
         public Dictionary<String, Attribute> Dictionary
         {
