@@ -15,6 +15,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="UI\BlockEdit\ProcessWindow - 复制.xaml.cs" />
+    <Compile Remove="UI\BlockEdit\UserTypeWindowxaml.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="UI\BlockEdit\ProcessWindow - 复制.xaml" />
+    <Page Remove="UI\BlockEdit\UserTypeWindowxaml.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="ExtraApps\NetworkModel\SimpleNetworkModel.2010.csproj" />
     <ProjectReference Include="ExtraApps\NetworkUI\NetworkUI.2010.csproj" />
     <ProjectReference Include="ExtraApps\Utils\Utils.2010.csproj" />

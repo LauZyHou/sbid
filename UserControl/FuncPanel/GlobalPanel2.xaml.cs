@@ -24,7 +24,8 @@ namespace sbid.UserControl
     {
         // 每次创建时自增
         private int processId = 1;
-
+        private int userTypeId = 1;
+        private int count = 1;
         public GlobalPanel2()
         {
             InitializeComponent();
@@ -44,14 +45,18 @@ namespace sbid.UserControl
         //[按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreatProcessVM(processId, new Point(100, 100));
+            this.ViewModel.CreatProcessVM(processId, new Point(100+count*30, 100+count*30));
             this.processId += 1;
+            this.count++;
+
         }
 
         //[按钮]添加自定义类型
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-
+            this.ViewModel.CreateUserTypeVM(userTypeId, new Point(100+count*30, 100+count*30));
+            this.userTypeId += 1;
+            this.count++;
         }
 
         #endregion
@@ -86,7 +91,11 @@ namespace sbid.UserControl
                     {
                         new ProcessWindow(node.Name).ShowDialog();
                     }
-                    else
+                    else if (node is UserTypeVM)
+                    {
+                        new UserTypeWindow(node.Name).ShowDialog();
+                    }
+                    else 
                     {
                         DemoWindow demoWindow = new DemoWindow();
                         demoWindow.ShowDialog();
