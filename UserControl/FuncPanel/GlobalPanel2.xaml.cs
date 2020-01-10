@@ -167,5 +167,10 @@ namespace sbid.UserControl
         }
 
         #endregion
+
+        private void attributeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -6,21 +6,39 @@
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
         Title="编辑" Height="450" Width="800">
-       <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Header="Attribute">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <DockPanel Grid.Column="0">
-                        <Border BorderBrush="Black" BorderThickness="0,0,1,0"/>
-                    </DockPanel>
-                    <DockPanel Grid.Column="1">
-                        <Border BorderBrush="Black"  BorderThickness="1,0,0,0"/>
-                    </DockPanel>
-                </Grid>
-            </TabItem>
-            
-        </TabControl>
+    <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabItem Header="Attribute">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <DockPanel Grid.Column="0" Grid.Row="0">
+                    <ComboBox Width="150" Height="40" Margin="23 10 10 10" Name="typeDropDownList" Background="Black" HorizontalAlignment="Stretch">
+                        <ComboBoxItem Content="int" HorizontalAlignment="Stretch" IsSelected="True" FontFamily="Courier"></ComboBoxItem>
+                        <ComboBoxItem Content="bool" HorizontalAlignment="Stretch"></ComboBoxItem>
+                        <ComboBoxItem Content="UserType" HorizontalAlignment="Stretch"></ComboBoxItem>
+                    </ComboBox>
+                    <TextBox Margin="50 10 10 10" Height="40" Width="100" Grid.Column="2" Text="写入Name" Name="varName"></TextBox>
+
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,0"/>
+
+                </DockPanel>
+                <DockPanel Grid.Column="0" Grid.Row="1">
+                    <Button Width="100" Height="60" Margin="23 10 10 10" Background="Beige" FontSize="20" FontWeight="DemiBold" Click="button_add_click">add</Button>
+                    <Button Width="100" Height="60" Margin="10 10 10 10" Background="Beige" FontSize="20" FontWeight="DemiBold" Click="button_update_click">update</Button>
+                    <Button Width="100" Height="60" Margin="10 10 10 10" Background="Beige" FontSize="20" FontWeight="DemiBold" Click="button_delete_click">delete</Button>
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,0"/>
+                </DockPanel>
+                <DockPanel Grid.Column="1" Grid.RowSpan="2">
+                    <ListBox Margin="3" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="attributeList" SelectionChanged="attributeList_SelectionChanged"></ListBox>
+                </DockPanel>
+            </Grid>
+        </TabItem>
+
+    </TabControl>
 </Window>

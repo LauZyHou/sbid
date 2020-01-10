@@ -16,7 +16,6 @@ namespace sbid.ViewModel
         /// It is the main part of the view-model.
         /// </summary>
         public NetworkViewModel network = null;
-
         #endregion Internal Data Members
 
         public GlobalPanel2VM()
@@ -242,6 +241,11 @@ namespace sbid.ViewModel
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);
+            return node;
+        }
+        public NodeViewModel getUserTypeVM(int userTypeIdx)
+        {
+            var node = new UserTypeVM(userTypeIdx);
             return node;
         }
         #endregion 创建结点
