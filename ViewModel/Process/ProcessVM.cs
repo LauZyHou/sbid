@@ -18,10 +18,10 @@ namespace sbid.ViewModel
             this.Color = "#FFDD99"; // 橙黄
         }
 
-        public ProcessVM(int processId)
+        public ProcessVM(int processName)
         {
-            this.process.id = processId;
-            this.Name = "Process " + processId;
+            this.process.name = processName.ToString();
+            this.Name = "Process " + processName;
             this.Color = "#FFDD99";
         }
     }
