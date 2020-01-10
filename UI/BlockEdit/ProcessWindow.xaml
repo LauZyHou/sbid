@@ -6,7 +6,30 @@
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
         Title="编辑进程模板-" Height="300" Width="500" Topmost="True" ResizeMode="NoResize">
-    <Grid>
-        
-    </Grid>
+    <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <TabItem Header="Attribute">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <Border BorderBrush="Black" BorderThickness="0,0,1,0"/>
+                </DockPanel>
+                <DockPanel Grid.Column="1">
+                    <Border BorderBrush="Black"  BorderThickness="1,0,0,0"/>
+                </DockPanel>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Method">
+            <Grid Background="#FFE5E5E5">
+                <TextBox Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Grid>
+        </TabItem>
+        <TabItem Header="CommMethod">
+            <Grid Background="#FFE5E5E5">
+                <TextBox Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
