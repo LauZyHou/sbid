@@ -142,6 +142,7 @@
                             <ContextMenu>
                                 <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
                                 <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
+                                <MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="编辑状态机"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
@@ -180,7 +181,6 @@
                             <ContextMenu>
                                 <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
                                 <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
-                                <MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="编辑状态机"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
