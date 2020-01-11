@@ -23,7 +23,6 @@ namespace sbid.UserControl
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
         // 每次创建时自增
-        private int processId = 1;
         private int userTypeId = 1;
         private int count = 1;
         public GlobalPanel2()
@@ -45,9 +44,7 @@ namespace sbid.UserControl
         //[按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreatProcessVM(processId, new Point(100+count*30, 100+count*30));
-            this.processId += 1;
-            this.count++;
+            this.ViewModel.CreatProcessVM(new Point(100+count*30, 100+count*30));
 
         }
 
@@ -89,7 +86,7 @@ namespace sbid.UserControl
                 {
                     if (node is ProcessVM)
                     {
-                        new ProcessWindow(node.Name).ShowDialog();
+                        new ProcessWindow((ProcessVM)node).ShowDialog();
                     }
                     else if (node is UserTypeVM)
                     {

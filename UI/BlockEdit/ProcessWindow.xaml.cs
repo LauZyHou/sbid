@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sbid.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -17,15 +18,14 @@ namespace sbid.UI
     /// </summary>
     public partial class ProcessWindow : Window
     {
-        public ProcessWindow()
-        {
-            InitializeComponent();
-        }
+        private ProcessVM processVM = null;
 
-        public ProcessWindow(string suffixName)
+        // 在构造时必须将ViewModel传入,以作修改和显示
+        public ProcessWindow(ProcessVM _pvm)
         {
             InitializeComponent();
-            this.Title += suffixName;
+            this.processVM = _pvm;
+            this.Title += _pvm.Process.Name;
         }
     }
 }

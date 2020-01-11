@@ -65,7 +65,7 @@
                     </Setter>
                 </Style>
 
-                <!--进程模板的数据模板-->
+                <!--Process的数据模板-->
                 <DataTemplate DataType="{x:Type vm:ProcessVM}">
                     <Grid MinWidth="120" MinHeight="140">
                         <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
@@ -84,19 +84,23 @@
                                 <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Grid.Row="0" Text="{Binding Name}"
-                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,12,0,4"/>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
+                                <TextBlock Text="Process " FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Process.Name}" FontWeight="Bold"/>
+                            </StackPanel>
+                            
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
                             <TextBlock Grid.Row="2" Text="Attribute:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <ListBox Grid.Row="3" ItemsSource="{Binding Process.Attributes}" 
+                            <ListBox Grid.Row="3" ItemsSource="{Binding Process.Attributes}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Type}"/>
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Identifier}"/>
@@ -111,11 +115,12 @@
                             <TextBlock Grid.Row="5" Text="Method:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <ListBox Grid.Row="6" ItemsSource="{Binding Process.Methods}" 
+                            <ListBox Grid.Row="6" ItemsSource="{Binding Process.Methods}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=ReturnType}"/>
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Identifier}"/>
@@ -134,11 +139,12 @@
                             <TextBlock Grid.Row="8" Text="CommMethod:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <ListBox Grid.Row="9" ItemsSource="{Binding Process.CommMethods}" 
+                            <ListBox Grid.Row="9" ItemsSource="{Binding Process.CommMethods}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=ReturnType}"/>
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Identifier}"/>
@@ -163,7 +169,7 @@
                         </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
-                
+
                 <!--UserType的数据模板-->
                 <DataTemplate DataType="{x:Type vm:UserTypeVM}">
                     <Grid MinWidth="120" MinHeight="120">
@@ -175,7 +181,7 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" MinHeight="20px"/>
                                 <RowDefinition Height="80*"/>
-                                
+
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,12,0,4"/>
@@ -228,19 +234,5 @@
             ConnectionDragCompleted="networkControl_ConnectionDragCompleted"
             />
         </ScrollViewer>
-        <Canvas x:Name="mainCanvas">
-            <!--ContentControl内容控件，设置宽高、最小宽高、在Canvas中的位置，模板使用前面整合的DesignerItemTemplate-->
-            <ContentControl Width="130"
-                    MinWidth="50"
-                    Height="130"
-                    MinHeight="50"
-                    Canvas.Top="150"
-                    Canvas.Left="470"
-                    Template="{StaticResource DesignerItemTemplate}">
-                <!--ContentControl的Content放具体的图形-->
-                <!--把IsHitTestVisible设置为False,看起来没有变化,但操作上已经把他完全忽视了,不触发事件,可以直接点到它下面的东西-->
-            </ContentControl>
-            <!--<local:UserTypeBlock Canvas.Top="100" Canvas.Left="270"/>-->
-        </Canvas>
     </Grid>
 </UserControl>

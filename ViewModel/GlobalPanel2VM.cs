@@ -180,10 +180,10 @@ namespace sbid.ViewModel
             //
 
             // todo 类图还要对这里开多大的锚点数组做考虑
-            for (int i = 0; i < 6; i++)
-            {
-                node.Connectors.Add(new ConnectorViewModel());
-            }
+            //for (int i = 0; i < 6; i++)
+            //{
+            //    node.Connectors.Add(new ConnectorViewModel());
+            //}
 
             //
             // Add the new node to the view-model.
@@ -208,28 +208,28 @@ namespace sbid.ViewModel
             //
             // Create some nodes and add them to the view-model.
             //
-            var node1 = CreateNode("Node1", new Point(10, 10));
-            var node2 = CreateNode("Node2", new Point(200, 10));
+            var node1 = CreateNode("Node1", new Point(30, 30));
+            var node2 = CreateNode("Node2", new Point(250, 30));
 
             //
             // Create a connection between the nodes.
             //
-            var connection = new ConnectionViewModel();
-            connection.SourceConnector = node1.Connectors[1];
-            connection.DestConnector = node2.Connectors[3];
+            //var connection = new ConnectionViewModel();
+            //connection.SourceConnector = node1.Connectors[1];
+            //connection.DestConnector = node2.Connectors[3];
 
             //
             // Add the connection to the view-model.
             //
-            this.Network.Connections.Add(connection);
+            //this.Network.Connections.Add(connection);
         }
 
         #endregion Private Methods
 
         #region 创建结点
-        public NodeViewModel CreatProcessVM(int processIdx, Point nodeLocation)
+        public NodeViewModel CreatProcessVM(Point nodeLocation)
         {
-            ProcessVM node = new ProcessVM(processIdx);
+            ProcessVM node = new ProcessVM();
             // 放到全局资源里
             ResourceManager.currentProtocal.processes.Add(node.Process);
             node.X = nodeLocation.X;

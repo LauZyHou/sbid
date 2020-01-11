@@ -5,30 +5,120 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
-        Title="编辑进程模板-" Height="300" Width="500" Topmost="True" ResizeMode="NoResize">
+        Title="编辑Process-" Height="300" Width="500" Topmost="True"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <!--Attribute-->
         <TabItem Header="Attribute">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <DockPanel Grid.Column="0">
-                    <Border BorderBrush="Black" BorderThickness="0,0,1,0"/>
-                </DockPanel>
-                <DockPanel Grid.Column="1">
-                    <Border BorderBrush="Black"  BorderThickness="1,0,0,0"/>
-                </DockPanel>
+                <!--Attribute左-->
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition Height="23*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="变量类型："/>
+                    <ListBox Grid.Row="1"/>
+                    <TextBlock Grid.Row="2" Text="变量名称："/>
+                    <TextBox Grid.Row="3" Text=""/>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal">
+                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                    </StackPanel>
+                </Grid>
+                <!--Attribute右-->
+                <Grid Grid.Column="1" Margin="10">
+                    <ListBox>
+                        
+                    </ListBox>
+                </Grid>
             </Grid>
         </TabItem>
+        <!--Method-->
         <TabItem Header="Method">
             <Grid Background="#FFE5E5E5">
-                <TextBox Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <!--Attribute左-->
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="25*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="内置函数："/>
+                    <ListBox Grid.Row="1"/>
+                    <TextBlock Grid.Row="2" Text="加密算法："/>
+                    <ListBox Grid.Row="3"/>
+                    <TextBlock Grid.Row="4" Text="自定义函数(代码)："/>
+                    <RichTextBox Grid.Row="5"/>
+                    <StackPanel Grid.Row="6" Orientation="Horizontal">
+                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                    </StackPanel>
+                </Grid>
+                <!--Attribute右-->
+                <Grid Grid.Column="1" Margin="10">
+                    <ListBox>
+
+                    </ListBox>
+                </Grid>
             </Grid>
         </TabItem>
+        <!--CommMethod-->
         <TabItem Header="CommMethod">
             <Grid Background="#FFE5E5E5">
-                <TextBox Margin="0" TextWrapping="Wrap" Text="" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <!--Attribute左-->
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="53*"/>
+                        <RowDefinition Height="25*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="输入/输出："/>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <RadioButton GroupName="ready" Margin="5">IN</RadioButton>
+                        <RadioButton GroupName="ready" Margin="5">OUT</RadioButton>
+                    </StackPanel>
+                    <TextBlock Grid.Row="2" Text="函数名称："/>
+                    <TextBox Grid.Row="3"/>
+                    <TextBlock Grid.Row="4" Text="唯一参数："/>
+                    <ListBox Grid.Row="5"/>
+                    <StackPanel Grid.Row="6" Orientation="Horizontal">
+                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                    </StackPanel>
+                </Grid>
+                <!--Attribute右-->
+                <Grid Grid.Column="1" Margin="10">
+                    <ListBox>
+
+                    </ListBox>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>
