@@ -13,15 +13,19 @@ using sbid.ViewModel;
 using NetworkModel;
 using NetworkUI;
 using System.Windows.Threading;
+using sbid.Model;
 
 namespace sbid.UI
 {
     /// <summary>
-    /// StateMachineWindow.xaml 的交互逻辑
+    /// StateMachineWindow.xaml 的交互逻辑,同时作为状态机的ViewModel
     /// </summary>
     public partial class StateMachineWindow : Window
     {
-        private int clkNum = 0; // 记录鼠标点击的次数,用于判断双击事件
+        // 需集成状态机的数据对象
+        public StateMachine stateMachine = new StateMachine();
+        // 记录鼠标点击的次数,用于判断双击事件
+        private int clkNum = 0;
 
         public StateMachineWindow()
         {
@@ -41,12 +45,6 @@ namespace sbid.UI
             {
                 return (StateMachineWindowVM)this.DataContext;
             }
-        }
-
-        // 窗体加载时触发此事件
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("123");
         }
 
         /// 当用户[开始]拖动锚点连线时触发此事件
@@ -70,7 +68,7 @@ namespace sbid.UI
             // 当前鼠标位置
             var curDragPoint = Mouse.GetPosition(networkControl);
             // 获取起始的锚点
-            var connection = (ConnectionViewModel)e.Connection;
+            var connection = (TransitionVM)e.Connection;
             // "正在拖动"调用的方法
             this.ViewModel.ConnectionDragging(connection, curDragPoint);
         }
@@ -82,7 +80,7 @@ namespace sbid.UI
             var connectorDraggedOut = (ConnectorViewModel)e.ConnectorDraggedOut;
             var connectorDraggedOver = (ConnectorViewModel)e.ConnectorDraggedOver;
             // 前面存的连线对象
-            var newConnection = (ConnectionViewModel)e.Connection;
+            var newConnection = (TransitionVM)e.Connection;
             this.ViewModel.ConnectionDragCompleted(newConnection, connectorDraggedOut, connectorDraggedOver);
         }
 
@@ -113,21 +111,41 @@ namespace sbid.UI
 
         #endregion 命令操作
 
+        // [作废]
         //【按下】边上的文本区域
-        private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        //private void TextBlock_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    // 判断是否是双击，在双击时打开对边上Guard和Action的编辑
+        //    clkNum += 1;
+        //    DispatcherTimer timer = new DispatcherTimer();
+        //    timer.Interval = new TimeSpan(0, 0, 0, 0, 300);
+        //    timer.Tick += (s, e1) => { timer.IsEnabled = false; clkNum = 0; };
+        //    timer.IsEnabled = true;
+        //    if (clkNum % 2 == 0)
+        //    {
+        //        timer.IsEnabled = false;
+        //        clkNum = 0;
+        //        //// 获取当前的转移关系的ViewModel
+        //        //TransitionVM t = this.ViewModel.FindTransitionVM_ByCheckNode();
+        //        //// 打开编辑箭头(Gurad和Action)的窗口
+        //        //new ArrowEditWindow().ShowDialog();
+        //    }
+        //}
+
+        // 键盘事件处理
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            // 判断是否是双击，在双击时打开对边上Guard和Action的编辑
-            clkNum += 1;
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = new TimeSpan(0, 0, 0, 0, 300);
-            timer.Tick += (s, e1) => { timer.IsEnabled = false; clkNum = 0; };
-            timer.IsEnabled = true;
-            if (clkNum % 2 == 0)
+            // 要打开编辑边的窗口
+            if (e.KeyStates == Keyboard.GetKeyStates(Key.Enter) && Keyboard.Modifiers == ModifierKeys.Control)
             {
-                timer.IsEnabled = false;
-                clkNum = 0;
-                // 打开编辑箭头(Gurad和Action)的窗口
-                new ArrowEditWindow().ShowDialog();
+                e.Handled = true;
+                // 获取当前的转移关系的ViewModel
+                TransitionVM t = this.ViewModel.FindTransitionVM_ByCheckNode();
+                if (t != null)
+                {
+                    // 打开编辑箭头(Gurad和Action)的窗口,传入当前的转移关系的ViewModel以对其进行编辑
+                    new ArrowEditWindow(t).ShowDialog();
+                }
             }
         }
     }

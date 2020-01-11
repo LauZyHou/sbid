@@ -52,16 +52,16 @@ namespace sbid.UserControl
         //[按钮]添加自定义类型
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-            int globalUserTypeId = UserTypeBlock.getGlobalUserTypeId();
-            UserTypeBlock userTypeBlock = new UserTypeBlock(globalUserTypeId);
-            UserType userType = new UserType(globalUserTypeId);
-            ContentControl contentControl = userTypeBlock.Content as ContentControl;
-            userTypeBlock.SetValue(ContentPresenter.ContentProperty, null);
-            //设置附加属性
-            Canvas.SetLeft(contentControl, 5);
-            Canvas.SetTop(contentControl, 50);
-            //添加到Canvas
-            mainCanvas.Children.Add(contentControl);
+            //int globalUserTypeId = UserTypeBlock.getGlobalUserTypeId();
+            //UserTypeBlock userTypeBlock = new UserTypeBlock(globalUserTypeId);
+            //UserType userType = new UserType(globalUserTypeId);
+            //ContentControl contentControl = userTypeBlock.Content as ContentControl;
+            //userTypeBlock.SetValue(ContentPresenter.ContentProperty, null);
+            ////设置附加属性
+            //Canvas.SetLeft(contentControl, 5);
+            //Canvas.SetTop(contentControl, 50);
+            ////添加到Canvas
+            //mainCanvas.Children.Add(contentControl);
         }
     }
 }

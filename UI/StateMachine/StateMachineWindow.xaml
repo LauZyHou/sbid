@@ -9,7 +9,8 @@
         xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
         mc:Ignorable="d"
         Title="状态机-" Height="550" Width="900" WindowStartupLocation="CenterScreen"
-        FocusManager.FocusedElement="{Binding ElementName=networkControl}">
+        FocusManager.FocusedElement="{Binding ElementName=networkControl}"
+        KeyDown="Window_KeyDown">
     <!--DataTemplate用于为底层数据提供可视结构，而ControlTemplate与底层数据无关，仅为控件本身提供可视化布局-->
 
     <Window.Resources>
@@ -19,7 +20,7 @@
         <RoutedUICommand x:Key="Commands.CreateFinalState" />
 
         <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
-        <DataTemplate DataType="{x:Type NetworkModel:ConnectionViewModel}">
+        <DataTemplate DataType="{x:Type vm:TransitionVM}">
             <Canvas Background="AliceBlue" Width="Auto" Height="Auto">
                 <!--用一个简单的箭头表达连线,见Arrow类-->
                 <NetworkUI:Arrow Stroke="Black" StrokeThickness="2" Fill="Black"
@@ -27,9 +28,8 @@
                              End="{Binding DestConnectorHotspot}"
                              IsHitTestVisible="False"/>
                 <!--边中间的文本框-->
-                <TextBlock Text="双击编辑" MinHeight="20" MinWidth="40" 
-                         Canvas.Left="{Binding MidConnectorPoint.X}" Canvas.Top="{Binding MidConnectorPoint.Y}"
-                         MouseDown="TextBlock_MouseDown"/>
+                <TextBlock Text="{Binding Content}" MinHeight="20" MinWidth="40" 
+                         Canvas.Left="{Binding MidConnectorPoint.X}" Canvas.Top="{Binding MidConnectorPoint.Y}"/>
             </Canvas>
         </DataTemplate>
 

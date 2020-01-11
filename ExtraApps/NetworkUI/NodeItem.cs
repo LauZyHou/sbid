@@ -16,7 +16,7 @@ namespace NetworkUI
 {
     /// <summary>
     /// This is a UI element that represents a network/flow-chart node.
-    /// 网络中结点的ViewModel
+    /// 网络中结点
     /// </summary>
     public class NodeItem : ListBoxItem
     {

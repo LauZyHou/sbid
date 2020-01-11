@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows;
 using NetworkModel;
 using Utils;
+using sbid.Model;
 
 namespace sbid.ViewModel
 {
@@ -228,7 +229,9 @@ namespace sbid.ViewModel
         #region 创建结点
         public NodeViewModel CreatProcessVM(int processIdx, Point nodeLocation)
         {
-            var node = new ProcessVM(processIdx);
+            ProcessVM node = new ProcessVM(processIdx);
+            // 放到全局资源里
+            ResourceManager.currentProtocal.processes.Add(node.process);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);

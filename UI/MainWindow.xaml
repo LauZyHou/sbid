@@ -21,7 +21,7 @@
         <!--0,0 菜单栏-->
         <Menu x:Name="menu" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" MinHeight="23px" VerticalAlignment="Top">
             <MenuItem Header="文件">
-                <MenuItem Header="新模型" Click="MenuItem_Click_NewModel" InputGestureText="Ctrl+N"/>
+                <MenuItem Header="新协议" Click="MenuItem_Click_NewProtocal" InputGestureText="Ctrl+N"/>
                 <MenuItem Header="打开..." InputGestureText="Ctrl+O"/>
                 <MenuItem Header="保存" InputGestureText="Ctrl+S"/>
                 <MenuItem Header="另存为..."/>

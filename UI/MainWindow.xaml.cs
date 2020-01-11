@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using sbid.UserControl;
+using sbid.Model;
 
 namespace sbid
 {
@@ -66,30 +67,35 @@ namespace sbid
         }
 
         //菜单 > 文件 > 新模型
-        private void MenuItem_Click_NewModel(object sender, RoutedEventArgs e)
+        private void MenuItem_Click_NewProtocal(object sender, RoutedEventArgs e)
         {
             //创建新的模型面板
             //先创建模型面板内包含的全局面板，放到TabControl里
             TabControl modelTabControl = new TabControl();
-            modelTabControl.Items.Add(
-                new CloseableTabItem()
-                {
-                    Title = "全局",
-                    Content = new GlobalPanel().Content as Grid
-                }
-            );
+            //modelTabControl.Items.Add(
+            //    new CloseableTabItem()
+            //    {
+            //        Title = "全局",
+            //        Content = new GlobalPanel().Content as Grid
+            //    }
+            //);
             //[!]新的全局面板，第二类实现
             modelTabControl.Items.Add(
                 new CloseableTabItem()
                 {
-                    Title = "全局2",
+                    Title = "全局",
                     Content = new GlobalPanel2().Content as Grid
                 }
             );
-            //再创建包含它的模型TabItem
+            // 使用协议名称创建协议的对象
+            string protocalName = "协议" + (this.tabId++).ToString();
+            // [todo] 在切换Protocal选项卡时修改当前引用的Protocal对象
+            ResourceManager.currentProtocal = new Protocal(protocalName);
+            ResourceManager.protocals.Add(ResourceManager.currentProtocal);
+            // 再创建包含它的模型TabItem
             CloseableTabItem tabItem = new CloseableTabItem
             {
-                Title = "模型" + (this.tabId++).ToString(),
+                Title = protocalName,
                 Content = modelTabControl
             };
             //整个模型TabItem放到大的mainTabControl里面
@@ -121,7 +127,7 @@ namespace sbid
                 Title = title,
                 Content = frameworkElement
             };
-            //检索当前活动的Model面板CloseableTabItem
+            //检索当前活动的Protocal面板CloseableTabItem
             CloseableTabItem currentModel_TabItem = null;
             foreach (CloseableTabItem c in mainTabControl.Items)
             {

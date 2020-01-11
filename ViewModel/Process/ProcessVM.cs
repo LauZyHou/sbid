@@ -9,7 +9,7 @@ namespace sbid.ViewModel
     public class ProcessVM : NodeViewModel
     {
         #region 引用Model
-        Process process = new Process();
+        public Process process = new Process();
 
         #endregion 引用Model
         public ProcessVM()

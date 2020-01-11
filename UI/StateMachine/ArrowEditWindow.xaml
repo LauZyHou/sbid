@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid.UI"
+        xmlns:vm="clr-namespace:sbid.ViewModel"
         mc:Ignorable="d"
         Title="状态机连线编辑" Height="320" Width="500" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
@@ -14,20 +15,22 @@
                 <ColumnDefinition Width="90*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="Gurad:" HorizontalAlignment="Left"/>
-            <TextBox Grid.Column="1" Text="a=b AND c=d"/>
+            <TextBox Name="guradText" Grid.Column="1" Text="如果显示这行文字请检查从Transition写入Guard"/>
         </Grid>
-        <TextBlock Text="Action:" Margin="10,10,0,0"/>
+        <TextBlock Text="Actions:" Margin="10,10,0,0"/>
         <ListBox x:Name="listBox" Height="160" Margin="10,5"/>
-        <TextBox Text="a=b AND c=d" Margin="10,5"/>
+        <TextBox Name="actionText" Text="" Margin="10,5"/>
         <Grid Height="20" Margin="10,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="35*"/>
                 <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="10*"/>
                 <ColumnDefinition Width="5*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="1" Content="添加" Click="Button_Click" Width="60" HorizontalAlignment="Right"/>
-            <Button Grid.Column="2" Content="删除" Click="Button_Click" Width="60" HorizontalAlignment="Right"/>
+            <Button Grid.Column="1" Content="添加动作" Click="Button_Click_AddAction" Width="60" HorizontalAlignment="Right"/>
+            <Button Grid.Column="2" Content="删除动作" Click="Button_Click_DelAction" Width="60" HorizontalAlignment="Right"/>
+            <Button Grid.Column="3" Content="全部保存" Click="Button_Click_AllSave" Width="60" HorizontalAlignment="Right"/>
         </Grid>
     </StackPanel>
 </Window>

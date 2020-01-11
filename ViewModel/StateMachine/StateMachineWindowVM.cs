@@ -48,7 +48,7 @@ namespace sbid.ViewModel
         /// <summary>
         /// Called when the user has started to drag out a connector, thus creating a new connection.
         /// </summary>
-        public ConnectionViewModel ConnectionDragStarted(ConnectorViewModel draggedOutConnector, Point curDragPoint)
+        public TransitionVM ConnectionDragStarted(ConnectorViewModel draggedOutConnector, Point curDragPoint)
         {
             if (draggedOutConnector.AttachedConnection != null)
             {
@@ -62,7 +62,7 @@ namespace sbid.ViewModel
             //
             // Create a new connection to add to the view-model.
             //
-            var connection = new ConnectionViewModel();
+            var connection = new TransitionVM();
 
             //
             // Link the source connector to the connector that was dragged out.
@@ -85,7 +85,7 @@ namespace sbid.ViewModel
         /// <summary>
         /// Called as the user continues to drag the connection.
         /// </summary>
-        public void ConnectionDragging(ConnectionViewModel connection, Point curDragPoint)
+        public void ConnectionDragging(TransitionVM connection, Point curDragPoint)
         {
             //
             // Update the destination connection hotspot while the user is dragging the connection.
@@ -96,7 +96,7 @@ namespace sbid.ViewModel
         /// <summary>
         /// Called when the user has finished dragging out the new connection.
         /// </summary>
-        public void ConnectionDragCompleted(ConnectionViewModel newConnection, ConnectorViewModel connectorDraggedOut, ConnectorViewModel connectorDraggedOver)
+        public void ConnectionDragCompleted(TransitionVM newConnection, ConnectorViewModel connectorDraggedOut, ConnectorViewModel connectorDraggedOver)
         {
             if (connectorDraggedOver == null)
             {
@@ -144,6 +144,38 @@ namespace sbid.ViewModel
                     DeleteNode(node);
                 }
             }
+        }
+
+        // [临时]判断选中的两个结点之间是否有边,如果有边就返回TransitionVM
+        public TransitionVM FindTransitionVM_ByCheckNode()
+        {
+            List<NodeViewModel> selectedNodes = new List<NodeViewModel>();
+            var nodesCopy = this.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    selectedNodes.Add(node);
+                }
+            }
+            if(selectedNodes.Count!=2)
+            {
+                MessageBox.Show("请选择两个状态以编辑边");
+                return null;
+            }
+            // 检查两个边之间的连线,即检查两个边被占用的锚点集合是否存在dest关系
+            ICollection<ConnectionViewModel> attachedConnections_0 = selectedNodes[0].AttachedConnections;
+            //ICollection<ConnectionViewModel> attachedConnections_1 = selectedNodes[1].AttachedConnections;
+            foreach (ConnectionViewModel cn0 in attachedConnections_0)
+            {
+                foreach(ConnectorViewModel ctr1 in selectedNodes[1].Connectors) {
+                    if(cn0.DestConnector==ctr1 || cn0.SourceConnector == ctr1) // 找到时返回
+                    {
+                        return (TransitionVM)cn0;
+                    }
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -248,7 +280,8 @@ namespace sbid.ViewModel
             // todo 进程名"p1_"拼接到最前面
             var defaultState = CreateState("init", new Point(50, 140));
 
-            var connection = new ConnectionViewModel();
+            //var connection = new TransitionVM();
+            var connection = new TransitionVM();
             connection.SourceConnector = initialState.Connectors[0];
             connection.DestConnector = defaultState.Connectors[1];
 

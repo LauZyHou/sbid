@@ -13,7 +13,7 @@ namespace NetworkModel
     /// Defines a connection between two connectors (aka connection points) of two nodes.
     /// 两个锚点之间的连接
     /// </summary>
-    public sealed class ConnectionViewModel : AbstractModelBase
+    public class ConnectionViewModel : AbstractModelBase
     {
         #region Internal Data Members
 

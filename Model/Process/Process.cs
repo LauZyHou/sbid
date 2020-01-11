@@ -31,9 +31,9 @@ namespace sbid.Model
         // Method名->返回值,形参列表等函数信息
         public Dictionary<string, MethodInfo> methodMap = new Dictionary<string, MethodInfo>();
         // CommMethod名->形参列表,inout等CommMethod信息
-        public Dictionary<string, CommMethodInfo> CommMethodMap = new Dictionary<string, CommMethodInfo>();
+        public Dictionary<string, CommMethodInfo> commMethodMap = new Dictionary<string, CommMethodInfo>();
         // 对应的状态机(多个嵌套成一个)
-        public Dictionary<string, StateMachine> StateMachineMap = new Dictionary<string, StateMachine>();
+        public Dictionary<string, StateMachine> stateMachineMap = new Dictionary<string, StateMachine>();
 
         public Process()
         {

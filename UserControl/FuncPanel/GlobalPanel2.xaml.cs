@@ -116,7 +116,11 @@ namespace sbid.UserControl
                 {
                     if (node is ProcessVM)
                     {
-                        new StateMachineWindow(node.Name).ShowDialog();
+                        // todo 考虑已有的StateMachine
+                        StateMachineWindow stateMachineWindow = new StateMachineWindow(node.Name);
+                        //// todo
+                        ((ProcessVM)node).process.stateMachineMap.Add("todo", stateMachineWindow.stateMachine);
+                        stateMachineWindow.ShowDialog();
                     }
                     else
                     {

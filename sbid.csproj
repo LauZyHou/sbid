@@ -30,4 +30,8 @@
     <ProjectReference Include="ExtraApps\Utils\Utils.2010.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="UserControl\GlobalBlock\" />
+  </ItemGroup>
+
 </Project>
