@@ -25,11 +25,13 @@ namespace sbid.ViewModel
             this.Type = RelationType.OR;
             this.Name = "OR";
             this.Color = "#CC9999"; // 灰红色
+            this.IsActive = false;
         }
 
         // 传参构造:按枚举类型
         public RelationNode(RelationType _type)
         {
+            this.IsActive = false;
             this.Type = _type;
             // 根据攻击树类型设置结点颜色
             switch (_type)

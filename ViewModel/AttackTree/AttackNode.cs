@@ -15,6 +15,8 @@ namespace sbid.ViewModel
         {
             this.Name = "待描述的攻击结点";
             this.Color = "#99CC99"; // 灰绿色
+            this.condition = ConditionType.ACTIVE;
+            this.IsActive = true;
         }
 
         // 传参构造:按用户指定的描述
@@ -22,6 +24,8 @@ namespace sbid.ViewModel
         {
             this.Name = _desc;
             this.Color = "#99CC99"; // 灰绿色
+            this.condition = ConditionType.ACTIVE;
+            this.IsActive = true;
         }
     }
 }

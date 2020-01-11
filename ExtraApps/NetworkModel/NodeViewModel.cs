@@ -43,7 +43,7 @@ namespace NetworkModel
         private ImpObservableCollection<ConnectorViewModel> connectors = null;
         private string color;
         public ConditionType condition = ConditionType.OTHERS;
-
+        public bool IsActive = true;
         public List<NodeViewModel> ChildNodes = new List<NodeViewModel>();
         public List<NodeViewModel> ParentNodes = new List<NodeViewModel>();
  
