@@ -67,40 +67,92 @@
 
                 <!--进程模板的数据模板-->
                 <DataTemplate DataType="{x:Type vm:ProcessVM}">
-                    <Grid MinWidth="120" MinHeight="120">
+                    <Grid MinWidth="120" MinHeight="140">
                         <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
                         <Grid Margin="-8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" MinHeight="20px"/>
-                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="1"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
-                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="1"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
-                                <RowDefinition Height="2"/>
+                                <RowDefinition Height="1"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
+                                <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
 
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,12,0,4"/>
 
-                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
                             <TextBlock Grid.Row="2" Text="Attribute:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            <ListBox Grid.Row="3" ItemsSource="{Binding Process.Attributes}" 
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Type}"/>
+                                            <TextBlock Text=" "/>
+                                            <TextBlock Text="{Binding Path=Identifier}"/>
+                                            <TextBlock Text=";"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
                             <TextBlock Grid.Row="5" Text="Method:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+                            <ListBox Grid.Row="6" ItemsSource="{Binding Process.Methods}" 
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=ReturnType}"/>
+                                            <TextBlock Text=" "/>
+                                            <TextBlock Text="{Binding Path=Identifier}"/>
+                                            <TextBlock Text="("/>
+                                            <TextBlock Text="{Binding Path=ParaString}"/>
+                                            <TextBlock Text=");["/>
+                                            <TextBlock Text="{Binding Path=CryptoName}"/>
+                                            <TextBlock Text="]"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <GridSplitter Grid.Row="7" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
                             <TextBlock Grid.Row="8" Text="CommMethod:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
+                            <ListBox Grid.Row="9" ItemsSource="{Binding Process.CommMethods}" 
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=ReturnType}"/>
+                                            <TextBlock Text=" "/>
+                                            <TextBlock Text="{Binding Path=Identifier}"/>
+                                            <TextBlock Text="("/>
+                                            <TextBlock Text="{Binding Path=ParaString}"/>
+                                            <TextBlock Text=");["/>
+                                            <TextBlock Text="{Binding Path=InOut}"/>
+                                            <TextBlock Text="]"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <TextBlock Grid.Row="10"/>
                         </Grid>
                         <Grid.ContextMenu>
                             <ContextMenu>

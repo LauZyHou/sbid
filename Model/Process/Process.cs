@@ -1,47 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace sbid.Model
 {
-    public class MethodInfo
-    {
-        // 函数的返回类型
-        public string returnType = "void";
-        // 函数的参数列表<类型,形参名>
-        public List<Tuple<string, string>> parameters = new List<Tuple<string, string>>();
-        // 加解密方法名(可选)
-        public string cryptoName = null;
-    }
-
-    public class CommMethodInfo
-    {
-        // 函数的参数列表<类型,形参名>
-        public List<Tuple<string, string>> parameters = new List<Tuple<string, string>>();
-        // 指示是输入或输出
-        public string inout = "out";
-    }
-
     public class Process
     {
-        // Process的名称
-        public string name;
+        private static int _id = 1;
+        private string name;
+        private ObservableCollection<Attribute> attributes = new ObservableCollection<Attribute>();
+        private ObservableCollection<Method> methods = new ObservableCollection<Method>();
+        private ObservableCollection<CommMethod> commMethods = new ObservableCollection<CommMethod>();
+
+        /*
         // Attribute名->类型
         public Dictionary<string, string> attributeMap = new Dictionary<string, string>();
         // Method名->返回值,形参列表等函数信息
         public Dictionary<string, MethodInfo> methodMap = new Dictionary<string, MethodInfo>();
         // CommMethod名->形参列表,inout等CommMethod信息
         public Dictionary<string, CommMethodInfo> commMethodMap = new Dictionary<string, CommMethodInfo>();
-        // 对应的状态机(多个嵌套成一个)
+        */
+
+        // Process对应的状态机(多个嵌套成一个)
         public Dictionary<string, StateMachine> stateMachineMap = new Dictionary<string, StateMachine>();
+
+        // Process的名称
+        public string Name { get => name; set => name = value; }
+        // Process包含的Attribute
+        public ObservableCollection<Attribute> Attributes { get => attributes; set => attributes = value; }
+        // Process包含的Method
+        public ObservableCollection<Method> Methods { get => methods; set => methods = value; }
+        // Process包含的CommMethod
+        public ObservableCollection<CommMethod> CommMethods { get => commMethods; set => commMethods = value; }
 
         public Process()
         {
+            this.name = "未命名" + _id;
+            _id++;
+            Test_Init();
         }
 
-        public Process(string _name)
+
+        private void Test_Init()
         {
-            this.name = _name;
+            attributes.Add(new Attribute("int", "a"));
+            attributes.Add(new Attribute("bool", "b"));
+            attributes.Add(new Attribute("Msg", "c"));
+
+            Method m1 = new Method("dec");
+            m1.ReturnType = "Msg";
+            m1.Parameters.Add(new Attribute("Msg", "m"));
+            m1.Parameters.Add(new Attribute("Key", "k"));
+            m1.CryptoName = "AES";
+            Method m2 = new Method("enc");
+            m2.ReturnType = "Msg";
+            m2.Parameters.Add(new Attribute("Msg", "m"));
+            m2.Parameters.Add(new Attribute("Key", "k"));
+            m2.CryptoName = "AES";
+            methods.Add(m1);
+            methods.Add(m2);
+
+            CommMethod cm1 = new CommMethod("send");
+            cm1.Parameters.Add(new Attribute("Msg", "m"));
+            CommMethod cm2 = new CommMethod("recv");
+            cm2.Parameters.Add(new Attribute("Msg", "m"));
+            cm2.InOut = "in";
+            commMethods.Add(cm1);
+            commMethods.Add(cm2);
         }
     }
 }

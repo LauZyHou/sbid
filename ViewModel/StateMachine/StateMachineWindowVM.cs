@@ -207,7 +207,7 @@ namespace sbid.ViewModel
 
             //
             // Create the default set of four connectors.
-            // 创建默认的connector集合，这里对攻击树的结点总是添加六个锚点
+            // 创建默认的connector集合，这里对状态机普通状态结点总是添加六个锚点
             //
             for (int i = 0; i < 6; i++)
             {
@@ -276,9 +276,9 @@ namespace sbid.ViewModel
         // 状态机建模的初始化:创建初始状态和第一个默认状态,然后将它们连接起来
         private void PopulateWithTestData()
         {
-            var initialState = CreateInitialState(new Point(80, 50));
+            var initialState = CreateInitialState(new Point(180, 50));
             // todo 进程名"p1_"拼接到最前面
-            var defaultState = CreateState("init", new Point(50, 140));
+            var defaultState = CreateState("init", new Point(150, 190));
 
             //var connection = new TransitionVM();
             var connection = new TransitionVM();

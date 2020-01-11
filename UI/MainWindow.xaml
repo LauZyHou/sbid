@@ -38,7 +38,10 @@
             </MenuItem>
         </Menu>
         <!--1,0 快捷按键-->
-        <uc:QuickTab Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">
+            <Button Content="新协议" Click="MenuItem_Click_NewProtocal"/>
+            <Button Content="保存"/>
+        </StackPanel>
         <!--2,0 左侧条目-->
         <TabControl Grid.Row="2" Grid.Column="0" Background="AliceBlue">
             <TabItem Header="项目结构">

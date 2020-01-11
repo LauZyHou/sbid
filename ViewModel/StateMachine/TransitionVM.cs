@@ -19,9 +19,9 @@ namespace sbid.ViewModel
         
         public TransitionVM()
         {
-            this.guard = "双击编辑";
-            this.actions.Add("123");
-            this.actions.Add("45");
+            this.guard = "True";
+            //this.actions.Add("123");
+            //this.actions.Add("45");
         }
 
         public string Guard

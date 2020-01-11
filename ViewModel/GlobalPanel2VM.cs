@@ -170,7 +170,7 @@ namespace sbid.ViewModel
             //var node = new NodeViewModel(name);
             //var node = new RelationNode(RelationType.AND);
             //var node = new BlockDemo();
-            var node = new UserTypeVM();
+            var node = new ProcessVM();
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -231,7 +231,7 @@ namespace sbid.ViewModel
         {
             ProcessVM node = new ProcessVM(processIdx);
             // 放到全局资源里
-            ResourceManager.currentProtocal.processes.Add(node.process);
+            ResourceManager.currentProtocal.processes.Add(node.Process);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);

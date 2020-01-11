@@ -119,7 +119,7 @@ namespace sbid.UserControl
                         // todo 考虑已有的StateMachine
                         StateMachineWindow stateMachineWindow = new StateMachineWindow(node.Name);
                         //// todo
-                        ((ProcessVM)node).process.stateMachineMap.Add("todo", stateMachineWindow.stateMachine);
+                        ((ProcessVM)node).Process.stateMachineMap.Add("todo", stateMachineWindow.stateMachine);
                         stateMachineWindow.ShowDialog();
                     }
                     else
