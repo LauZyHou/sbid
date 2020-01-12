@@ -29,7 +29,8 @@
                     <TextBlock Grid.Row="2" Text="变量名称："/>
                     <TextBox x:Name="AttrParamIdtTextBox" Grid.Row="3" Text=""/>
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
-                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="添加" Click="Button_Click_Attr_Add" 
+                                Width="60" Height="30" Margin="8,0"/>
                         <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
@@ -47,29 +48,35 @@
                 </Grid>
             </Grid>
         </TabItem>
-        <!--Method-->
-        <TabItem Header="Method">
+        <!--内置Method-->
+        <TabItem Header="内置Method">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Method左-->
+                <!--内置Method左-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="30*"/>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="20*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="40*"/>
                         <RowDefinition Height="25*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="内置函数："/>
-                    <ListBox Grid.Row="1"/>
+                    <ListBox x:Name="InnerMethodListBox" Grid.Row="1">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=MethodHeadString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <TextBlock Grid.Row="2" Text="加密算法："/>
-                    <ListBox Grid.Row="3"/>
-                    <TextBlock Grid.Row="4" Text="自定义函数(代码)："/>
+                    <ListBox x:Name="CryptoNameListBox" Grid.Row="3"/>
+                    <TextBlock Grid.Row="4" Text="映射关系(todo)："/>
                     <RichTextBox Grid.Row="5"/>
                     <StackPanel Grid.Row="6" Orientation="Horizontal">
                         <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
@@ -77,10 +84,89 @@
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
                 </Grid>
-                <!--Method右-->
+                <!--内置Method右-->
                 <Grid Grid.Column="1" Margin="10">
-                    <ListBox x:Name="MethodListBox" ItemsSource="{Binding MyProcessVM.Process.Methods}"
-                             SelectionChanged="MethodListBox_SelectionChanged">
+                    <ListBox x:Name="MethodListBox1" ItemsSource="{Binding MyProcessVM.Process.Methods}"
+                             SelectionChanged="MethodListBox1_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </Grid>
+        </TabItem>
+        <!--自定Method-->
+        <TabItem Header="自定Method">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
+                </Grid.ColumnDefinitions>
+                <!--自定Method左-->
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="15*"/>
+                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="25*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="返回类型："/>
+                    <ListBox Grid.Row="1"/>
+                    <TextBlock Grid.Row="2" Text="函数名称："/>
+                    <TextBox Grid.Row="3"/>
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="20*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="参数类型"/>
+                            <ListBox Grid.Row="1"/>
+                            <TextBlock Grid.Row="2" Text="参数名称"/>
+                            <ListBox Grid.Row="3"/>
+                            <StackPanel Grid.Row="4" Orientation="Horizontal">
+                                <Button Content="添加" Width="32" Height="24" Margin="2,0"/>
+                                <Button Content="更新" Width="32" Height="24" Margin="2,0"/>
+                                <Button Content="删除" Width="32" Height="24" Margin="2,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="53*"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Text="参数列表："/>
+                            <ListBox Grid.Row="1">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </Grid>
+                    
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                    </StackPanel>
+                </Grid>
+                <!--自定Method右-->
+                <Grid Grid.Column="1" Margin="10">
+                    <ListBox  x:Name="MethodListBox2" ItemsSource="{Binding MyProcessVM.Process.Methods}"
+                             SelectionChanged="MethodListBox2_SelectionChanged">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Path=ShowString}"/>

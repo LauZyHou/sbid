@@ -10,6 +10,9 @@ namespace sbid.Model
         public static Protocol currentProtocal = null;// 在内存中记录当前用户所在的Protocal
         // 管理所有的Protocal
         public static List<Protocol> protocals = new List<Protocol>();
-
+        // 管理所有内置函数
+        public static List<Method> innerMethods = new List<Method>();
+        // 管理所有加密算法
+        public static List<string> cryptoNames = new List<string>();
     }
 }

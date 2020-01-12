@@ -30,6 +30,7 @@ namespace sbid.Model
                 parameters = value;
                 OnPropertyChanged("Parameters");
                 OnPropertyChanged("ShowString");
+                OnPropertyChanged("MethodHeadString");
             }
         }
         // 加解密方法名
@@ -47,6 +48,21 @@ namespace sbid.Model
                 string paras =  string.Join(", ", list.ToArray());
 
                 return returnType + " " + identifier + "(" + paras + ");[" + cryptoName + "]";
+            }
+        }
+        // 函数头部分:形如形如"Msg enc(Msg m, Key k);的展示串
+        public string MethodHeadString
+        {
+            get
+            {
+                List<string> list = new List<string>();
+                foreach (Attribute attr in parameters)
+                {
+                    list.Add(attr.Type + " " + attr.Identifier);
+                }
+                string paras = string.Join(", ", list.ToArray());
+
+                return returnType + " " + identifier + "(" + paras + ");";
             }
         }
 

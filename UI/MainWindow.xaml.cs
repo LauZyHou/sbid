@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,6 +26,24 @@ namespace sbid
         public MainWindow()
         {
             InitializeComponent();
+            // 初始化全局资源
+            InitializeResourceManager();
+        }
+
+        private void InitializeResourceManager()
+        {
+            // 将内置函数和加密算法写入全局资源
+            Method enc = new Method("enc");
+            enc.Parameters.Add(new Attribute("Msg", "m"));
+            enc.Parameters.Add(new Attribute("Key", "k"));
+            Method dec = new Method("dec");
+            dec.Parameters.Add(new Attribute("Msg", "m"));
+            dec.Parameters.Add(new Attribute("Key", "k"));
+            ResourceManager.innerMethods.Add(enc);
+            ResourceManager.innerMethods.Add(dec);
+            ResourceManager.cryptoNames.Add("AES");
+            ResourceManager.cryptoNames.Add("DES");
+            ResourceManager.cryptoNames.Add("SHA256");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
