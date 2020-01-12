@@ -16,6 +16,7 @@
         </Grid.RowDefinitions>
         <!--0, 工具栏-->
         <StackPanel Grid.Row="0" Orientation="Horizontal" Background="AliceBlue">
+            <Button Content="测试用" Click="Button_Click_Test"/>
             <Button Content="进程模板" Click="Button_Click_Process"/>
             <Button Content="自定义类型" Click="Button_Click_UserType"/>
             <Button Content="公理"/>
@@ -99,13 +100,14 @@
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                        <!--<StackPanel Orientation="Horizontal">
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Type}"/>
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Identifier}"/>
                                             <TextBlock Text=";"/>
-                                        </StackPanel>
+                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -119,7 +121,8 @@
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                        <!--<StackPanel Orientation="Horizontal">
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=ReturnType}"/>
                                             <TextBlock Text=" "/>
@@ -129,7 +132,7 @@
                                             <TextBlock Text=");["/>
                                             <TextBlock Text="{Binding Path=CryptoName}"/>
                                             <TextBlock Text="]"/>
-                                        </StackPanel>
+                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -143,7 +146,8 @@
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                        <!--<StackPanel Orientation="Horizontal">
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=ReturnType}"/>
                                             <TextBlock Text=" "/>
@@ -153,7 +157,7 @@
                                             <TextBlock Text=");["/>
                                             <TextBlock Text="{Binding Path=InOut}"/>
                                             <TextBlock Text="]"/>
-                                        </StackPanel>
+                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -181,7 +185,6 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20*" MinHeight="20px"/>
                                 <RowDefinition Height="80*"/>
-
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="{Binding Name}"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,12,0,4"/>
@@ -198,6 +201,49 @@
                         </Grid.ContextMenu>
                     </Grid>
                 </DataTemplate>
+
+                <!--UserType2的数据模板-->
+                <DataTemplate DataType="{x:Type vm:UserType2VM}">
+                    <Grid MinWidth="120" MinHeight="120">
+                        <!--显示出来的矩形-->
+                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
+                        <!--套着内容的Grid-->
+                        <Grid Margin="-8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" MinHeight="20px"/>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="80*"/>
+                                <RowDefinition Height="5*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
+                                <TextBlock Text="UserType2 " FontWeight="Bold"/>
+                                <TextBlock Text="{Binding UserType2.Name}" FontWeight="Bold"/>
+                            </StackPanel>
+
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
+
+                            <ListBox Grid.Row="2" ItemsSource="{Binding UserType2.Attributes}" IsHitTestVisible="False"
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <TextBlock Grid.Row="3"/>
+                        </Grid>
+                        <!--图形上的右键菜单-->
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除UserType2"/>
+                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑UserType2"/>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                    </Grid>
+                </DataTemplate>
+                
             </ScrollViewer.Resources>
             <!--[*]设置对应的ViewModel,在.cs文件中取DataContext即得到-->
             <ScrollViewer.DataContext>

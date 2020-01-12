@@ -27,13 +27,13 @@ namespace sbid.Model
             {
                 parameters = value;
                 OnPropertyChanged("Parameters");
-                OnPropertyChanged("ParaString");
+                OnPropertyChanged("ShowString");
             }
         }
         // 输入/输出类型
         public string InOut { get => inOut; set => inOut = value; }
-        // 用于在前端展示形参列表的逗号分隔串
-        public string ParaString
+        // 形如"send(Msg m);[out]"的展示串
+        public string ShowString
         {
             get
             {
@@ -42,8 +42,8 @@ namespace sbid.Model
                 {
                     list.Add(attr.Type + " " + attr.Identifier);
                 }
-                return string.Join(", ", list.ToArray());
-                //形如"int a, bool b, Msg c"
+                string paras = string.Join(", ", list.ToArray());
+                return identifier + "(" + paras + ");[" + InOut + "]";
             }
         }
 

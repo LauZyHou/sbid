@@ -41,6 +41,12 @@ namespace sbid.UserControl
 
         #region 按钮控制
 
+        //[按钮]测试
+        private void Button_Click_Test(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.Test_Node();
+        }
+
         //[按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {

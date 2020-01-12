@@ -90,7 +90,7 @@ namespace sbid
             // 使用协议名称创建协议的对象
             string protocalName = "协议" + (this.tabId++).ToString();
             // [todo] 在切换Protocal选项卡时修改当前引用的Protocal对象
-            ResourceManager.currentProtocal = new Protocal(protocalName);
+            ResourceManager.currentProtocal = new Protocol(protocalName);
             ResourceManager.protocals.Add(ResourceManager.currentProtocal);
             // 再创建包含它的模型TabItem
             CloseableTabItem tabItem = new CloseableTabItem

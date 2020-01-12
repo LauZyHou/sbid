@@ -13,15 +13,6 @@ namespace sbid.Model
         private ObservableCollection<Method> methods = new ObservableCollection<Method>();
         private ObservableCollection<CommMethod> commMethods = new ObservableCollection<CommMethod>();
 
-        /*
-        // Attribute名->类型
-        public Dictionary<string, string> attributeMap = new Dictionary<string, string>();
-        // Method名->返回值,形参列表等函数信息
-        public Dictionary<string, MethodInfo> methodMap = new Dictionary<string, MethodInfo>();
-        // CommMethod名->形参列表,inout等CommMethod信息
-        public Dictionary<string, CommMethodInfo> commMethodMap = new Dictionary<string, CommMethodInfo>();
-        */
-
         // Process对应的状态机(多个嵌套成一个)
         public Dictionary<string, StateMachine> stateMachineMap = new Dictionary<string, StateMachine>();
 
@@ -64,7 +55,7 @@ namespace sbid.Model
             CommMethod cm1 = new CommMethod("send");
             cm1.Parameters.Add(new Attribute("Msg", "m"));
             CommMethod cm2 = new CommMethod("recv");
-            cm2.Parameters.Add(new Attribute("Msg", "m"));
+            cm2.Parameters.Add(new Attribute("Key", "k"));
             cm2.InOut = "in";
             commMethods.Add(cm1);
             commMethods.Add(cm2);

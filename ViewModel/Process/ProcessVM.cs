@@ -10,11 +10,7 @@ namespace sbid.ViewModel
     {
         #region 引用Model
         private Process process = new Process();
-        
-        private ObservableCollection<string> test = new ObservableCollection<string>();
-        
 
-        
         public Process Process { get => process; set => process = value; }
 
         #endregion 引用Model

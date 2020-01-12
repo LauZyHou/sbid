@@ -29,13 +29,13 @@ namespace sbid.Model
             {
                 parameters = value;
                 OnPropertyChanged("Parameters");
-                OnPropertyChanged("ParaString");
+                OnPropertyChanged("ShowString");
             }
         }
         // 加解密方法名
         public string CryptoName { get => cryptoName; set => cryptoName = value; }
-        // 用于在前端展示形参列表的逗号分隔串
-        public string ParaString
+        // 形如"Msg enc(Msg m, Key k);[AES]"的展示串
+        public string ShowString
         {
             get
             {
@@ -44,8 +44,9 @@ namespace sbid.Model
                 {
                     list.Add(attr.Type + " " + attr.Identifier);
                 }
-                return string.Join(", ", list.ToArray());
-                //形如"int a, bool b, Msg c"
+                string paras =  string.Join(", ", list.ToArray());
+
+                return returnType + " " + identifier + "(" + paras + ");[" + cryptoName + "]";
             }
         }
 

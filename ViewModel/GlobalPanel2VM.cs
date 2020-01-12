@@ -21,8 +21,12 @@ namespace sbid.ViewModel
 
         public GlobalPanel2VM()
         {
+            //
+            // Create a network, the root of the view-model.
+            //
+            this.Network = new NetworkViewModel();
             // Add some test data to the view-model.
-            PopulateWithTestData();
+            //PopulateWithTestData();
         }
 
         /// <summary>
@@ -201,16 +205,12 @@ namespace sbid.ViewModel
         private void PopulateWithTestData()
         {
             //
-            // Create a network, the root of the view-model.
-            //
-            this.Network = new NetworkViewModel();
-
-            //
             // Create some nodes and add them to the view-model.
             //
             var node1 = CreateNode("Node1", new Point(30, 30));
             var node2 = CreateNode("Node2", new Point(250, 30));
 
+            
             //
             // Create a connection between the nodes.
             //
@@ -246,10 +246,30 @@ namespace sbid.ViewModel
             this.Network.Nodes.Add(node);
             return node;
         }
+
         public NodeViewModel getUserTypeVM(int userTypeIdx)
         {
             var node = new UserTypeVM(userTypeIdx);
             return node;
+        }
+
+        public UserType2VM CreateUserType2VM(string _name, Point nodeLocation)
+        {
+            UserType2VM node = new UserType2VM(_name);
+            // 放到全局资源里
+            ResourceManager.currentProtocal.userType2.Add(node.UserType2);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
+        public void Test_Node()
+        {
+            NodeViewModel node1 = CreatProcessVM(new Point(30, 30));
+            NodeViewModel node2 = CreatProcessVM(new Point(250, 30));
+            UserType2VM node3 = CreateUserType2VM("Msg", new Point(300, 30));
+            UserType2VM node4 = CreateUserType2VM("Key", new Point(350, 30));
         }
         #endregion 创建结点
     }

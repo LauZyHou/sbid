@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="编辑Process-" Height="300" Width="500" Topmost="True"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
-    <TabControl Name="TabControl1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <!--Attribute-->
         <TabItem Header="Attribute">
             <Grid Background="#FFE5E5E5">
@@ -25,9 +25,9 @@
                         <RowDefinition Height="23*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="变量类型："/>
-                    <ListBox Grid.Row="1"/>
+                    <ListBox x:Name="AllTypesListBox_Attr" Grid.Row="1"/>
                     <TextBlock Grid.Row="2" Text="变量名称："/>
-                    <TextBox Grid.Row="3" Text=""/>
+                    <TextBox x:Name="AttrParamIdtTextBox" Grid.Row="3" Text=""/>
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
                         <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
@@ -36,8 +36,13 @@
                 </Grid>
                 <!--Attribute右-->
                 <Grid Grid.Column="1" Margin="10">
-                    <ListBox>
-                        
+                    <ListBox x:Name="AttrListBox" ItemsSource="{Binding MyProcessVM.Process.Attributes}" 
+                             SelectionChanged="AttrListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Grid>
@@ -49,7 +54,7 @@
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Attribute左-->
+                <!--Method左-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -72,10 +77,15 @@
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
                 </Grid>
-                <!--Attribute右-->
+                <!--Method右-->
                 <Grid Grid.Column="1" Margin="10">
-                    <ListBox>
-
+                    <ListBox x:Name="MethodListBox" ItemsSource="{Binding MyProcessVM.Process.Methods}"
+                             SelectionChanged="MethodListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Grid>
@@ -87,7 +97,7 @@
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Attribute左-->
+                <!--CommMethod左-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -100,23 +110,34 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="输入/输出："/>
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <RadioButton GroupName="ready" Margin="5">IN</RadioButton>
-                        <RadioButton GroupName="ready" Margin="5">OUT</RadioButton>
+                        <RadioButton x:Name="InRadioButton" GroupName="ready" Margin="5">IN</RadioButton>
+                        <RadioButton x:Name="OutRadioButton" GroupName="ready" Margin="5" IsChecked="True">OUT</RadioButton>
                     </StackPanel>
                     <TextBlock Grid.Row="2" Text="函数名称："/>
-                    <TextBox Grid.Row="3"/>
-                    <TextBlock Grid.Row="4" Text="唯一参数："/>
-                    <ListBox Grid.Row="5"/>
+                    <TextBox x:Name="CommMethodIdtTextBox" Grid.Row="3"/>
+                    <TextBlock Grid.Row="4" Text="参数列表："/>
+                    <ListBox x:Name="CommMethodParamListBox" Grid.Row="5">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <StackPanel Grid.Row="6" Orientation="Horizontal">
                         <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
                 </Grid>
-                <!--Attribute右-->
+                <!--CommMethod右-->
                 <Grid Grid.Column="1" Margin="10">
-                    <ListBox>
-
+                    <ListBox x:Name="CommMethodListBox" ItemsSource="{Binding MyProcessVM.Process.CommMethods}"
+                             SelectionChanged="CommMethodListBox_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Grid>
