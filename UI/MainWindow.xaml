@@ -41,6 +41,7 @@
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Background="LightGray">
             <Button Content="新协议" Click="MenuItem_Click_NewProtocal"/>
             <Button Content="保存"/>
+            <Button Content="生成XML" Click="Button_Click_GenerateXML"/>
         </StackPanel>
         <!--2,0 左侧条目-->
         <TabControl Grid.Row="2" Grid.Column="0" Background="AliceBlue">

@@ -66,6 +66,10 @@ namespace sbid.Model
             }
         }
 
+        public Method()
+        {
+        }
+
         public Method(string _idt)
         {
             this.identifier = _idt;

@@ -31,8 +31,10 @@
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
                         <Button Content="添加" Click="Button_Click_Attr_Add" 
                                 Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Click="Button_Click_Attr_Update" 
+                                Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Click="Button_Click_Attr_Delete" 
+                                Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
                 </Grid>
                 <!--Attribute右-->
@@ -79,9 +81,12 @@
                     <TextBlock Grid.Row="4" Text="映射关系(todo)："/>
                     <RichTextBox Grid.Row="5"/>
                     <StackPanel Grid.Row="6" Orientation="Horizontal">
-                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="添加" Click="Button_Click_InnerMethod_Add"
+                                Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="更新" Click="Button_Click_InnerMethod_Update"
+                                Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="删除" Click="Button_Click_InnerMethod_Delete"
+                                Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>
                 </Grid>
                 <!--内置Method右-->
@@ -107,15 +112,15 @@
                 <!--自定Method左-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="15*"/>
-                        <RowDefinition Height="63*"/>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="14*"/>
+                        <RowDefinition Height="9*"/>
+                        <RowDefinition Height="12*"/>
+                        <RowDefinition Height="69*"/>
                         <RowDefinition Height="25*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="返回类型："/>
-                    <ListBox Grid.Row="1"/>
+                    <ComboBox x:Name="OwnMethodRetTypeComboBox" Grid.Row="1"/>
                     <TextBlock Grid.Row="2" Text="函数名称："/>
                     <TextBox Grid.Row="3"/>
                     <Grid Grid.Row="4">
@@ -125,20 +130,23 @@
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="9*"/>
+                                <RowDefinition Height="13*"/>
+                                <RowDefinition Height="9*"/>
+                                <RowDefinition Height="13*"/>
                                 <RowDefinition Height="20*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="参数类型"/>
-                            <ListBox Grid.Row="1"/>
+                            <ComboBox x:Name="OwnMethodParamTypeComboBox" Grid.Row="1" />
                             <TextBlock Grid.Row="2" Text="参数名称"/>
-                            <ListBox Grid.Row="3"/>
+                            <TextBox x:Name="OwnMethodParamNameTextBox" Grid.Row="3"/>
                             <StackPanel Grid.Row="4" Orientation="Horizontal">
-                                <Button Content="添加" Width="32" Height="24" Margin="2,0"/>
-                                <Button Content="更新" Width="32" Height="24" Margin="2,0"/>
-                                <Button Content="删除" Width="32" Height="24" Margin="2,0"/>
+                                <Button Content="添加" Click="Button_Click_OwnMethod_AddAttr"
+                                        Width="32" Height="24" Margin="2,0"/>
+                                <Button Content="更新" Click="Button_Click_OwnMethod_UpdateAttr"
+                                        Width="32" Height="24" Margin="2,0"/>
+                                <Button Content="删除" Click="Button_Click_OwnMethod_DeleteAttr"
+                                        Width="32" Height="24" Margin="2,0"/>
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Column="1">
@@ -147,7 +155,7 @@
                                 <RowDefinition Height="53*"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0" Text="参数列表："/>
-                            <ListBox Grid.Row="1">
+                            <ListBox x:Name="OwnMethodAttributeListBox" Grid.Row="1">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=ShowString}"/>
@@ -156,9 +164,9 @@
                             </ListBox>
                         </Grid>
                     </Grid>
-                    
                     <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <Button Content="添加" Width="60" Height="30" Margin="8,0"/>
+                        <Button Content="添加"
+                                Width="60" Height="30" Margin="8,0"/>
                         <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>
                     </StackPanel>

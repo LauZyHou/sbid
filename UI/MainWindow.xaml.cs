@@ -158,5 +158,26 @@ namespace sbid
             currentModel_TabControl.Items.Add(tabItem);
             tabItem.Focus();
         }
+
+        // [按钮]生成XML
+        private void Button_Click_GenerateXML(object sender, RoutedEventArgs e)
+        {
+            ResourceManager.Protocol2Xml(ResourceManager.currentProtocal, "D:\\data\\test.xml");
+            //Test_GenerateXML();
+        }
+
+        #region 测试
+
+        private void Test_GenerateXML()
+        {
+            Protocol protocol = new Protocol("测试protocol");
+            Process process1 = new Process();
+            process1.Attributes.Add(new Attribute("int", "a1"));
+            process1.Attributes.Add(new Attribute("bool", "a2"));
+            protocol.processes.Add(process1);
+            ResourceManager.Protocol2Xml(protocol, "D:\\data\\test.xml");
+        }
+
+        #endregion 测试
     }
 }

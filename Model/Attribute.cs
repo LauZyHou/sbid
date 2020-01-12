@@ -21,6 +21,10 @@ namespace sbid.Model
             }
         }
 
+        public Attribute()
+        {
+        }
+
         public Attribute(string _type, string _idt)
         {
             this.type = _type;

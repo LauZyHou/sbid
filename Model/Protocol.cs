@@ -8,11 +8,14 @@ namespace sbid.Model
 {
     public class Protocol : AbstractModelBase
     {
-        public string name;
+        private string name;
         public List<Process> processes = new List<Process>();
         public List<UserType> userTypes = new List<UserType>();
         // 临时
         public List<UserType2> userType2 = new List<UserType2>();
+
+        public string Name { get => name; set => name = value; }
+
         // 用于获取Ptotocal中所有的类型(即"int","bool"加上所有UserType2的Name)
         public ObservableCollection<string> AllTypes
         {
