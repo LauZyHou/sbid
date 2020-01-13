@@ -122,7 +122,7 @@
                     <TextBlock Grid.Row="0" Text="返回类型："/>
                     <ComboBox x:Name="OwnMethodRetTypeComboBox" Grid.Row="1"/>
                     <TextBlock Grid.Row="2" Text="函数名称："/>
-                    <TextBox Grid.Row="3"/>
+                    <TextBox x:Name="OwnMethodIdtTextBox" Grid.Row="3"/>
                     <Grid Grid.Row="4">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50*"/>
@@ -165,7 +165,7 @@
                         </Grid>
                     </Grid>
                     <StackPanel Grid.Row="5" Orientation="Horizontal">
-                        <Button Content="添加"
+                        <Button Content="添加" Click="Button_Click_OwnMethod_Add"
                                 Width="60" Height="30" Margin="8,0"/>
                         <Button Content="更新" Width="60" Height="30" Margin="8,0"/>
                         <Button Content="删除" Width="60" Height="30" Margin="8,0"/>

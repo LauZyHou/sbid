@@ -20,13 +20,20 @@ namespace sbid.UI
     /// </summary>
     public partial class ProcessWindow : Window
     {
+        #region 参数与属性
+
         private ProcessVM myProcessVM;
         // 用于绑定自定Method的ItemsSource的参数列表(用户清空后切换到使用此列表为源)
+        // 当用户点击右侧的Method时，仅拷贝其内容到这里
         private ObservableCollection<Attribute> ownMethodAttrs = new ObservableCollection<Attribute>();
         // 永远指向自定Method的ItemsSource
-        private ObservableCollection<Attribute> ownMethodAttrs_IS = null;
+        //private ObservableCollection<Attribute> ownMethodAttrs_IS = null;
 
         public ProcessVM MyProcessVM { get => myProcessVM; set => myProcessVM = value; }
+
+        #endregion 参数与属性
+
+        #region 构造
 
         // 在构造时必须将ViewModel传入,以作修改和显示
         public ProcessWindow(ProcessVM _pvm)
@@ -45,26 +52,31 @@ namespace sbid.UI
             // 加密算法
             CryptoNameListBox.ItemsSource = ResourceManager.cryptoNames;
             // 指向自定Method的ItemsSource
-            ownMethodAttrs_IS = ownMethodAttrs;
-            OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs_IS;
+            //ownMethodAttrs_IS = ownMethodAttrs;
+            OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs;
         }
+
+        #endregion 构造
+
+        #region 条目改变选中的事件处理
 
         // Attribute右侧的条目改变选中
         private void AttrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
-            if (AttrListBox.SelectedItems.Count < 1)
+            if (AttrListBox.SelectedItem == null)
                 return;
             // 获取当前选中的Attribute
-            Attribute nowAttr = ((Attribute)AttrListBox.SelectedItems[0]);
+            Attribute nowAttr = ((Attribute)AttrListBox.SelectedItem);
             AttrParamIdtTextBox.Text = nowAttr.Identifier;
+            // todo
         }
 
         // 内置Method右侧的条目改变选中
         private void MethodListBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
-            if (MethodListBox1.SelectedItems.Count < 1)
+            if (MethodListBox1.SelectedItem == null)
                 return;
             // 获取当前选中的Method
             Method nowMethod = ((Method)MethodListBox1.SelectedItems[0]);
@@ -75,7 +87,7 @@ namespace sbid.UI
         private void MethodListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
-            if (MethodListBox2.SelectedItems.Count < 1)
+            if (MethodListBox2.SelectedItem == null)
                 return;
             // 获取当前选中的Method
             Method nowMethod = ((Method)MethodListBox2.SelectedItems[0]);
@@ -86,7 +98,7 @@ namespace sbid.UI
         private void CommMethodListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
-            if (CommMethodListBox.SelectedItems.Count < 1)
+            if (CommMethodListBox.SelectedItem == null)
                 return;
             // 获取当前选中的CommMethod
             CommMethod nowCommMethod = ((CommMethod)CommMethodListBox.SelectedItems[0]);
@@ -102,13 +114,16 @@ namespace sbid.UI
             }
         }
 
+        #endregion 条目改变选中的事件处理
+
         #region 按钮控制
 
+        //----------------------------------Attribute-----------------------------------------
 
         // [按钮]Attribute->添加
         private void Button_Click_Attr_Add(object sender, RoutedEventArgs e)
         {
-            if (AllTypesListBox_Attr.SelectedItems.Count < 1 || AttrParamIdtTextBox.Text.Length < 1)
+            if (AllTypesListBox_Attr.SelectedItem == null || AttrParamIdtTextBox.Text.Length < 1)
             {
                 MessageBox.Show("需要选中 变量类型 并写入 变量名称");
                 return;
@@ -123,7 +138,7 @@ namespace sbid.UI
         // [按钮]Attribute->更新
         private void Button_Click_Attr_Update(object sender, RoutedEventArgs e)
         {
-            if (AllTypesListBox_Attr.SelectedItems.Count < 1 || AttrListBox.SelectedItems.Count < 1)
+            if (AllTypesListBox_Attr.SelectedItem == null || AttrListBox.SelectedItem == null)
             {
                 MessageBox.Show("变量类型 和 右侧Attribute 都要选中");
                 return;
@@ -145,9 +160,9 @@ namespace sbid.UI
         // [按钮]Attribute->删除
         private void Button_Click_Attr_Delete(object sender, RoutedEventArgs e)
         {
-            if (AttrListBox.SelectedItems.Count < 1)
+            if (AttrListBox.SelectedItem == null)
             {
-                MessageBox.Show("需要选中 右侧Attribute");
+                MessageBox.Show("需要选中 要删除的Attribute");
                 return;
             }
             // 右侧选中的Attribute的下标
@@ -161,10 +176,12 @@ namespace sbid.UI
             MyProcessVM.Process.Attributes.RemoveAt(idx);
         }
 
+        //----------------------------------内置Method-----------------------------------------
+
         // [按钮]内置Method->添加
         private void Button_Click_InnerMethod_Add(object sender, RoutedEventArgs e)
         {
-            if (InnerMethodListBox.SelectedItems.Count < 1)
+            if (InnerMethodListBox.SelectedItem == null)
             {
                 MessageBox.Show("需要选中 内置Method");
                 return;
@@ -188,9 +205,9 @@ namespace sbid.UI
         // [按钮]内置Method->更新
         private void Button_Click_InnerMethod_Update(object sender, RoutedEventArgs e)
         {
-            if (InnerMethodListBox.SelectedItems.Count < 1 || MethodListBox1.SelectedItems.Count < 1)
+            if (InnerMethodListBox.SelectedItem == null || MethodListBox1.SelectedItem == null)
             {
-                MessageBox.Show("需要选中 内置Method 和 右侧Method");
+                MessageBox.Show("需要选中 内置Method 和 要更新的Method");
                 return;
             }
             // todo 判重
@@ -214,9 +231,9 @@ namespace sbid.UI
         // [按钮]内置Method->删除
         private void Button_Click_InnerMethod_Delete(object sender, RoutedEventArgs e)
         {
-            if (MethodListBox1.SelectedItems.Count < 1)
+            if (MethodListBox1.SelectedItem == null)
             {
-                MessageBox.Show("需要选中 右侧Method");
+                MessageBox.Show("需要选中 要删除的Method");
                 return;
             }
             // 右侧Method的下标
@@ -224,6 +241,8 @@ namespace sbid.UI
             // 删除
             MyProcessVM.Process.Methods.RemoveAt(rightIdx);
         }
+
+        //----------------------------------自定Method-----------------------------------------
 
         // [按钮]自定Method->添加参数(Attribute)
         private void Button_Click_OwnMethod_AddAttr(object sender, RoutedEventArgs e)
@@ -247,9 +266,9 @@ namespace sbid.UI
         private void Button_Click_OwnMethod_UpdateAttr(object sender, RoutedEventArgs e)
         {
             if (
-                OwnMethodParamTypeComboBox.SelectedItem == null || 
+                OwnMethodParamTypeComboBox.SelectedItem == null ||
                 OwnMethodParamNameTextBox.Text.Length < 1 ||
-                OwnMethodAttributeListBox.Items.Count < 1
+                OwnMethodAttributeListBox.SelectedItem == null
                 )
             {
                 MessageBox.Show("需要选中 参数类型 并写入 参数名称 并选中 要修改的Attribute");
@@ -268,9 +287,9 @@ namespace sbid.UI
         // [按钮]自定Method->删除参数(Attribute)
         private void Button_Click_OwnMethod_DeleteAttr(object sender, RoutedEventArgs e)
         {
-            if (OwnMethodAttributeListBox.Items.Count < 1)
+            if (OwnMethodAttributeListBox.SelectedItem == null)
             {
-                MessageBox.Show("需要选中 要修改的Attribute");
+                MessageBox.Show("需要选中 要删除的Attribute");
                 return;
             }
             // 选中的Attribute的下标
@@ -278,6 +297,36 @@ namespace sbid.UI
             // 删除
             ownMethodAttrs.RemoveAt(attrIdx);
         }
+
+        // [按钮]自定Method->添加
+        private void Button_Click_OwnMethod_Add(object sender, RoutedEventArgs e)
+        {
+            if (OwnMethodRetTypeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要添加的Method]的[返回值类型]");
+                return;
+            }
+            if (OwnMethodIdtTextBox.Text.Length < 1)
+            {
+                MessageBox.Show("需要给出[要添加的Method]的[函数名]");
+                return;
+            }
+            if (ownMethodAttrs.Count < 1)
+            {
+                MessageBox.Show("需要给出[要添加的Method]的[形参表]");
+                return;
+            }
+            Method newMethod = new Method(OwnMethodIdtTextBox.Text);
+            newMethod.ReturnType = (string)OwnMethodRetTypeComboBox.SelectedItem;
+            foreach (Attribute a in ownMethodAttrs)
+            {
+                newMethod.Parameters.Add(a);
+            }
+            // 添加
+            MyProcessVM.Process.Methods.Add(newMethod);
+        }
+
+        //----------------------------------CommMethod-----------------------------------------
 
         #endregion 按钮控制
     }
