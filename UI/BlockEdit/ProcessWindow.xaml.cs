@@ -23,9 +23,10 @@ namespace sbid.UI
         #region 参数与属性
 
         private ProcessVM myProcessVM;
-        // 用于绑定自定Method的ItemsSource的参数列表(用户清空后切换到使用此列表为源)
-        // 当用户点击右侧的Method时，仅拷贝其内容到这里
+        // 用于绑定自定Method的ItemsSource的参数列表,当用户点击右侧的Method时,仅拷贝其内容到这里
         private ObservableCollection<Attribute> ownMethodAttrs = new ObservableCollection<Attribute>();
+        // 用于绑定CommMethod的ItemsSource的参数列表,当用户点击右侧的Method时,仅拷贝其内容到这里
+        private ObservableCollection<Attribute> commMethodAttrs = new ObservableCollection<Attribute>();
         // 永远指向自定Method的ItemsSource
         //private ObservableCollection<Attribute> ownMethodAttrs_IS = null;
 
@@ -44,16 +45,19 @@ namespace sbid.UI
             // 有了这个xaml中才能binding到这里的public属性
             this.DataContext = this;
             // "int","bool"和所有UserType的Name显示在列表中
-            AllTypesListBox_Attr.ItemsSource = ResourceManager.currentProtocal.AllTypes;
-            OwnMethodRetTypeComboBox.ItemsSource = ResourceManager.currentProtocal.AllTypes;
-            OwnMethodParamTypeComboBox.ItemsSource = ResourceManager.currentProtocal.AllTypes;
+            AllTypesListBox_Attr.ItemsSource = ResourceManager.currentProtocol.AllTypes;
+            OwnMethodRetTypeComboBox.ItemsSource = ResourceManager.currentProtocol.AllTypes;
+            OwnMethodParamTypeComboBox.ItemsSource = ResourceManager.currentProtocol.AllTypes;
+            CommMethodParamTypeComboBox.ItemsSource = ResourceManager.currentProtocol.AllTypes;
             // 内置函数
             InnerMethodListBox.ItemsSource = ResourceManager.innerMethods;
             // 加密算法
             CryptoNameListBox.ItemsSource = ResourceManager.cryptoNames;
-            // 指向自定Method的ItemsSource
+            // 指向自定Method的Attribute列表的ItemsSource
             //ownMethodAttrs_IS = ownMethodAttrs;
             OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs;
+            // 指向CommMethod的Attribute列表的ItemsSource
+            CommMethodAttributeListBox.ItemsSource = commMethodAttrs;
         }
 
         #endregion 构造
@@ -68,8 +72,10 @@ namespace sbid.UI
                 return;
             // 获取当前选中的Attribute
             Attribute nowAttr = ((Attribute)AttrListBox.SelectedItem);
+            // 设置左侧显示的变量名
             AttrParamIdtTextBox.Text = nowAttr.Identifier;
-            // todo
+            // 设置左侧选中的类型
+            AllTypesListBox_Attr.SelectedItem = AllTypesListBox_Attr.Items[ResourceManager.currentProtocol.AllTypes.IndexOf(nowAttr.Type)];
         }
 
         // 内置Method右侧的条目改变选中
@@ -79,8 +85,10 @@ namespace sbid.UI
             if (MethodListBox1.SelectedItem == null)
                 return;
             // 获取当前选中的Method
-            Method nowMethod = ((Method)MethodListBox1.SelectedItems[0]);
-            // todo
+            Method nowMethod = ((Method)MethodListBox1.SelectedItem);
+            // todo 设置左侧的内置函数
+            // 设置左侧的加密算法
+            CryptoNameListBox.SelectedItem = CryptoNameListBox.Items[ResourceManager.cryptoNames.IndexOf(nowMethod.CryptoName)];
         }
 
         // 自定Method右侧的条目改变选中
@@ -90,8 +98,32 @@ namespace sbid.UI
             if (MethodListBox2.SelectedItem == null)
                 return;
             // 获取当前选中的Method
-            Method nowMethod = ((Method)MethodListBox2.SelectedItems[0]);
-            // todo
+            Method nowMethod = ((Method)MethodListBox2.SelectedItem);
+            // 设置返回值类型
+            OwnMethodRetTypeComboBox.SelectedItem = OwnMethodRetTypeComboBox.Items[ResourceManager.currentProtocol.AllTypes.IndexOf(nowMethod.ReturnType)];
+            // 设置函数名称
+            OwnMethodIdtTextBox.Text = nowMethod.Identifier;
+            // 设置参数列表
+            ownMethodAttrs = new ObservableCollection<Attribute>();
+            foreach (Attribute attribute in nowMethod.Parameters)
+            {
+                ownMethodAttrs.Add(attribute);
+            }
+            OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs;
+        }
+
+        // 自定Method左侧的参数列表改变选中
+        private void OwnMethodAttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 点其它地方时可能导致这里未选中任何项
+            if (OwnMethodAttributeListBox.SelectedItem == null)
+                return;
+            // 获取当前选中的Attribute
+            Attribute attribute = ((Attribute)OwnMethodAttributeListBox.SelectedItem);
+            // 设置参数类型
+            OwnMethodParamTypeComboBox.SelectedItem = OwnMethodParamTypeComboBox.Items[ResourceManager.currentProtocol.AllTypes.IndexOf(attribute.Type)];
+            // 设置参数名
+            OwnMethodParamNameTextBox.Text = attribute.Identifier;
         }
 
         // CommMethod右侧的条目改变选中
@@ -101,9 +133,17 @@ namespace sbid.UI
             if (CommMethodListBox.SelectedItem == null)
                 return;
             // 获取当前选中的CommMethod
-            CommMethod nowCommMethod = ((CommMethod)CommMethodListBox.SelectedItems[0]);
+            CommMethod nowCommMethod = ((CommMethod)CommMethodListBox.SelectedItem);
+            // 设置函数名称
             CommMethodIdtTextBox.Text = nowCommMethod.Identifier;
-            CommMethodParamListBox.ItemsSource = nowCommMethod.Parameters;
+            // 设置参数列表
+            commMethodAttrs = new ObservableCollection<Attribute>();
+            foreach (Attribute attribute in nowCommMethod.Parameters)
+            {
+                commMethodAttrs.Add(attribute);
+            }
+            CommMethodAttributeListBox.ItemsSource = commMethodAttrs;
+            // 设置输入输出
             if (nowCommMethod.InOut == "in")
             {
                 InRadioButton.IsChecked = true;
@@ -112,6 +152,20 @@ namespace sbid.UI
             {
                 OutRadioButton.IsChecked = true;
             }
+        }
+
+        // CommMethod左侧的参数列表改变选中
+        private void CommMethodAttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // 点其它地方时可能导致这里未选中任何项
+            if (CommMethodAttributeListBox.SelectedItem == null)
+                return;
+            // 获取当前选中的Attribute
+            Attribute attribute = ((Attribute)CommMethodAttributeListBox.SelectedItem);
+            // 设置参数类型
+            CommMethodParamTypeComboBox.SelectedItem = CommMethodParamTypeComboBox.Items[ResourceManager.currentProtocol.AllTypes.IndexOf(attribute.Type)];
+            // 设置参数名
+            CommMethodParamNameTextBox.Text = attribute.Identifier;
         }
 
         #endregion 条目改变选中的事件处理
@@ -256,7 +310,7 @@ namespace sbid.UI
             // 添加
             ownMethodAttrs.Add(
                 new Attribute(
-                  ResourceManager.currentProtocal.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
+                  ResourceManager.currentProtocol.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
                   OwnMethodParamNameTextBox.Text // 参数名称
                 )
              );
@@ -279,7 +333,7 @@ namespace sbid.UI
             int attrIdx = OwnMethodAttributeListBox.SelectedIndex;
             // 更新
             ownMethodAttrs[attrIdx] = new Attribute(
-                ResourceManager.currentProtocal.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
+                ResourceManager.currentProtocol.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
                 OwnMethodParamNameTextBox.Text // 参数名称
             );
         }
@@ -322,12 +376,200 @@ namespace sbid.UI
             {
                 newMethod.Parameters.Add(a);
             }
+
+            // todo 判重
             // 添加
             MyProcessVM.Process.Methods.Add(newMethod);
         }
 
+        // [按钮]自定Method->更新
+        private void Button_Click_OwnMethod_Update(object sender, RoutedEventArgs e)
+        {
+            if (OwnMethodRetTypeComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要更新的Method]的[返回值类型]");
+                return;
+            }
+            if (OwnMethodIdtTextBox.Text.Length < 1)
+            {
+                MessageBox.Show("需要给出[要更新的Method]的[函数名]");
+                return;
+            }
+            if (ownMethodAttrs.Count < 1)
+            {
+                MessageBox.Show("需要给出[要更新的Method]的[形参表]");
+                return;
+            }
+            if (MethodListBox2.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要更新的Method]");
+                return;
+            }
+            Method newMethod = new Method(OwnMethodIdtTextBox.Text);
+            newMethod.ReturnType = (string)OwnMethodRetTypeComboBox.SelectedItem;
+            foreach (Attribute a in ownMethodAttrs)
+            {
+                newMethod.Parameters.Add(a);
+            }
+            // todo 判重
+            // 选中的Method的下标
+            int methodIdx = MethodListBox2.SelectedIndex;
+            // 更新
+            MyProcessVM.Process.Methods[methodIdx] = newMethod;
+        }
+
+        // [按钮]自定Method->删除
+        private void Button_Click_OwnMethod_Delete(object sender, RoutedEventArgs e)
+        {
+            if (MethodListBox2.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要删除的Method]");
+                return;
+            }
+            // 选中的Method的下标
+            int methodIdx = MethodListBox2.SelectedIndex;
+            // 删除
+            MyProcessVM.Process.Methods.RemoveAt(methodIdx);
+        }
+
         //----------------------------------CommMethod-----------------------------------------
 
+        // [按钮]CommMethod->添加参数(Attribute)
+        private void Button_Click_CommMethod_AddAttr(object sender, RoutedEventArgs e)
+        {
+            if (CommMethodParamTypeComboBox.SelectedItem == null || CommMethodParamNameTextBox.Text.Length < 1)
+            {
+                MessageBox.Show("需要选中 参数类型 并写入 参数名称");
+                return;
+            }
+            // todo 判重
+            // 添加
+            commMethodAttrs.Add(
+                new Attribute(
+                  (string)CommMethodParamTypeComboBox.SelectedItem, // 参数类型
+                  CommMethodParamNameTextBox.Text // 参数名称
+                )
+             );
+        }
+
+        // [按钮]CommMethod->更新参数(Attribute)
+        private void Button_Click_CommMethod_UpdateAttr(object sender, RoutedEventArgs e)
+        {
+            if (
+                CommMethodParamTypeComboBox.SelectedItem == null ||
+                CommMethodParamNameTextBox.Text.Length < 1 ||
+                CommMethodAttributeListBox.SelectedItem == null
+                )
+            {
+                MessageBox.Show("需要选中 参数类型 并写入 参数名称 并选中 要修改的Attribute");
+                return;
+            }
+            // todo 判重
+            // 选中的Attribute的下标
+            int attrIdx = CommMethodAttributeListBox.SelectedIndex;
+            // 更新
+            commMethodAttrs[attrIdx] = new Attribute(
+                (string)CommMethodParamTypeComboBox.SelectedItem, // 参数类型
+                CommMethodParamNameTextBox.Text // 参数名称
+            );
+        }
+
+        // [按钮]CommMethod->删除参数(Attribute)
+        private void Button_Click_CommMethod_DeleteAttr(object sender, RoutedEventArgs e)
+        {
+            if (CommMethodAttributeListBox.SelectedItem == null)
+            {
+                MessageBox.Show("需要选中 要删除的Attribute");
+                return;
+            }
+            // 选中的Attribute的下标
+            int attrIdx = CommMethodAttributeListBox.SelectedIndex;
+            // 删除
+            commMethodAttrs.RemoveAt(attrIdx);
+        }
+
+        // [按钮]CommMethod->添加
+        private void Button_Click_CommMethod_Add(object sender, RoutedEventArgs e)
+        {
+            if (InRadioButton.IsChecked == false && OutRadioButton.IsChecked == false)
+            {
+                MessageBox.Show("需要选定[要添加的CommMethod]的[IN/OUT]");
+                return;
+            }
+            if (CommMethodIdtTextBox.Text.Length < 1)
+            {
+                MessageBox.Show("需要给出[要添加的CommMethod]的[函数名]");
+                return;
+            }
+            if (commMethodAttrs.Count < 1)
+            {
+                MessageBox.Show("需要给出[要添加的CommMethod]的[形参表]");
+                return;
+            }
+            CommMethod newCommMethod = new CommMethod(CommMethodIdtTextBox.Text);
+            newCommMethod.InOut = InRadioButton.IsChecked == true ? "in" : "out";
+            foreach (Attribute a in commMethodAttrs)
+            {
+                newCommMethod.Parameters.Add(a);
+            }
+
+            // todo 判重
+            // 添加
+            MyProcessVM.Process.CommMethods.Add(newCommMethod);
+        }
+
+        // [按钮]CommMethod->更新
+        private void Button_Click_CommMethod_Update(object sender, RoutedEventArgs e)
+        {
+            if (InRadioButton.IsChecked == false && OutRadioButton.IsChecked == false)
+            {
+                MessageBox.Show("需要选定[要更新的CommMethod]的[IN/OUT]");
+                return;
+            }
+            if (CommMethodIdtTextBox.Text.Length < 1)
+            {
+                MessageBox.Show("需要给出[要更新的CommMethod]的[函数名]");
+                return;
+            }
+            if (commMethodAttrs.Count < 1)
+            {
+                MessageBox.Show("需要给出[要更新的CommMethod]的[形参表]");
+                return;
+            }
+            if (CommMethodListBox.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要更新的CommMethod]");
+                return;
+            }
+            CommMethod newCommMethod = new CommMethod(CommMethodIdtTextBox.Text);
+            newCommMethod.InOut = InRadioButton.IsChecked == true ? "in" : "out";
+            foreach (Attribute a in commMethodAttrs)
+            {
+                newCommMethod.Parameters.Add(a);
+            }
+
+            // todo 判重
+            // 选中的Method的下标
+            int commMethodIdx = CommMethodListBox.SelectedIndex;
+            // 更新
+            MyProcessVM.Process.CommMethods[commMethodIdx] = newCommMethod;
+        }
+
+        // [按钮]自定Method->删除
+        private void Button_Click_CommMethod_Delete(object sender, RoutedEventArgs e)
+        {
+            if (CommMethodListBox.SelectedItem == null)
+            {
+                MessageBox.Show("需要选定[要删除的CommMethod]");
+                return;
+            }
+            // 选中的CommMethod的下标
+            int commMethodIdx = CommMethodListBox.SelectedIndex;
+            // 删除
+            MyProcessVM.Process.CommMethods.RemoveAt(commMethodIdx);
+        }
+
         #endregion 按钮控制
+
     }
 }

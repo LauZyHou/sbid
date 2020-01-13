@@ -231,7 +231,7 @@ namespace sbid.ViewModel
         {
             ProcessVM node = new ProcessVM();
             // 放到全局资源里
-            ResourceManager.currentProtocal.processes.Add(node.Process);
+            ResourceManager.currentProtocol.processes.Add(node.Process);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);
@@ -257,7 +257,7 @@ namespace sbid.ViewModel
         {
             UserType2VM node = new UserType2VM(_name);
             // 放到全局资源里
-            ResourceManager.currentProtocal.userType2.Add(node.UserType2);
+            ResourceManager.currentProtocol.userType2.Add(node.UserType2);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);
