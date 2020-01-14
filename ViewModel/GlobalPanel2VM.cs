@@ -253,7 +253,7 @@ namespace sbid.ViewModel
 
         
 
-        public UserType2VM CreateUserType2VM(string _name, Point nodeLocation)
+        public NodeViewModel CreateUserType2VM(string _name, Point nodeLocation)
         {
             UserType2VM node = new UserType2VM(_name);
             // 放到全局资源里
@@ -264,12 +264,23 @@ namespace sbid.ViewModel
             return node;
         }
 
+        public NodeViewModel CreateSecurityPropertyVM(string _name,Point nodeLocation)
+        {
+            SecurityPropertyVM node = new SecurityPropertyVM(_name);
+            // 放到全局资源里
+            ResourceManager.currentProtocol.securityProperties.Add(node.SecurityProperty);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
         public void Test_Node()
         {
             NodeViewModel node1 = CreatProcessVM(new Point(30, 30));
             NodeViewModel node2 = CreatProcessVM(new Point(250, 30));
-            UserType2VM node3 = CreateUserType2VM("Msg", new Point(300, 30));
-            UserType2VM node4 = CreateUserType2VM("Key", new Point(350, 30));
+            NodeViewModel node3 = CreateUserType2VM("Msg", new Point(300, 30));
+            NodeViewModel node4 = CreateUserType2VM("Key", new Point(350, 30));
         }
         #endregion 创建结点
     }
