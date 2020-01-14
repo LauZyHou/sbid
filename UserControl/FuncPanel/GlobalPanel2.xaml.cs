@@ -55,14 +55,12 @@ namespace sbid.UserControl
 
         }
 
-        //[按钮]添加自定义类型
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateUserTypeVM(userTypeId, new Point(100+count*30, 100+count*30));
-            this.userTypeId += 1;
+            this.ViewModel.CreateUserType2VM("初始化"+count, new Point(100 + count * 30, 100 + count * 30));
             this.count++;
-        }
 
+        }
         #endregion
 
         #region 命令的执行函数
@@ -96,9 +94,9 @@ namespace sbid.UserControl
                     {
                         new ProcessWindow((ProcessVM)node).ShowDialog();
                     }
-                    else if (node is UserTypeVM)
+                    else if (node is UserType2VM)
                     {
-                        new UserTypeWindow(node.Name).ShowDialog();
+                        new UserTypeWindow((UserType2VM)node).ShowDialog();
                     }
                     else 
                     {
