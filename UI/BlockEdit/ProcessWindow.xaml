@@ -106,11 +106,12 @@
         <TabItem Header="自定Method">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50*"/>
-                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="194*"/>
+                    <ColumnDefinition Width="53*"/>
+                    <ColumnDefinition Width="247*"/>
                 </Grid.ColumnDefinitions>
                 <!--自定Method左-->
-                <Grid Grid.Column="0" Margin="10,5">
+                <Grid Grid.Column="0" Margin="10,5,10,5" Grid.ColumnSpan="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="9*"/>
                         <RowDefinition Height="14*"/>
@@ -176,7 +177,7 @@
                     </StackPanel>
                 </Grid>
                 <!--自定Method右-->
-                <Grid Grid.Column="1" Margin="10">
+                <Grid Grid.Column="2" Margin="10,10,10,10">
                     <ListBox x:Name="MethodListBox2" ItemsSource="{Binding MyProcessVM.Process.Methods}"
                              SelectionChanged="MethodListBox2_SelectionChanged">
                         <ListBox.ItemTemplate>

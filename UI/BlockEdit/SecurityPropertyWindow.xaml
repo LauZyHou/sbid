@@ -18,22 +18,25 @@
                 <!--Confidential-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="20*"/>
                         <RowDefinition Height="80*"/>
-                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="20*"/>
                         <RowDefinition Height="52*"/>
                         <RowDefinition Height="23*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="进程名称:"/>
-                    <ListBox x:Name="AllProcessListBox_Attr" Grid.Row="1" DisplayMemberPath="Name"/>
+                    <ListBox x:Name="AllProcessListBox_Attr" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr_SelectionChanged"/>
                     <TextBlock Grid.Row="2" Text="状态名称:"/>
                     <ListBox x:Name="AllStatesListBox_Attr" Grid.Row="3"/>
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
                         <Button Content="添加" 
-                                Width="60" Height="30" Margin="8,0" Click="Button_Click_AddSecurity"/>
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_AddConfidential"/>
+                        <Button Content="更新" 
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_UpdateConfidential"/>
                         <Button Content="删除" 
-                                Width="60" Height="30" Margin="50,0"/>
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_DeleteConfidential"/>
                     </StackPanel>
+
                 </Grid>
                 <!--Confidential右-->
                 <Grid Grid.Column="1" Margin="10">
@@ -47,56 +50,70 @@
                 </Grid>
             </Grid>
         </TabItem>
+
+
+
+
         <!--Authenticity-->
-        <TabItem Header="Confidential" HorizontalAlignment="Left" Width="82">
+        <TabItem Header="Authenticity">
             <Grid Background="#FFE5E5E5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="34*"/>
-                    <ColumnDefinition Width="28*"/>
-                    <ColumnDefinition Width="43*"/>
-                    <ColumnDefinition Width="33*"/>
-                    <ColumnDefinition Width="109*"/>
-                    <ColumnDefinition Width="247*"/>
+                    <ColumnDefinition Width="50*"/>
+                    <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Authenticity左-->
-                <Grid Grid.Column="0"  Grid.ColumnSpan="5">
+                <!--Confidential-->
+                <Grid Grid.Column="0" Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="30*"/>
-                        <RowDefinition Height="30*"/>
-
+                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="进程类型1："/>
-                    <ListBox x:Name="AllProcessListBox_Attr1" DisplayMemberPath="Name"  Grid.Row="1"/>
-                    <TextBlock Grid.Row="2" Text="状态机1状态：："/>
-                    <TextBox  Grid.Row="3" Text=""/>
-                    <TextBlock Grid.Row="4" Text="进程类型1："/>
-                    <ListBox x:Name="AllProcessListBox_Attr2" DisplayMemberPath="Name" Grid.Row="5"/>
-                    <TextBlock Grid.Row="6" Text="状态机1状态：："/>
-                    <TextBox  Grid.Row="7" Text=""/>
-                    <StackPanel Grid.Row="8" Orientation="Horizontal">
-                        <Button Content="添加" 
-                                Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="更新" 
-                                Width="60" Height="30" Margin="8,0"/>
-                        <Button Content="删除" 
-                                Width="60" Height="30" Margin="8,0"/>
-                    </StackPanel>
-
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="80*"/>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="52*"/>
+                            <RowDefinition Height="23*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="进程1名称:"/>
+                        <ListBox x:Name="AllProcessListBox_Attr1" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr1_SelectionChanged"/>
+                        <TextBlock Grid.Row="2" Text="状态1名称:"/>
+                        <ListBox x:Name="AllStatesListBox_Attr1" Grid.Row="3"/>
+                    </Grid>
+                    <Grid Grid.Column="1" Grid.Row="0" Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="80*"/>
+                            <RowDefinition Height="20*"/>
+                            <RowDefinition Height="52*"/>
+                            <RowDefinition Height="23*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="进程2名称:"/>
+                        <ListBox x:Name="AllProcessListBox_Attr2" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr2_SelectionChanged"/>
+                        <TextBlock Grid.Row="2" Text="状态2名称:"/>
+                        <ListBox x:Name="AllStatesListBox_Attr2" Grid.Row="3"/>
+                    </Grid>
+                    <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="添加" 
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_AddAuthenticity"/>
+                            <Button Content="更新" 
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_UpdateAuthenticity"/>
+                            <Button Content="删除" 
+                                Width="60" Height="30" Margin="8,0" Click="Button_Click_DeleteAuthenticity"/>
+                        </StackPanel>
+                    </Grid>
                 </Grid>
                 <!--Authenticity右-->
-                <Grid Grid.Column="5" Margin="10,10,10,10">
-                    <ListBox  ItemsSource="{Binding MyProcessVM.Process.Attributes}"
-                           >
+                <Grid Grid.Column="1"  Margin="10">
+                    <ListBox x:Name="AuthenticityListBox" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"/>
+                                <TextBlock Text="{Binding Path=ShowString}"></TextBlock>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

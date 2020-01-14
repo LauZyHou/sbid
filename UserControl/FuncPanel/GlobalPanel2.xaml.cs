@@ -99,7 +99,7 @@ namespace sbid.UserControl
                     }
                     else if (node is SecurityPropertyVM)
                     {
-                        new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();
+                        new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();                     
                     }
                     else 
                     {
@@ -111,31 +111,6 @@ namespace sbid.UserControl
             }
         }
 
-        /// 编辑状态机(创建并打开相应对话框)
-        private void EditStateMachine_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            // 判断具体是在哪个上点击的右键编辑，即判断选中的类图
-            var nodesCopy = this.ViewModel.Network.Nodes.ToArray();
-            foreach (var node in nodesCopy)
-            {
-                if (node.IsSelected)
-                {
-                    if (node is ProcessVM)
-                    {
-                        // todo 考虑已有的StateMachine
-                        StateMachineWindow stateMachineWindow = new StateMachineWindow(node.Name);
-                        //// todo
-                        ((ProcessVM)node).Process.stateMachineMap.Add("todo", stateMachineWindow.stateMachine);
-                        stateMachineWindow.ShowDialog();
-                    }
-                    else
-                    {
-                        MessageBox.Show("错误!");
-                    }
-                    break;
-                }
-            }
-        }
 
         /// 编辑状态机第二版(创建并打开相应Tab)
         private void EditStateMachine2_Executed(object sender, ExecutedRoutedEventArgs e)

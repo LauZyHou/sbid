@@ -159,19 +159,27 @@
                                 <RowDefinition Height="20*" MinHeight="20px"/>
                                 <RowDefinition Height="1"/>
                                 <RowDefinition Height="10*"/>
-                                <RowDefinition Height="70*"/>
-                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
-
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
                                 <TextBlock Text="SecurityProperty " FontWeight="Bold"/>
-                                <TextBox Background="{Binding Color}" Text="{Binding SecurityProperty.Name}" FontWeight="Bold"/>
+                                <TextBox Text="{Binding SecurityProperty.Name}" Background="{Binding Color}"  FontWeight="Bold"/>
                             </StackPanel>
 
+
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
+
                             <TextBlock Grid.Row="2" Text="Confidential:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
-                            <ListBox Grid.Row="3" ItemsSource="{Binding SecurityProperty.Attributes}" IsHitTestVisible="False"
+
+                            <ListBox Grid.Row="3" ItemsSource="{Binding SecurityProperty.Conattributes}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -180,13 +188,24 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
 
-                            <TextBlock Grid.Row="4"/>
+                            <GridSplitter Grid.Row="4" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
+
+                            <TextBlock Grid.Row="5" Text="Authenticity:"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+
+                            <ListBox Grid.Row="6" ItemsSource="{Binding SecurityProperty.Auattributes}" IsHitTestVisible="False"
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
-                        <!--图形上的右键菜单-->
                         <Grid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除SecurityProperity"/>
-                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑SecurityProperity"/>
+                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除SecurityProperty"/>
+                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑SecurityProperty"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
