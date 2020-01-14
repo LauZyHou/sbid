@@ -52,7 +52,7 @@ namespace sbid.UI
             // 内置函数
             InnerMethodListBox.ItemsSource = ResourceManager.innerMethods;
             // 加密算法
-            CryptoNameListBox.ItemsSource = ResourceManager.cryptoNames;
+            CryptoNameComboBox.ItemsSource = ResourceManager.cryptoNames;
             // 指向自定Method的Attribute列表的ItemsSource
             //ownMethodAttrs_IS = ownMethodAttrs;
             OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs;
@@ -88,7 +88,7 @@ namespace sbid.UI
             Method nowMethod = ((Method)MethodListBox1.SelectedItem);
             // todo 设置左侧的内置函数
             // 设置左侧的加密算法
-            CryptoNameListBox.SelectedItem = CryptoNameListBox.Items[ResourceManager.cryptoNames.IndexOf(nowMethod.CryptoName)];
+            CryptoNameComboBox.SelectedItem = CryptoNameComboBox.Items[ResourceManager.cryptoNames.IndexOf(nowMethod.CryptoName)];
         }
 
         // 自定Method右侧的条目改变选中
@@ -247,9 +247,9 @@ namespace sbid.UI
                 ResourceManager.innerMethods[idx]
                 );
             // 可选加密算法
-            if (CryptoNameListBox.SelectedItems.Count > 0)
+            if (CryptoNameComboBox.SelectedItem != null)
             {
-                int crptoIndex = CryptoNameListBox.SelectedIndex;
+                int crptoIndex = CryptoNameComboBox.SelectedIndex;
                 newMethod.CryptoName = ResourceManager.cryptoNames[crptoIndex];
             }
             // 添加
@@ -271,9 +271,9 @@ namespace sbid.UI
                 ResourceManager.innerMethods[idx]
                 );
             // 可选加密算法
-            if (CryptoNameListBox.SelectedItems.Count > 0)
+            if (CryptoNameComboBox.SelectedItem != null)
             {
-                int crptoIndex = CryptoNameListBox.SelectedIndex;
+                int crptoIndex = CryptoNameComboBox.SelectedIndex;
                 newMethod.CryptoName = ResourceManager.cryptoNames[crptoIndex];
             }
             // 右侧Method的下标

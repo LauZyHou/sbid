@@ -65,6 +65,7 @@ namespace sbid.UserControl
         #endregion
 
         #region 命令的执行函数
+
         /// 删除选中的结点
         private void DeleteSelectedNodes_Executed(object sender, ExecutedRoutedEventArgs e)
         {
@@ -133,7 +134,14 @@ namespace sbid.UserControl
                 }
             }
         }
-        #endregion
+
+        /// 编辑状态机第二版(创建并打开相应Tab)
+        private void EditStateMachine2_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+
+        }
+
+        #endregion 命令的执行函数
 
         #region 用于NewworkView的事件回调
         /// 当用户[开始]拖动锚点连线时触发此事件

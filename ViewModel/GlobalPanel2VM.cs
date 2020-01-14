@@ -144,6 +144,19 @@ namespace sbid.ViewModel
             {
                 if (node.IsSelected)
                 {
+                    // 判断类型,将其从全局资源中也删除
+                    if (node is ProcessVM)
+                    {
+                        ResourceManager.currentProtocol.processes.Remove(((ProcessVM)node).Process);
+                    }
+                    else if (node is UserType2VM)
+                    {
+                        ResourceManager.currentProtocol.userType2.Remove(((UserType2VM)node).UserType2);
+                        // todo 警示用户此操作影响到其它类图
+                        // todo 将其它类图也删除,或者考虑禁止删除UserType2,除非没有其它类图在使用它
+                    }
+                    // todo 其它类图资源的删除
+                    // 在界面上删除图形
                     DeleteNode(node);
                 }
             }

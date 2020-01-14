@@ -63,9 +63,9 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="30*"/>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="30*"/>
+                        <RowDefinition Height="14*"/>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="36*"/>
                         <RowDefinition Height="25*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="内置函数："/>
@@ -77,7 +77,7 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <TextBlock Grid.Row="2" Text="加密算法："/>
-                    <ListBox x:Name="CryptoNameListBox" Grid.Row="3"/>
+                    <ComboBox x:Name="CryptoNameComboBox" Grid.Row="3"/>
                     <TextBlock Grid.Row="4" Text="映射关系(todo)："/>
                     <RichTextBox Grid.Row="5"/>
                     <StackPanel Grid.Row="6" Orientation="Horizontal">

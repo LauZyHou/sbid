@@ -34,6 +34,7 @@
                 <RoutedUICommand x:Key="Commands.CreateNodes"/>
                 <RoutedUICommand x:Key="Commands.Edit"/>
                 <RoutedUICommand x:Key="Commands.EditStateMachine"/>
+                <RoutedUICommand x:Key="Commands.EditStateMachine2"/>
 
                 <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
                 <DataTemplate DataType="{x:Type NetworkModel:ConnectionViewModel}">
@@ -101,13 +102,6 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=ShowString}"/>
-                                        <!--<StackPanel Orientation="Horizontal">
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=Type}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=Identifier}"/>
-                                            <TextBlock Text=";"/>
-                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -122,17 +116,6 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=ShowString}"/>
-                                        <!--<StackPanel Orientation="Horizontal">
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=ReturnType}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=Identifier}"/>
-                                            <TextBlock Text="("/>
-                                            <TextBlock Text="{Binding Path=ParaString}"/>
-                                            <TextBlock Text=");["/>
-                                            <TextBlock Text="{Binding Path=CryptoName}"/>
-                                            <TextBlock Text="]"/>
-                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -147,17 +130,6 @@
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Path=ShowString}"/>
-                                        <!--<StackPanel Orientation="Horizontal">
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=ReturnType}"/>
-                                            <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Path=Identifier}"/>
-                                            <TextBlock Text="("/>
-                                            <TextBlock Text="{Binding Path=ParaString}"/>
-                                            <TextBlock Text=");["/>
-                                            <TextBlock Text="{Binding Path=InOut}"/>
-                                            <TextBlock Text="]"/>
-                                        </StackPanel>-->
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -166,9 +138,10 @@
                         </Grid>
                         <Grid.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
-                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
-                                <MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="编辑状态机"/>
+                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除Process"/>
+                                <MenuItem Header="编辑Process" Command="{StaticResource Commands.Edit}"/>
+                                <MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="新状态机"/>
+                                <MenuItem Header="编辑状态机" Command="{StaticResource Commands.EditStateMachine2}"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
                     </Grid>
@@ -255,6 +228,7 @@
                 <CommandBinding Command="{StaticResource Commands.DeleteSelectedNodes}" Executed="DeleteSelectedNodes_Executed"/>
                 <CommandBinding Command="{StaticResource Commands.Edit}" Executed="Edit_Executed"/>
                 <CommandBinding Command="{StaticResource Commands.EditStateMachine}" Executed="EditStateMachine_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.EditStateMachine2}" Executed="EditStateMachine2_Executed"/>
             </ScrollViewer.CommandBindings>
             <!--[*]设置右键菜单-->
             <ScrollViewer.ContextMenu>
