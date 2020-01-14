@@ -136,7 +136,7 @@ namespace sbid
         //---------------------以下仅是用于给上面调用的，抽象出来的方法---------------------
 
         //在当前模型下添加面板
-        private void add_new_panel(string title, FrameworkElement frameworkElement)
+        public void add_new_panel(string title, FrameworkElement frameworkElement)
         {
             //在这里使用传入的标题和内容面板
             CloseableTabItem tabItem = new CloseableTabItem

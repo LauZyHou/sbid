@@ -14,6 +14,7 @@ using sbid.ViewModel;
 using sbid.UI;
 using NetworkModel;
 using NetworkUI;
+using sbid.Model;
 
 namespace sbid.UserControl
 {
@@ -138,7 +139,54 @@ namespace sbid.UserControl
         /// 编辑状态机第二版(创建并打开相应Tab)
         private void EditStateMachine2_Executed(object sender, ExecutedRoutedEventArgs e)
         {
+            // 越过第一层选项卡
+            CloseableTabItem closeableTabItem1= bigGrid.Parent as CloseableTabItem;
+            TabControl tabControl1 = closeableTabItem1.Parent as TabControl;
 
+            // 越过第二层选项卡
+            CloseableTabItem closeableTabItem2 = tabControl1.Parent as CloseableTabItem;
+            TabControl tabControl2 = closeableTabItem2.Parent as TabControl;
+
+            // 越过两层Grid
+            Grid grid1 = tabControl2.Parent as Grid;
+            Grid grid2 = grid1.Parent as Grid;
+
+            // 获取到MainWindow
+            MainWindow mainWindow = grid2.Parent as MainWindow;
+
+            // 判断选中的ProcessVM,从中取出Process的Name
+            string pName = null;
+            Process nowProcess = null;
+            int selectedPNum = 0;
+            var nodesCopy = this.ViewModel.Network.Nodes.ToArray();
+            foreach (var node in nodesCopy)
+            {
+                if (node.IsSelected)
+                {
+                    if (node is ProcessVM)
+                    {
+                        pName = ((ProcessVM)node).Process.Name;
+                        selectedPNum += 1;
+                        nowProcess = ((ProcessVM)node).Process;
+                    }
+                }
+            }
+            if (pName == null)
+            {
+                MessageBox.Show("需要选中一个Process");
+                return;
+            }
+            if (selectedPNum > 1)
+            {
+                MessageBox.Show("选中了过多的Process");
+                return;
+            }
+
+            // todo: 新 / 旧ViewModel
+            StateMachineVM stateMachineVM = new StateMachineVM("init", nowProcess);
+            // todo:打卡新面板 / 跳到旧面板
+            mainWindow.add_new_panel("Process\""+pName+"\"的状态机", 
+                new StateMachinePanel(stateMachineVM).Content as Grid);
         }
 
         #endregion 命令的执行函数

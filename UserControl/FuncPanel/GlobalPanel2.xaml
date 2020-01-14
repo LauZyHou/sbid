@@ -9,7 +9,7 @@
              xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="bigGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" MinHeight="23px"/>
             <RowDefinition Height="96*"/>

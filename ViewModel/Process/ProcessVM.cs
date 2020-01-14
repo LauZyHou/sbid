@@ -8,12 +8,12 @@ namespace sbid.ViewModel
 {
     public class ProcessVM : NodeViewModel
     {
-        #region 引用Model
+        #region 字段和属性
         private Process process = new Process();
 
         public Process Process { get => process; set => process = value; }
 
-        #endregion 引用Model
+        #endregion 字段和属性
         public ProcessVM()
         {
             this.Name = "Process";

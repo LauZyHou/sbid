@@ -32,7 +32,6 @@ namespace sbid.Model
             Test_Init();
         }
 
-
         private void Test_Init()
         {
             attributes.Add(new Attribute("int", "a"));

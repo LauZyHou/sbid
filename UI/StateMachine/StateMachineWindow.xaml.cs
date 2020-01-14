@@ -23,7 +23,7 @@ namespace sbid.UI
     public partial class StateMachineWindow : Window
     {
         // 需集成状态机的数据对象
-        public StateMachine stateMachine = new StateMachine();
+        public StateMachine stateMachine = new StateMachine("testlzhfst");
         // 记录鼠标点击的次数,用于判断双击事件
         private int clkNum = 0;
 
