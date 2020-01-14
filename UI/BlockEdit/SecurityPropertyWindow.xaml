@@ -15,11 +15,11 @@
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Confidential-->
-                <Grid Grid.Column="0" Margin="10">
+                <!--Confidential左-->
+                <Grid Grid.Column="0" Margin="10,5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="20*"/>
-                        <RowDefinition Height="80*"/>
+                        <RowDefinition Height="60*"/>
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="52*"/>
                         <RowDefinition Height="23*"/>
@@ -27,7 +27,13 @@
                     <TextBlock Grid.Row="0" Text="进程名称:"/>
                     <ListBox x:Name="AllProcessListBox_Attr" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr_SelectionChanged"/>
                     <TextBlock Grid.Row="2" Text="状态名称:"/>
-                    <ListBox x:Name="AllStatesListBox_Attr" Grid.Row="3"/>
+                    <ListBox x:Name="AllStatesListBox_Attr" Grid.Row="3">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Name}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                     <StackPanel Grid.Row="4" Orientation="Horizontal">
                         <Button Content="添加" 
                                 Width="60" Height="30" Margin="8,0" Click="Button_Click_AddConfidential"/>
@@ -43,16 +49,13 @@
                     <ListBox x:Name="AttrListBox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"></TextBlock>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </Grid>
             </Grid>
         </TabItem>
-
-
-
 
         <!--Authenticity-->
         <TabItem Header="Authenticity">
@@ -80,9 +83,17 @@
                             <RowDefinition Height="23*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="进程1名称:"/>
-                        <ListBox x:Name="AllProcessListBox_Attr1" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr1_SelectionChanged"/>
+                        <ComboBox x:Name="AllProcessComboBox_Attr1" Grid.Row="1" 
+                                 DisplayMemberPath="Name" 
+                                 SelectionChanged="AllProcessComboBox_Attr1_SelectionChanged"/>
                         <TextBlock Grid.Row="2" Text="状态1名称:"/>
-                        <ListBox x:Name="AllStatesListBox_Attr1" Grid.Row="3"/>
+                        <ComboBox x:Name="AllStatesComboBox_Attr1" Grid.Row="3">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
                     <Grid Grid.Column="1" Grid.Row="0" Margin="10">
                         <Grid.RowDefinitions>
@@ -93,9 +104,17 @@
                             <RowDefinition Height="23*"/>
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="进程2名称:"/>
-                        <ListBox x:Name="AllProcessListBox_Attr2" Grid.Row="1" DisplayMemberPath="Name" SelectionChanged="AllProcessListBox_Attr2_SelectionChanged"/>
+                        <ComboBox x:Name="AllProcessComboBox_Attr2" Grid.Row="1" 
+                                  DisplayMemberPath="Name" 
+                                  SelectionChanged="AllProcessComboBox_Attr2_SelectionChanged"/>
                         <TextBlock Grid.Row="2" Text="状态2名称:"/>
-                        <ListBox x:Name="AllStatesListBox_Attr2" Grid.Row="3"/>
+                        <ComboBox x:Name="AllStatesComboBox_Attr2" Grid.Row="3">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Name}"/>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
                     </Grid>
                     <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="10">
                         <StackPanel Orientation="Horizontal">
@@ -113,7 +132,7 @@
                     <ListBox x:Name="AuthenticityListBox" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"></TextBlock>
+                                <TextBlock Text="{Binding Path=ShowString}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

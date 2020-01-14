@@ -41,25 +41,33 @@ namespace sbid.UserControl
 
         #region 按钮控制
 
-        //[按钮]测试
+        // [按钮]测试
         private void Button_Click_Test(object sender, RoutedEventArgs e)
         {
             this.ViewModel.Test_Node();
         }
 
-        //[按钮]添加进程模板
+        // [按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
             this.ViewModel.CreatProcessVM(new Point(100+count*30, 100+count*30));
             this.count++;
 
         }
-
+        // [按钮]添加UserType
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
             this.ViewModel.CreateUserType2VM("初始化"+count, new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
+
+        // [按钮]添加SecurityProperty
+        private void Button_Click_SecurityProperty(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.CreateSecurityPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
+            this.count++;
+        }
+
         #endregion
 
         #region 命令的执行函数
@@ -209,14 +217,6 @@ namespace sbid.UserControl
 
         private void attributeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void Button_Click_SecurityProperty(object sender, RoutedEventArgs e)
-        {
-            this.ViewModel.CreateSecurityPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
-            this.count++;
-
 
         }
     }

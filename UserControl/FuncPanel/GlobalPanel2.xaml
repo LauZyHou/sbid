@@ -86,11 +86,10 @@
                                 <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,11,4">
                                 <TextBlock Text="Process " FontWeight="Bold"/>
-                                <TextBox Text="{Binding Process.Name}" Background="{Binding Color}"  FontWeight="Bold"/>
+                                <TextBox Text="{Binding Process.Name}" Background="{Binding Color}" BorderBrush="{Binding Color}" FontWeight="Bold"/>
                             </StackPanel>
-                            
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
@@ -147,7 +146,6 @@
                     </Grid>
                 </DataTemplate>
 
-              
                 <!--SecurityProperty的数据模板-->
                 <DataTemplate DataType="{x:Type vm:SecurityPropertyVM}">
                     <Grid MinWidth="120" MinHeight="120">
@@ -163,16 +161,13 @@
                                 <RowDefinition Height="1"/>
                                 <RowDefinition Height="10*"/>
                                 <RowDefinition Height="40*"/>
-                                <RowDefinition Height="1"/>
-                                <RowDefinition Height="10*"/>
-                                <RowDefinition Height="40*"/>
                                 <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
+                            
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,11,4">
                                 <TextBlock Text="SecurityProperty " FontWeight="Bold"/>
-                                <TextBox Text="{Binding SecurityProperty.Name}" Background="{Binding Color}"  FontWeight="Bold"/>
+                                <TextBox Text="{Binding SecurityProperty.Name}" Background="{Binding Color}" BorderBrush="{Binding Color}" FontWeight="Bold"/>
                             </StackPanel>
-
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
 
@@ -201,6 +196,8 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
+
+                            <TextBlock Grid.Row="7"/>
                         </Grid>
                         <Grid.ContextMenu>
                             <ContextMenu>
@@ -225,9 +222,9 @@
                                 <RowDefinition Height="5*"/>
                             </Grid.RowDefinitions>
 
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,0,4">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,11,4">
                                 <TextBlock Text="UserType " FontWeight="Bold"/>
-                                <TextBox Background="{Binding Color}" Text="{Binding UserType2.Name}" FontWeight="Bold"/>
+                                <TextBox Background="{Binding Color}" Text="{Binding UserType2.Name}" BorderBrush="{Binding Color}" FontWeight="Bold"/>
                             </StackPanel>
 
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Margin="12,0,12,0" Background="Black"/>
@@ -256,6 +253,7 @@
             <ScrollViewer.DataContext>
                 <vm:GlobalPanel2VM/>
             </ScrollViewer.DataContext>
+            
             <!--[*]设置命令所绑定的执行方法-->
             <ScrollViewer.CommandBindings>
                 <CommandBinding Command="{StaticResource Commands.CreateNodes}" Executed="CreateNode_Executed"/>
@@ -264,6 +262,7 @@
                 <!--<CommandBinding Command="{StaticResource Commands.EditStateMachine}" Executed="EditStateMachine_Executed"/>-->
                 <CommandBinding Command="{StaticResource Commands.EditStateMachine2}" Executed="EditStateMachine2_Executed"/>
             </ScrollViewer.CommandBindings>
+            
             <!--[*]设置右键菜单-->
             <ScrollViewer.ContextMenu>
                 <ContextMenu>
@@ -272,10 +271,12 @@
                     <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>-->
                 </ContextMenu>
             </ScrollViewer.ContextMenu>
+            
             <!--[*]设置绑定按键触发的命令-->
             <ScrollViewer.InputBindings>
                 <KeyBinding Key="Delete" Command="{StaticResource Commands.DeleteSelectedNodes}"/>
             </ScrollViewer.InputBindings>
+            
             <!--放入NetworkView,并添加各个事件的处理函数-->
             <NetworkUI:NetworkView
             x:Name="networkControl"

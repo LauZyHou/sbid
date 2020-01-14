@@ -109,17 +109,17 @@ namespace sbid.Model
             xmlWriter.WriteStartElement("StateMachine");
             xmlWriter.WriteAttributeString("name", stateMachine.Name);
             xmlWriter.WriteAttributeString("initial_state", stateMachine.Name);
-            foreach (string state in stateMachine.States)
+            foreach (State state in stateMachine.States)
             {
                 xmlWriter.WriteStartElement("State");
-                xmlWriter.WriteAttributeString("name", state);
+                xmlWriter.WriteAttributeString("name", state.Name);
                 xmlWriter.WriteEndElement();
             }
             foreach (Transition transition in stateMachine.Transitions)
             {
                 xmlWriter.WriteStartElement("Transition");
-                xmlWriter.WriteAttributeString("from", transition.FromState);
-                xmlWriter.WriteAttributeString("to", transition.ToState);
+                xmlWriter.WriteAttributeString("from", transition.FromState.Name);
+                xmlWriter.WriteAttributeString("to", transition.ToState.Name);
                 {
                     xmlWriter.WriteStartElement("Guard");
                     xmlWriter.WriteAttributeString("content", transition.Guard);

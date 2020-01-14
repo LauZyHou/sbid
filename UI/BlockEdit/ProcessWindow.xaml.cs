@@ -23,13 +23,12 @@ namespace sbid.UI
         #region 参数与属性
 
         private ProcessVM myProcessVM;
+
         // 用于绑定自定Method的ItemsSource的参数列表,当用户点击右侧的Method时,仅拷贝其内容到这里
         private ObservableCollection<Attribute> ownMethodAttrs = new ObservableCollection<Attribute>();
         // 用于绑定CommMethod的ItemsSource的参数列表,当用户点击右侧的Method时,仅拷贝其内容到这里
         private ObservableCollection<Attribute> commMethodAttrs = new ObservableCollection<Attribute>();
-        // 永远指向自定Method的ItemsSource
-        //private ObservableCollection<Attribute> ownMethodAttrs_IS = null;
-
+        // 传入的ProcessVM
         public ProcessVM MyProcessVM { get => myProcessVM; set => myProcessVM = value; }
 
         #endregion 参数与属性

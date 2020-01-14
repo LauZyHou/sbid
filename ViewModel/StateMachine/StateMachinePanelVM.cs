@@ -4,6 +4,7 @@ using System.Text;
 using NetworkModel;
 using Utils;
 using System.Windows;
+using sbid.Model;
 
 namespace sbid.ViewModel
 {
@@ -89,8 +90,8 @@ namespace sbid.ViewModel
             // 源点
             //
             connection.SourceConnector = draggedOutConnector;
-            // [数据维护]源点结点名
-            connection.Transition.FromState = draggedOutConnector.ParentNode.Name;
+            // [数据维护]源点结点状态
+            connection.Transition.FromState = ((StateVM)draggedOutConnector.ParentNode).State;
 
             //
             // Set the position of destination connector to the current position of the mouse cursor.
@@ -163,10 +164,39 @@ namespace sbid.ViewModel
             // 完成连线
             //
             // [数据维护]先将其中的Transition写到状态机的Transitions里
-            newConnection.Transition.ToState = connectorDraggedOver.ParentNode.Name;
+            newConnection.Transition.ToState = ((StateVM)connectorDraggedOver.ParentNode).State;
             this.stateMachineVM.StateMachine.Transitions.Add(newConnection.Transition);
             // 再将锚点连上
             newConnection.DestConnector = connectorDraggedOver;
+        }
+
+        /// <summary>
+        /// Delete the node from the view-model.
+        /// Also deletes any connections to or from the node.
+        /// 删除结点
+        /// </summary>
+        public void DeleteNode(StateVM node)
+        {
+            // [数据维护]将结点对应的状态的使用次数-1
+            this.stateMachineVM.Process.StateUsing[node.State.Name]--;
+
+            //
+            // Remove all connections attached to the node.
+            // 删除结点的所有连线
+            //
+            // [数据维护]先将相连的Transition从状态机的Transitions里删除
+            foreach (TransitionVM tvm in node.AttachedConnections)
+            {
+                this.stateMachineVM.StateMachine.Transitions.Remove(tvm.Transition);
+            }
+            // 再删除连线
+            this.Network.Connections.RemoveRange(node.AttachedConnections);
+
+            //
+            // Remove the node from the network.
+            // 从网络中删除
+            //
+            this.Network.Nodes.Remove(node);
         }
 
         /// <summary>
@@ -177,7 +207,7 @@ namespace sbid.ViewModel
             // Take a copy of the nodes list so we can delete nodes while iterating.
             var nodesCopy = this.Network.Nodes.ToArray();
 
-            foreach (var node in nodesCopy)
+            foreach (StateVM node in nodesCopy)
             {
                 if (node.IsSelected)
                 {
@@ -219,33 +249,27 @@ namespace sbid.ViewModel
             return null;
         }
 
-        /// <summary>
-        /// Delete the node from the view-model.
-        /// Also deletes any connections to or from the node.
-        /// 删除结点
-        /// </summary>
-        public void DeleteNode(NodeViewModel node)
-        {
-            //
-            // Remove all connections attached to the node.
-            // 删除结点的所有连线
-            //
-            this.Network.Connections.RemoveRange(node.AttachedConnections);
-
-            //
-            // Remove the node from the network.
-            // 从网络中删除
-            //
-            this.Network.Nodes.Remove(node);
-        }
-
         #region 创建状态结点
 
         // 创建初始状态结点
         public InitialStateVM CreateInitialState(Point nodeLocation)
         {
-            //var node = new NodeViewModel(name);
-            InitialStateVM node = new InitialStateVM();
+            // 检查是否之前创建过,创建过就取出引用
+            InitialStateVM node = null;
+            if (this.stateMachineVM.Process.StateQuote.ContainsKey("init"))
+            {
+                node = new InitialStateVM(this.stateMachineVM.Process.StateQuote["init"]);
+                this.stateMachineVM.Process.StateUsing["init"]++;
+            }
+            else
+            {
+                node = new InitialStateVM("init");
+                this.stateMachineVM.Process.StateQuote.Add("init", node.State);
+                this.stateMachineVM.Process.StateUsing.Add("init", 1);
+            }
+            // 加入到当前状态机状态列表中
+            this.stateMachineVM.StateMachine.States.Add(node.State);
+
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -257,13 +281,34 @@ namespace sbid.ViewModel
             return node;
         }
 
-        // 创建普通状态结点(todo检查状态名不能重复)
-        public StateVM CreateState(string _name, Point nodeLocation)
+        // 创建普通状态结点
+        public StateVM CreateState(Point nodeLocation, string _name=null)
         {
-            /* 创建状态(数据) */
-            this.stateMachineVM.StateMachine.States.Add(_name);
-            /* 创建状态(图形的VM) */
-            StateVM node = new StateVM(_name);
+            // 没提供名字时,要自动找一个没有使用过的名字
+            if (_name == null)
+            {
+                while(this.stateMachineVM.Process.StateQuote.ContainsKey("未命名状态" + this.stateMachineVM.Process.Sid))
+                {
+                    this.stateMachineVM.Process.Sid++;
+                }
+                _name = "未命名状态" + this.stateMachineVM.Process.Sid;
+            }
+            // 检查是否之前创建过,创建过就取出引用
+            StateVM node = null;
+            if (this.stateMachineVM.Process.StateQuote.ContainsKey(_name))
+            {
+                node = new StateVM(this.stateMachineVM.Process.StateQuote[_name]);
+                this.stateMachineVM.Process.StateUsing[_name]++;
+            }
+            else
+            {
+                node = new StateVM(_name);
+                this.stateMachineVM.Process.StateQuote.Add(_name, node.State);
+                this.stateMachineVM.Process.StateUsing.Add(_name, 1);
+            }
+            // 加入到当前状态机状态列表中
+            this.stateMachineVM.StateMachine.States.Add(node.State);
+
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -278,38 +323,25 @@ namespace sbid.ViewModel
             return node;
         }
 
-        // 创建普通状态结点,没有提供状态名时使用自增的状态名
-        public StateVM CreateState(Point nodeLocation)
-        {
-            string prefix = "未命名状态";
-            string nowName = null;
-            // 获取到当前状态机的状态自增id
-            int sid = this.stateMachineVM.Sid;
-            int i = 1;
-            for (; i <= 10; i++) // 只搜索10个名字
-            {
-                nowName = prefix + (sid + i);
-                if (!this.stateMachineVM.StateMachine.States.Contains(nowName))
-                {
-                    break;
-                }
-            }
-            if (i > 10)
-            {
-                // 例如当前sid=5,用户把10个之前的状态改成"未命名状态6"~"未命名状态15",再创建就会执行到这里
-                MessageBox.Show("找不到合适的名字!\n请将那些自己添加的\"未命名状态\"更名");
-                return null; // 创建状态失败
-            }
-            // 维护当前状态机的状态自增id
-            this.stateMachineVM.Sid = sid + i;
-
-            return CreateState(nowName, nodeLocation);
-        }
-
         // 创建终止状态结点
         public FinalStateVM CreateFinalState(Point nodeLocation)
         {
-            FinalStateVM node = new FinalStateVM();
+            // 检查是否之前创建过,创建过就取出引用
+            FinalStateVM node = null;
+            if (this.stateMachineVM.Process.StateQuote.ContainsKey("final"))
+            {
+                node = new FinalStateVM(this.stateMachineVM.Process.StateQuote["final"]);
+                this.stateMachineVM.Process.StateUsing["final"]++;
+            }
+            else
+            {
+                node = new FinalStateVM("final");
+                this.stateMachineVM.Process.StateQuote.Add("final", node.State);
+                this.stateMachineVM.Process.StateUsing.Add("final", 1);
+            }
+            // 加入到当前状态机状态列表中
+            this.stateMachineVM.StateMachine.States.Add(node.State);
+
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -330,15 +362,15 @@ namespace sbid.ViewModel
         {
             InitialStateVM initialState = CreateInitialState(new Point(180, 50));
             // 取"Process名_init"作为默认给的一个普通状态的Name
-            StateVM defaultState = CreateState(this.stateMachineVM.Process.Name + "_init", new Point(150, 190));
+            StateVM defaultState = CreateState(new Point(150, 190), this.stateMachineVM.Process.Name + "_init");
 
             //var connection = new TransitionVM();
             TransitionVM connection = new TransitionVM();
             connection.SourceConnector = initialState.Connectors[0];
             connection.DestConnector = defaultState.Connectors[1];
-            //[数据维护]写入到状态机列表里
-            connection.Transition.FromState = "init";
-            connection.Transition.ToState = defaultState.Name;
+            //[数据维护]写入到状态机Transition列表里
+            connection.Transition.FromState = initialState.State;
+            connection.Transition.ToState = defaultState.State;
             this.stateMachineVM.StateMachine.Transitions.Add(connection.Transition);
 
             this.Network.Connections.Add(connection);

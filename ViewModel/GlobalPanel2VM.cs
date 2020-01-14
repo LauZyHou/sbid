@@ -223,7 +223,7 @@ namespace sbid.ViewModel
             var node1 = CreateNode("Node1", new Point(30, 30));
             var node2 = CreateNode("Node2", new Point(250, 30));
 
-            
+
             //
             // Create a connection between the nodes.
             //
@@ -240,6 +240,8 @@ namespace sbid.ViewModel
         #endregion Private Methods
 
         #region 创建结点
+
+        // 创建Process
         public NodeViewModel CreatProcessVM(Point nodeLocation)
         {
             ProcessVM node = new ProcessVM();
@@ -251,8 +253,7 @@ namespace sbid.ViewModel
             return node;
         }
 
-        
-
+        // 创建UserType(第二版)
         public NodeViewModel CreateUserType2VM(string _name, Point nodeLocation)
         {
             UserType2VM node = new UserType2VM(_name);
@@ -264,7 +265,8 @@ namespace sbid.ViewModel
             return node;
         }
 
-        public NodeViewModel CreateSecurityPropertyVM(string _name,Point nodeLocation)
+        // 创建SecurityProperty
+        public NodeViewModel CreateSecurityPropertyVM(string _name, Point nodeLocation)
         {
             SecurityPropertyVM node = new SecurityPropertyVM(_name);
             // 放到全局资源里
