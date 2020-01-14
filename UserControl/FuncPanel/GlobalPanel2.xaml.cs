@@ -24,7 +24,6 @@ namespace sbid.UserControl
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
         // 每次创建时自增
-        private int userTypeId = 1;
         private int count = 1;
         public GlobalPanel2()
         {
@@ -52,6 +51,7 @@ namespace sbid.UserControl
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
             this.ViewModel.CreatProcessVM(new Point(100+count*30, 100+count*30));
+            this.count++;
 
         }
 
@@ -97,6 +97,10 @@ namespace sbid.UserControl
                     else if (node is UserType2VM)
                     {
                         new UserTypeWindow((UserType2VM)node).ShowDialog();
+                    }
+                    else if (node is SecurityPropertyVM)
+                    {
+                        new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();
                     }
                     else 
                     {
@@ -231,6 +235,14 @@ namespace sbid.UserControl
 
         private void attributeList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+        }
+
+        private void Button_Click_SecurityProperty(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.CreateSecurityPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
+            this.count++;
+
 
         }
     }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Text;
 
 namespace sbid.Model
 {
-    public class Process
+    public class Process: INotifyPropertyChanged
     {
         private static int _id = 1;
         private string name;
@@ -16,8 +17,25 @@ namespace sbid.Model
         // Process对应的状态机(多个嵌套成一个)
         public Dictionary<string, StateMachine> stateMachineMap = new Dictionary<string, StateMachine>();
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Process的名称
-        public string Name { get => name; set => name = value; }
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                NotifyPropertyChange("Name");
+            }
+        }
+        private void NotifyPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
         // Process包含的Attribute
         public ObservableCollection<Attribute> Attributes { get => attributes; set => attributes = value; }
         // Process包含的Method

@@ -19,7 +19,7 @@ namespace sbid.ViewModel
 
         public UserType2VM(string _name)
         {
-            this.UserType2.Name = _name;
+            this.userType2.Name = _name;
             this.Color = "#AADDFF";
         }
     }
