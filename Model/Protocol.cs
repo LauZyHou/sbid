@@ -10,7 +10,6 @@ namespace sbid.Model
     {
         private string name;
         public List<Process> processes = new List<Process>();
-        public List<UserType> userTypes = new List<UserType>();
         // 临时
         public List<UserType2> userType2 = new List<UserType2>();
 

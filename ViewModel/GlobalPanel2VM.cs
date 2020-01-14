@@ -251,20 +251,7 @@ namespace sbid.ViewModel
             return node;
         }
 
-        public NodeViewModel CreateUserTypeVM(int userTypeIdx, Point nodeLocation)
-        {
-            var node = new UserTypeVM(userTypeIdx);
-            node.X = nodeLocation.X;
-            node.Y = nodeLocation.Y;
-            this.Network.Nodes.Add(node);
-            return node;
-        }
-
-        public NodeViewModel getUserTypeVM(int userTypeIdx)
-        {
-            var node = new UserTypeVM(userTypeIdx);
-            return node;
-        }
+        
 
         public UserType2VM CreateUserType2VM(string _name, Point nodeLocation)
         {
