@@ -21,7 +21,7 @@ namespace sbid.UI
     public partial class ArrowEditWindow : Window
     {
         // 转移关系,不需要对外暴露,只要自己修改掉就可以
-        private TransitionVM transition = null;
+        private TransitionVM transitionVM = null;
         // 拷贝的Actions,作为listBox的ItemsSource,用于实现保存时再写回
         // 这里用ObservableCollection因为它已经实现了INotify...,可以立刻显示变化
         private ObservableCollection<string> _actions = null;
@@ -31,11 +31,11 @@ namespace sbid.UI
         {
             InitializeComponent();
             // 传入的TransitionVM写入
-            this.transition = _t;
+            this.transitionVM = _t;
             // Guard条件写入文本框
-            this.guradText.Text = _t.Guard;
+            this.guradText.Text = _t.Transition.Guard;
             // 拷贝到临时的_actions中
-            _actions = new ObservableCollection<string>(_t.Actions);
+            _actions = _t.Transition.Actions;
             // 临时的_actions作为listBox的ItemsSource
             this.listBox.ItemsSource = this._actions;
         }
@@ -64,9 +64,9 @@ namespace sbid.UI
         private void Button_Click_AllSave(object sender, RoutedEventArgs e)
         {
             // Gurad
-            transition.Guard = this.guradText.Text;
+            transitionVM.Transition.Guard = this.guradText.Text;
             // Actions
-            this.transition.Actions = _actions.ToList<string>();
+            this.transitionVM.Transition.Actions = _actions;
         }
     }
 }

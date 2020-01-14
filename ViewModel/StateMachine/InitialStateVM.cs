@@ -6,9 +6,9 @@ using NetworkModel;
 namespace sbid.ViewModel
 {
     // 状态机的初始状态ViewModel
-    public class InitalStateVM : NodeViewModel
+    public class InitialStateVM : NodeViewModel
     {
-        public InitalStateVM()
+        public InitialStateVM()
         {
             this.Name = "";
             this.Color = "Black";

@@ -13,9 +13,12 @@ namespace sbid.ViewModel
         private StateMachine stateMachine = null;
         // 反引Process的数据对象,以立刻将其写入Process中去,在改变状态机名时也要改Process中状态机表的key
         private Process process = null;
+        // 状态机命名用的自增id
+        private int sid;
 
         public StateMachine StateMachine { get => stateMachine; set => stateMachine = value; }
         public Process Process { get => process; set => process = value; }
+        public int Sid { get => sid; set => sid = value; }
 
         #endregion 字段和属性
 

@@ -53,6 +53,10 @@ namespace sbid.Model
             {
                 CommMethod2Xml(commMethod, xmlWriter);
             }
+            foreach (KeyValuePair<string, StateMachine> stateMachine in process.stateMachineMap)
+            {
+                StateMachine2Xml(stateMachine.Value, xmlWriter);
+            }
             xmlWriter.WriteEndElement();
         }
 
@@ -99,6 +103,39 @@ namespace sbid.Model
             }
             xmlWriter.WriteEndElement();
         }
+
+        private static void StateMachine2Xml(StateMachine stateMachine, XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("StateMachine");
+            xmlWriter.WriteAttributeString("name", stateMachine.Name);
+            xmlWriter.WriteAttributeString("initial_state", stateMachine.Name);
+            foreach (string state in stateMachine.States)
+            {
+                xmlWriter.WriteStartElement("State");
+                xmlWriter.WriteAttributeString("name", state);
+                xmlWriter.WriteEndElement();
+            }
+            foreach (Transition transition in stateMachine.Transitions)
+            {
+                xmlWriter.WriteStartElement("Transition");
+                xmlWriter.WriteAttributeString("from", transition.FromState);
+                xmlWriter.WriteAttributeString("to", transition.ToState);
+                {
+                    xmlWriter.WriteStartElement("Guard");
+                    xmlWriter.WriteAttributeString("content", transition.Guard);
+                    xmlWriter.WriteEndElement();
+                }
+                foreach (string action in transition.Actions)
+                {
+                    xmlWriter.WriteStartElement("Action");
+                    xmlWriter.WriteAttributeString("content", action);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+            }
+            xmlWriter.WriteEndElement();
+        }
+
         #endregion 转换到XML
     }
 }

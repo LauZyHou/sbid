@@ -33,7 +33,7 @@
                 <RoutedUICommand x:Key="Commands.DeleteSelectedNodes"/>
                 <RoutedUICommand x:Key="Commands.CreateNodes"/>
                 <RoutedUICommand x:Key="Commands.Edit"/>
-                <RoutedUICommand x:Key="Commands.EditStateMachine"/>
+                <!--<RoutedUICommand x:Key="Commands.EditStateMachine"/>-->
                 <RoutedUICommand x:Key="Commands.EditStateMachine2"/>
 
                 <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
@@ -140,7 +140,7 @@
                             <ContextMenu>
                                 <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除Process"/>
                                 <MenuItem Header="编辑Process" Command="{StaticResource Commands.Edit}"/>
-                                <MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="新状态机"/>
+                                <!--<MenuItem Header="状态机" Command="{StaticResource Commands.EditStateMachine}" ToolTip="新状态机"/>-->
                                 <MenuItem Header="编辑状态机" Command="{StaticResource Commands.EditStateMachine2}"/>
                             </ContextMenu>
                         </Grid.ContextMenu>
@@ -200,7 +200,7 @@
                 <CommandBinding Command="{StaticResource Commands.CreateNodes}" Executed="CreateNode_Executed"/>
                 <CommandBinding Command="{StaticResource Commands.DeleteSelectedNodes}" Executed="DeleteSelectedNodes_Executed"/>
                 <CommandBinding Command="{StaticResource Commands.Edit}" Executed="Edit_Executed"/>
-                <CommandBinding Command="{StaticResource Commands.EditStateMachine}" Executed="EditStateMachine_Executed"/>
+                <!--<CommandBinding Command="{StaticResource Commands.EditStateMachine}" Executed="EditStateMachine_Executed"/>-->
                 <CommandBinding Command="{StaticResource Commands.EditStateMachine2}" Executed="EditStateMachine2_Executed"/>
             </ScrollViewer.CommandBindings>
             <!--[*]设置右键菜单-->

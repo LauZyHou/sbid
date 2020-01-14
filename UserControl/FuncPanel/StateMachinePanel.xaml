@@ -4,9 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:sbid.UserControl"
+             xmlns:vm="clr-namespace:sbid.ViewModel"
+             xmlns:NetworkModel="clr-namespace:NetworkModel;assembly=NetworkModel"
+             xmlns:NetworkUI="clr-namespace:NetworkUI;assembly=NetworkUI"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             FocusManager.FocusedElement="{Binding ElementName=networkControl}">
+    <Grid Focusable="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="4*" MinHeight="23px"/>
             <RowDefinition Height="96*"/>
@@ -16,7 +20,175 @@
             <Button Content="Check"/>
         </StackPanel>
         <!--1, 绘图面板-->
-        <Canvas x:Name="mainCanvas" Grid.Row="1" Background="White">
-        </Canvas>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" Focusable="False" 
+                      Background="DarkGray" Name="scrollViewer" KeyDown="Panel_KeyDown">
+            <!--[*]设置资源-->
+            <ScrollViewer.Resources>
+                <!--RoutedCommand类创建自己的命令,RoutedUICommand只多添加了Text属性作为命令显示的文本-->
+                <RoutedUICommand x:Key="Commands.DeleteSelectedNodes" />
+                <RoutedUICommand x:Key="Commands.CreateState" />
+                <RoutedUICommand x:Key="Commands.CreateFinalState" />
+                
+                <!--ConectionViewModel的数据模板,其中Start和End绑定线两端的源锚点和目标锚点-->
+                <DataTemplate DataType="{x:Type vm:TransitionVM}">
+                    <Canvas Background="AliceBlue" Width="Auto" Height="Auto">
+                        <!--用一个简单的箭头表达连线,见Arrow类-->
+                        <NetworkUI:Arrow Stroke="Black" StrokeThickness="2" Fill="Black"
+                             Start="{Binding SourceConnectorHotspot}"
+                             End="{Binding DestConnectorHotspot}"
+                             IsHitTestVisible="False"/>
+                        <!--边中间的文本框-->
+                        <TextBlock Text="{Binding Transition.ContentString}" MinHeight="20" MinWidth="40" 
+                         Canvas.Left="{Binding MidConnectorPoint.X}" Canvas.Top="{Binding MidConnectorPoint.Y}"/>
+                    </Canvas>
+                </DataTemplate>
+
+                <!--设置NodeItem的控件模板-->
+                <Style TargetType="{x:Type NetworkUI:NodeItem}">
+                    <Setter Property="X" Value="{Binding X}"/>
+                    <Setter Property="Y" Value="{Binding Y}"/>
+                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                </Style>
+
+                <!--设置ConnectorItem的控件模板-->
+                <Style TargetType="{x:Type NetworkUI:ConnectorItem}">
+                    <!--锚点中心-->
+                    <Setter Property="Hotspot" Value="{Binding Hotspot, Mode=OneWayToSource}"/>
+                    <!--外面的小正方形-->
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type NetworkUI:ConnectorItem}">
+                                <Rectangle Stroke="Black" Fill="White" Cursor="Hand"
+                                   Width="10" Height="10" RadiusX="1" RadiusY="1"/>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+
+                <!--初始状态的数据模板-->
+                <DataTemplate DataType="{x:Type vm:InitialStateVM}">
+                    <Grid Width="40" Height="40">
+                        <!--显示出来的圆形-->
+                        <Ellipse Stroke="Black" Fill="{Binding Color}"/>
+                        <Grid Margin="-8">
+                            <!--分成3*3=9个区域,仅下面放锚点-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--绑定锚点数组中唯一的锚点-->
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="2"
+                                             DataContext="{Binding Connectors[0]}"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+
+                <!--普通状态的数据模板-->
+                <DataTemplate DataType="{x:Type vm:StateVM}">
+                    <Grid Width="100" Height="50">
+                        <!--显示的矩形框-->
+                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
+                        <Grid Margin="-4">
+                            <!--分成3*3=9个区域,周围放锚点-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*" MinWidth="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <!--中间的状态名,实际就是State字符串-->
+                            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Name}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="White"/>
+
+                            <!--绑定锚点数组中的锚点-->
+                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="0"
+                                             DataContext="{Binding Connectors[0]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="0"
+                                             DataContext="{Binding Connectors[1]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="0"
+                                             DataContext="{Binding Connectors[2]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="2"
+                                             DataContext="{Binding Connectors[3]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="2"
+                                             DataContext="{Binding Connectors[4]}"/>
+                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="2"
+                                             DataContext="{Binding Connectors[5]}"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+
+                <!--终止状态的数据模板-->
+                <DataTemplate DataType="{x:Type vm:FinalStateVM}">
+                    <Grid Width="40" Height="40">
+                        <!--显示出来的圆形-->
+                        <Ellipse Stroke="Black" Fill="{Binding Color}"/>
+                        <Grid Margin="-8">
+                            <!--分成3*3=9个区域,仅下面放锚点-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+
+                            <!--绑定锚点数组中唯一的锚点-->
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="0"
+                                             DataContext="{Binding Connectors[0]}"/>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </ScrollViewer.Resources>
+            
+            <!--[*]设置对应的ViewModel,在.cs文件中取DataContext即得到-->
+            <!--<ScrollViewer.DataContext>
+                <vm:StateMachinePanelVM/>
+            </ScrollViewer.DataContext>-->
+            
+            <!--[*]设置添加和删除结点的命令-->
+            <ScrollViewer.CommandBindings>
+                <!--添加结点/删除选中结点-->
+                <CommandBinding Command="{StaticResource Commands.CreateState}" Executed="CreateState_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.CreateFinalState}" Executed="CreateFinalState_Executed"/>
+                <CommandBinding Command="{StaticResource Commands.DeleteSelectedNodes}" Executed="DeleteSelectedNodes_Executed"/>
+            </ScrollViewer.CommandBindings>
+            <!--[*]设置右键菜单-->
+            <ScrollViewer.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="创建普通状态结点" Command="{StaticResource Commands.CreateState}"/>
+                    <MenuItem Header="创建终止状态结点" Command="{StaticResource Commands.CreateFinalState}"/>
+                </ContextMenu>
+            </ScrollViewer.ContextMenu>
+            <!--[*]设置绑定按键触发的命令-->
+            <ScrollViewer.InputBindings>
+                <KeyBinding Key="Delete" Command="{StaticResource Commands.DeleteSelectedNodes}"/>
+            </ScrollViewer.InputBindings>
+            <!--[*]放入NetworkView,并添加各个事件的处理函数-->
+            <NetworkUI:NetworkView
+            x:Name="networkControl"
+            MinWidth="900"
+            MinHeight="1200"
+            NodesSource="{Binding Network.Nodes}"
+            ConnectionsSource="{Binding Network.Connections}"
+            ConnectionDragStarted="networkControl_ConnectionDragStarted"
+            ConnectionDragging="networkControl_ConnectionDragging"
+            ConnectionDragCompleted="networkControl_ConnectionDragCompleted"
+            />
+        </ScrollViewer>
     </Grid>
 </UserControl>

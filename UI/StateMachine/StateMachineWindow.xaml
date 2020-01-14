@@ -56,7 +56,7 @@
         </Style>
 
         <!--初始状态的数据模板-->
-        <DataTemplate DataType="{x:Type vm:InitalStateVM}">
+        <DataTemplate DataType="{x:Type vm:InitialStateVM}">
             <Grid Width="40" Height="40">
                 <!--显示出来的圆形-->
                 <Ellipse Stroke="Black" Fill="{Binding Color}"/>

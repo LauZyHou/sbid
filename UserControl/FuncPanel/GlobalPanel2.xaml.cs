@@ -24,7 +24,6 @@ namespace sbid.UserControl
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
         // 每次创建时自增
-        private int userTypeId = 1;
         private int count = 1;
         public GlobalPanel2()
         {
@@ -59,7 +58,6 @@ namespace sbid.UserControl
         {
             this.ViewModel.CreateUserType2VM("初始化"+count, new Point(100 + count * 30, 100 + count * 30));
             this.count++;
-
         }
         #endregion
 
@@ -181,8 +179,8 @@ namespace sbid.UserControl
             }
 
             // todo: 新 / 旧ViewModel
-            StateMachineVM stateMachineVM = new StateMachineVM("init", nowProcess);
-            // todo:打卡新面板 / 跳到旧面板
+            StateMachineVM stateMachineVM = new StateMachineVM("init", nowProcess);// 构造时写入nowProcess
+            // todo:打开新面板 / 跳到旧面板
             mainWindow.add_new_panel("Process\""+pName+"\"的状态机", 
                 new StateMachinePanel(stateMachineVM).Content as Grid);
         }
