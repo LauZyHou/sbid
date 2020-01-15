@@ -31,14 +31,16 @@ namespace sbid.UI
             AllProcessListBox_Attr.ItemsSource = ResourceManager.currentProtocol.processes;
             AllProcessComboBox_Attr1.ItemsSource = ResourceManager.currentProtocol.processes;
             AllProcessComboBox_Attr2.ItemsSource = ResourceManager.currentProtocol.processes;
-            AttrListBox.ItemsSource = mySecurityPropertyVM.SecurityProperty.Conattributes;
-            AuthenticityListBox.ItemsSource = mySecurityPropertyVM.SecurityProperty.Auattributes;
+            ConfidentialListBox.ItemsSource = mySecurityPropertyVM.SecurityProperty.Confidentials;
+            AuthenticityListBox.ItemsSource = mySecurityPropertyVM.SecurityProperty.Authenticities;
         }
 
         #endregion 构造
 
         #region 条目改变选中的事件处理
 
+
+        // Confidential的进程改变选中
         private void AllProcessListBox_Attr_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
@@ -54,6 +56,7 @@ namespace sbid.UI
             }
         }
 
+        // Authenticity的进程1改变选中
         private void AllProcessComboBox_Attr1_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
@@ -69,6 +72,7 @@ namespace sbid.UI
             }
         }
 
+        // Authenticity的进程2名称改变选中
         private void AllProcessComboBox_Attr2_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
@@ -88,6 +92,8 @@ namespace sbid.UI
 
         #region 按钮控制
 
+
+        // [按钮]Confidential添加
         private void Button_Click_AddConfidential(object sender, RoutedEventArgs e)
         {
             if (AllProcessListBox_Attr.SelectedItem == null || AllStatesListBox_Attr.SelectedItem == null)
@@ -99,12 +105,13 @@ namespace sbid.UI
             Process process = (Process)AllProcessListBox_Attr.SelectedItem;
             State state = (State)AllStatesListBox_Attr.SelectedItem;
             // 添加
-            MySecurityPropertyVM.SecurityProperty.Conattributes.Add(new Attribute(process.Name, state.Name));
+            MySecurityPropertyVM.SecurityProperty.Confidentials.Add(new Confidential(process, state));
         }
 
+        // [按钮]Confidential更新
         private void Button_Click_UpdateConfidential(object sender, RoutedEventArgs e)
         {
-            if (AllStatesListBox_Attr.SelectedItem == null || AttrListBox.SelectedItem == null || AllProcessListBox_Attr.SelectedItem == null)
+            if (AllStatesListBox_Attr.SelectedItem == null || ConfidentialListBox.SelectedItem == null || AllProcessListBox_Attr.SelectedItem == null)
             {
                 MessageBox.Show("进程类型 、状态机状态 和 右侧性质 都要选中");
                 return;
@@ -114,36 +121,36 @@ namespace sbid.UI
             State state = (State)AllStatesListBox_Attr.SelectedItem;
 
             // 右侧选中的Attribute的下标
-            int idx = AttrListBox.SelectedIndex;
-            if (idx >= MySecurityPropertyVM.SecurityProperty.Conattributes.Count)
+            int idx = ConfidentialListBox.SelectedIndex;
+            if (idx >= MySecurityPropertyVM.SecurityProperty.Confidentials.Count)
             {
                 MessageBox.Show("越界!");
                 return;
             }
             // 更新
-            MySecurityPropertyVM.SecurityProperty.Conattributes[idx] = new Attribute(process.Name, state.Name);
+            MySecurityPropertyVM.SecurityProperty.Confidentials[idx] = new Confidential(process, state);
         }
 
+        // [按钮]Confidential删除
         private void Button_Click_DeleteConfidential(object sender, RoutedEventArgs e)
         {
-            if (AttrListBox.SelectedItem == null)
+            if (ConfidentialListBox.SelectedItem == null)
             {
                 MessageBox.Show("需要选中 要删除的性质");
                 return;
             }
             // 右侧选中的Attribute的下标
-            int idx = AttrListBox.SelectedIndex;
-            if (idx >= MySecurityPropertyVM.SecurityProperty.Conattributes.Count)
+            int idx = ConfidentialListBox.SelectedIndex;
+            if (idx >= MySecurityPropertyVM.SecurityProperty.Confidentials.Count)
             {
                 MessageBox.Show("越界!");
                 return;
             }
             // 删除
-            MySecurityPropertyVM.SecurityProperty.Conattributes.RemoveAt(idx);
+            MySecurityPropertyVM.SecurityProperty.Confidentials.RemoveAt(idx);
         }
 
-
-
+        // [按钮]Authenticity添加
         private void Button_Click_AddAuthenticity(object sender, RoutedEventArgs e)
         {
             if (AllProcessComboBox_Attr1.SelectedItem == null || AllStatesComboBox_Attr1.SelectedItem == null || AllProcessComboBox_Attr1.SelectedItem == null || AllStatesComboBox_Attr2.SelectedItem == null || AllProcessComboBox_Attr2.SelectedItem == null)
@@ -157,14 +164,15 @@ namespace sbid.UI
             Process process2 = (Process)AllProcessComboBox_Attr2.SelectedItem;
             State state2 = (State)AllStatesComboBox_Attr2.SelectedItem;
             // 添加
-            MySecurityPropertyVM.SecurityProperty.Auattributes.Add(new AuthenticityAttribute(process1.Name, state1.Name, process2.Name, state2.Name));
+            MySecurityPropertyVM.SecurityProperty.Authenticities.Add(new Authenticity(process1, state1, process2, state2));
         }
 
+        // [按钮]Authenticity更新
         private void Button_Click_UpdateAuthenticity(object sender, RoutedEventArgs e)
         {
             if (AllStatesComboBox_Attr1.SelectedItem == null || AuthenticityListBox.SelectedItem == null || AllStatesComboBox_Attr2.SelectedItem == null || AllProcessComboBox_Attr2.SelectedItem == null || AllProcessComboBox_Attr1.SelectedItem == null)
             {
-                MessageBox.Show("进程类型 、状态机状态 和 右侧性质 都要选中");
+                MessageBox.Show("进程类型 状态机状态 和 右侧性质 都要选中");
                 return;
             }
             // todo 判重
@@ -175,15 +183,16 @@ namespace sbid.UI
 
             // 右侧选中的Attribute的下标
             int idx = AuthenticityListBox.SelectedIndex;
-            if (idx >= MySecurityPropertyVM.SecurityProperty.Auattributes.Count)
+            if (idx >= MySecurityPropertyVM.SecurityProperty.Authenticities.Count)
             {
                 MessageBox.Show("越界!");
                 return;
             }
             // 更新
-            MySecurityPropertyVM.SecurityProperty.Auattributes[idx] = new AuthenticityAttribute(process1.Name, state1.Name, process2.Name, state2.Name);
+            MySecurityPropertyVM.SecurityProperty.Authenticities[idx] = new Authenticity(process1, state1, process2, state2);
         }
 
+        // [按钮]Authenticity删除
         private void Button_Click_DeleteAuthenticity(object sender, RoutedEventArgs e)
         {
             if (AuthenticityListBox.SelectedItem == null)
@@ -193,13 +202,13 @@ namespace sbid.UI
             }
             // 右侧选中的Attribute的下标
             int idx = AuthenticityListBox.SelectedIndex;
-            if (idx >= MySecurityPropertyVM.SecurityProperty.Auattributes.Count)
+            if (idx >= MySecurityPropertyVM.SecurityProperty.Authenticities.Count)
             {
                 MessageBox.Show("越界!");
                 return;
             }
             // 删除
-            MySecurityPropertyVM.SecurityProperty.Auattributes.RemoveAt(idx);
+            MySecurityPropertyVM.SecurityProperty.Authenticities.RemoveAt(idx);
         }
 
         #endregion 按钮控制

@@ -46,10 +46,14 @@
                 </Grid>
                 <!--Confidential右-->
                 <Grid Grid.Column="1" Margin="10">
-                    <ListBox x:Name="AttrListBox">
+                    <ListBox x:Name="ConfidentialListBox">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Process.Name}"/>
+                                    <TextBlock Text="."/>
+                                    <TextBlock Text="{Binding Path=State.Name}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -64,7 +68,7 @@
                     <ColumnDefinition Width="50*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <!--Confidential-->
+                <!--Authenticity左-->
                 <Grid Grid.Column="0" Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
@@ -132,7 +136,15 @@
                     <ListBox x:Name="AuthenticityListBox" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Path=Process1.Name}"/>
+                                    <TextBlock Text="."/>
+                                    <TextBlock Text="{Binding Path=State1.Name}"/>
+                                    <TextBlock Text=" "/>
+                                    <TextBlock Text="{Binding Path=Process2.Name}"/>
+                                    <TextBlock Text="."/>
+                                    <TextBlock Text="{Binding Path=State2.Name}"/>
+                                </StackPanel>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

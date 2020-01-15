@@ -8,16 +8,16 @@ namespace sbid.Model
     public class SecurityProperty
     {
         private string name;
-        private ObservableCollection<AuthenticityAttribute> auattributes = new ObservableCollection<AuthenticityAttribute>();
-        private ObservableCollection<Attribute> conattributes = new ObservableCollection<Attribute>();
+        private ObservableCollection<Confidential> confidentials = new ObservableCollection<Confidential>();
+        private ObservableCollection<Authenticity> authenticities = new ObservableCollection<Authenticity>();
 
         public string Name { get => name; set => name = value; }
-        public ObservableCollection<Attribute> Conattributes { get => conattributes; set => conattributes = value; }
-        public ObservableCollection<AuthenticityAttribute> Auattributes { get => auattributes; set => auattributes = value; }
+        public ObservableCollection<Confidential> Confidentials { get => confidentials; set => confidentials = value; }
+        public ObservableCollection<Authenticity> Authenticities { get => authenticities; set => authenticities = value; }
 
-        public SecurityProperty(string _name)
+        public SecurityProperty(string name)
         {
-            this.name = _name;
+            this.name = name;
         }
     }
 }

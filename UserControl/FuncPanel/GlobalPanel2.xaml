@@ -174,11 +174,15 @@
                             <TextBlock Grid.Row="2" Text="Confidential:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <ListBox Grid.Row="3" ItemsSource="{Binding SecurityProperty.Conattributes}" IsHitTestVisible="False"
+                            <ListBox Grid.Row="3" ItemsSource="{Binding SecurityProperty.Confidentials}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Process.Name}"/>
+                                            <TextBlock Text="."/>
+                                            <TextBlock Text="{Binding Path=State.Name}"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
@@ -188,11 +192,19 @@
                             <TextBlock Grid.Row="5" Text="Authenticity:"
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
 
-                            <ListBox Grid.Row="6" ItemsSource="{Binding SecurityProperty.Auattributes}" IsHitTestVisible="False"
+                            <ListBox Grid.Row="6" ItemsSource="{Binding SecurityProperty.Authenticities}" IsHitTestVisible="False"
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Path=Process1.Name}"/>
+                                            <TextBlock Text="."/>
+                                            <TextBlock Text="{Binding Path=State1.Name}"/>
+                                            <TextBlock Text=" "/>
+                                            <TextBlock Text="{Binding Path=Process2.Name}"/>
+                                            <TextBlock Text="."/>
+                                            <TextBlock Text="{Binding Path=State2.Name}"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
