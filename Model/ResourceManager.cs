@@ -16,8 +16,9 @@ namespace sbid.Model
         // 管理所有加密算法
         public static List<string> cryptoNames = new List<string>();
 
-
         #region 转换到XML
+
+        // 协议
         public static void Protocol2Xml(Protocol protocol, string fileName)
         {
             XmlTextWriter xmlWriter = new XmlTextWriter(fileName, null);
@@ -32,11 +33,16 @@ namespace sbid.Model
             {
                 UserType22Xml(userType, xmlWriter);
             }
+            foreach (SecurityProperty securityProperty in protocol.securityProperties)
+            {
+                SecurityProperty2Xml(securityProperty, xmlWriter);
+            }
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             xmlWriter.Close();
         }
 
+        // 进程
         private static void Process2Xml(Process process, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("Process");
@@ -60,6 +66,7 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // UserType
         private static void UserType22Xml(UserType2 userType, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("UserType2");
@@ -71,6 +78,7 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // Attribute
         private static void Attr2Xml(Attribute attr, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("Attribute");
@@ -79,6 +87,7 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // Method
         private static void Method2Xml(Method method, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("Method");
@@ -92,6 +101,7 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // Commmethod
         private static void CommMethod2Xml(CommMethod commMethod, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("CommMethod");
@@ -104,6 +114,7 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // 状态机
         private static void StateMachine2Xml(StateMachine stateMachine, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("StateMachine");
@@ -134,6 +145,37 @@ namespace sbid.Model
                 xmlWriter.WriteEndElement();
             }
             xmlWriter.WriteEndElement();
+        }
+
+        // SecurityProperty
+        private static void SecurityProperty2Xml(SecurityProperty securityProperty, XmlTextWriter xmlWriter)
+        {
+            foreach (Confidential confidential in securityProperty.Confidentials)
+            {
+                xmlWriter.WriteStartElement("ConfidentialProperty");
+                xmlWriter.WriteAttributeString("process", confidential.Process.Name);
+                xmlWriter.WriteAttributeString("attribute", confidential.Attribute.Identifier);
+                xmlWriter.WriteEndElement();
+            }
+            foreach (Authenticity authenticity in securityProperty.Authenticities)
+            {
+                xmlWriter.WriteStartElement("AuthenticityProperty");
+                {
+                    // 1
+                    xmlWriter.WriteStartElement("Value");
+                    xmlWriter.WriteAttributeString("process", authenticity.Process1.Name);
+                    xmlWriter.WriteAttributeString("state", authenticity.State1.Name);
+                    xmlWriter.WriteAttributeString("attribute", authenticity.Attribute1.Identifier);
+                    xmlWriter.WriteEndElement();
+                    // 2
+                    xmlWriter.WriteStartElement("Value");
+                    xmlWriter.WriteAttributeString("process", authenticity.Process2.Name);
+                    xmlWriter.WriteAttributeString("state", authenticity.State2.Name);
+                    xmlWriter.WriteAttributeString("attribute", authenticity.Attribute2.Identifier);
+                    xmlWriter.WriteEndElement();
+                }
+                xmlWriter.WriteEndElement();
+            }
         }
 
         #endregion 转换到XML

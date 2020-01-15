@@ -162,8 +162,10 @@ namespace sbid
         // [按钮]生成XML
         private void Button_Click_GenerateXML(object sender, RoutedEventArgs e)
         {
-            ResourceManager.Protocol2Xml(ResourceManager.currentProtocol, "D:\\data\\test.xml");
+            const string filePath = "D:\\data\\test.xml";
+            ResourceManager.Protocol2Xml(ResourceManager.currentProtocol, filePath);
             //Test_GenerateXML();
+            MessageBox.Show("写入在" + filePath);
         }
 
         #region 测试

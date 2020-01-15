@@ -181,7 +181,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding Path=Process.Name}"/>
                                             <TextBlock Text="."/>
-                                            <TextBlock Text="{Binding Path=State.Name}"/>
+                                            <TextBlock Text="{Binding Path=Attribute.Identifier}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -200,10 +200,14 @@
                                             <TextBlock Text="{Binding Path=Process1.Name}"/>
                                             <TextBlock Text="."/>
                                             <TextBlock Text="{Binding Path=State1.Name}"/>
+                                            <TextBlock Text="."/>
+                                            <TextBlock Text="{Binding Path=Attribute1.Identifier}"/>
                                             <TextBlock Text=" "/>
                                             <TextBlock Text="{Binding Path=Process2.Name}"/>
                                             <TextBlock Text="."/>
                                             <TextBlock Text="{Binding Path=State2.Name}"/>
+                                            <TextBlock Text="."/>
+                                            <TextBlock Text="{Binding Path=Attribute2.Identifier}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>

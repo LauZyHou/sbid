@@ -7,15 +7,15 @@ namespace sbid.Model
     public class Confidential
     {
         private Process process = null;
-        private State state = null;
+        private Attribute attribute;
 
         public Process Process { get => process; set => process = value; }
-        public State State { get => state; set => state = value; }
+        public Attribute Attribute { get => attribute; set => attribute = value; }
 
-        public Confidential(Process process, State state)
+        public Confidential(Process process, Attribute attribute)
         {
             this.process = process;
-            this.state = state;
+            this.attribute = attribute;
         }
     }
 }
