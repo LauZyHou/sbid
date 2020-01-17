@@ -155,8 +155,8 @@ namespace NetworkModel
             get
             {
                 return new Point(
-                    (this.destConnectorHotspot.X + this.sourceConnectorHotspot.X) / 2,
-                    (this.destConnectorHotspot.Y + this.sourceConnectorHotspot.Y) / 2
+                    (this.destConnectorHotspot.X + this.sourceConnectorHotspot.X) / 2 - 40,
+                    (this.destConnectorHotspot.Y + this.sourceConnectorHotspot.Y) / 2 - 10
                     );
             }
         }

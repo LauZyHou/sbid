@@ -1,0 +1,23 @@
+﻿<Window x:Class="sbid.UI.ActionsEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:sbid.UI"
+        mc:Ignorable="d"
+        Title="编辑转移边上的Actions" Height="300" Width="500" Topmost="True"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <ListBox Grid.Row="0" x:Name="ActionsListBox" Margin="10"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,15">
+            <TextBox x:Name="ActionTextBox" Width="290" Margin="10,0"/>
+            <Button Content="添加" Click="Button_Click_Add" Width="40" Margin="10,0"/>
+            <Button Content="更新" Click="Button_Click_Update" Width="40" Margin="10,0"/>
+            <Button Content="删除" Click="Button_Click_Delete" Width="40" Margin="10,0"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -28,6 +28,8 @@ namespace sbid
             InitializeComponent();
             // 初始化全局资源
             InitializeResourceManager();
+            // 下方提示条的引用存入全局资源
+            ResourceManager.tipTextBlock = bottomTextBlock;
         }
 
         private void InitializeResourceManager()

@@ -38,8 +38,27 @@
                              End="{Binding DestConnectorHotspot}"
                              IsHitTestVisible="False"/>
                         <!--边中间的文本框-->
-                        <TextBlock Text="{Binding Transition.ContentString}" MinHeight="20" MinWidth="40" 
-                         Canvas.Left="{Binding MidConnectorPoint.X}" Canvas.Top="{Binding MidConnectorPoint.Y}"/>
+                        <!--<TextBlock Text="{Binding Transition.ContentString}" MinHeight="20" MinWidth="40" 
+                                   Canvas.Left="{Binding MidConnectorPoint.X}" 
+                                   Canvas.Top="{Binding MidConnectorPoint.Y}"/>-->
+                        <!--Guard和Action的显示和编辑-->
+                        <StackPanel Orientation="Vertical" Background="White"
+                                    Canvas.Left="{Binding MidConnectorPoint.X}" 
+                                    Canvas.Top="{Binding MidConnectorPoint.Y}">
+                            <!--Guard条件-->
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="IF("/>
+                                <TextBox Text="{Binding Transition.Guard}" 
+                                         Foreground="Blue" BorderBrush="Transparent"
+                                         Background="Transparent"/>
+                                <TextBlock Text=") THEN"/>
+                            </StackPanel>
+                            <!--Actions-->
+                            <ListBox ItemsSource="{Binding Transition.Actions}" 
+                                     MinHeight="10" Foreground="Blue" 
+                                     Background="Transparent" 
+                                     MouseDoubleClick="ActionListBox_MouseDoubleClick"/>
+                        </StackPanel>
                     </Canvas>
                 </DataTemplate>
 

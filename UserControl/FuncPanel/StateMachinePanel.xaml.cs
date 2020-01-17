@@ -16,6 +16,7 @@ using NetworkUI;
 using System.Windows.Threading;
 using sbid.Model;
 using sbid.UI;
+using System.Collections.ObjectModel;
 
 namespace sbid.UserControl
 {
@@ -30,8 +31,8 @@ namespace sbid.UserControl
             InitializeComponent();
             // 这里代替xaml中注释掉的DataContent
             this.scrollViewer.DataContext = new StateMachinePanelVM(stateMachineVM);
-            // 状态机的VM集成到面板的VM里去
-            //this.ViewModel.StateMachineVM = stateMachineVM;
+            // 提示条
+            ResourceManager.tipTextBlock.Text = "双击转移边上的Action以进行编辑";
         }
 
         //状态机窗体的ViewModel
@@ -115,6 +116,7 @@ namespace sbid.UserControl
 
         private void Panel_KeyDown(object sender, KeyEventArgs e)
         {
+            /*
             // 要打开编辑边的窗口
             if (e.KeyStates == Keyboard.GetKeyStates(Key.Enter) && Keyboard.Modifiers == ModifierKeys.Control)
             {
@@ -127,8 +129,21 @@ namespace sbid.UserControl
                     new ArrowEditWindow(t).ShowDialog();
                 }
             }
+            */
         }
 
         #endregion 键盘事件处理
+
+        #region 鼠标事件处理
+        
+        // 双击边附近显示Acitons的ListBox
+        private void ActionListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
+            // 传入Actions以在窗体打开后对其进行修改
+            new ActionsEditWindow((ObservableCollection<string>)listBox.ItemsSource).Show();
+        }
+
+        #endregion 鼠标事件处理
     }
 }

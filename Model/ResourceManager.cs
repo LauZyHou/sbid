@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Controls;
 using System.Xml;
 
 namespace sbid.Model
@@ -15,6 +16,8 @@ namespace sbid.Model
         public static List<Method> innerMethods = new List<Method>();
         // 管理所有加密算法
         public static List<string> cryptoNames = new List<string>();
+        // 窗体上的提示条对象的引用
+        public static TextBlock tipTextBlock = null;
 
         #region 转换到XML
 
