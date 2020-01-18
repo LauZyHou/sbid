@@ -9,9 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="ExtraApps\**" />
+    <Compile Remove="UserControl\GlobalBlock\**" />
     <EmbeddedResource Remove="ExtraApps\**" />
+    <EmbeddedResource Remove="UserControl\GlobalBlock\**" />
     <None Remove="ExtraApps\**" />
+    <None Remove="UserControl\GlobalBlock\**" />
     <Page Remove="ExtraApps\**" />
+    <Page Remove="UserControl\GlobalBlock\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,10 +32,6 @@
     <ProjectReference Include="ExtraApps\NetworkModel\SimpleNetworkModel.2010.csproj" />
     <ProjectReference Include="ExtraApps\NetworkUI\NetworkUI.2010.csproj" />
     <ProjectReference Include="ExtraApps\Utils\Utils.2010.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="UserControl\GlobalBlock\" />
   </ItemGroup>
 
 </Project>

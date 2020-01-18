@@ -135,6 +135,18 @@ namespace sbid
             add_new_panel("计算树逻辑", new CTLPanel().Content as Grid);
         }
 
+        // 菜单 > 模型 > 添加顺序图
+        private void MenuItem_Click_Sequence_Diagram(object sender, RoutedEventArgs e)
+        {
+            add_new_panel("顺序图", new Grid());
+        }
+
+        // 菜单 > 模型 > 添加拓扑图
+        private void MenuItem_Click_Topo_Graph(object sender, RoutedEventArgs e)
+        {
+            add_new_panel("拓扑图", new Grid());
+        }
+
         //---------------------以下仅是用于给上面调用的，抽象出来的方法---------------------
 
         //在当前模型下添加面板

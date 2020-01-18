@@ -14,20 +14,13 @@ using System.Windows.Shapes;
 namespace sbid.UserControl
 {
     /// <summary>
-    /// GraphButtonStack.xaml 的交互逻辑
+    /// SequencePanel.xaml 的交互逻辑
     /// </summary>
-    public partial class GraphButtonStack : System.Windows.Controls.UserControl
+    public partial class SequencePanel : System.Windows.Controls.UserControl
     {
-        public GraphButtonStack()
+        public SequencePanel()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            //todo 1 让父窗体bottomTextBox显示内容
-            Window father = Window.GetWindow(this);
-            father.Title = "123";
         }
     }
 }

@@ -141,7 +141,10 @@ namespace sbid.UserControl
         {
             ListBox listBox = (ListBox)sender;
             // 传入Actions以在窗体打开后对其进行修改
-            new ActionsEditWindow((ObservableCollection<string>)listBox.ItemsSource).Show();
+            ActionsEditWindow window = new ActionsEditWindow((ObservableCollection<string>)listBox.ItemsSource);
+            // fixme 无法获取焦点?
+            window.Focus();
+            window.Show();
         }
 
         #endregion 鼠标事件处理

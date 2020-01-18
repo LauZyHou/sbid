@@ -32,6 +32,8 @@
                 <!--<MenuItem Header="添加状态机(State Machine)"/>-->
                 <MenuItem Header="添加攻击树(Attack Tree)" Click="MenuItem_Click_AttackTree"/>
                 <MenuItem Header="添加计算树逻辑(CTL)" Click="MenuItem_Click_CTL"/>
+                <MenuItem Header="添加顺序图(Sequence Diagram)" Click="MenuItem_Click_Sequence_Diagram"/>
+                <MenuItem Header="添加拓扑图(Topo Graph)" Click="MenuItem_Click_Topo_Graph"/>
             </MenuItem>
             <MenuItem Header="视图">
                 <MenuItem Header="xxx" IsCheckable="True"/>

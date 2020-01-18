@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
         Title="编辑转移边上的Actions" Height="300" Width="500" Topmost="True"
-        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
+        FocusManager.FocusedElement="{Binding ElementName=ActionTextBox}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="80*"/>
