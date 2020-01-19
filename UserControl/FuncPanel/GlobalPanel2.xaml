@@ -279,8 +279,10 @@
                                 <RowDefinition Height="40*"/>
                                 <RowDefinition Height="10*"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Text="{Binding Name}"
-                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15, 12, 0, 4"/>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,11,4">
+                                <TextBlock Text="SafetyProperty " FontWeight="Bold"/>
+                                <TextBox Background="{Binding Color}" Text="{Binding SafetyProperty.Name}" BorderBrush="{Binding Color}" FontWeight="Bold"/>
+                            </StackPanel>
                             <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Black" Margin="12,0,12,0"/>
                             <TextBlock Grid.Row="2" Text="[IVAR]: "
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>

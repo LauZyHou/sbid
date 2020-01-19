@@ -24,7 +24,6 @@ namespace sbid.UserControl
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
         // 每次创建时自增
-        private int safetyPropertyId = 1;
         private int count = 1;
         public GlobalPanel2()
         {
@@ -72,8 +71,7 @@ namespace sbid.UserControl
         //[按钮]添加SafetyProperty
         private void Button_Click_SafetyProperty(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateSafetyPropertyVM(safetyPropertyId, new Point(100 + count * 30, 100 + count * 30));
-            this.safetyPropertyId += 1;
+            this.ViewModel.CreateSafetyPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
         #endregion

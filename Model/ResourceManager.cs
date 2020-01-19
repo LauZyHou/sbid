@@ -40,6 +40,10 @@ namespace sbid.Model
             {
                 SecurityProperty2Xml(securityProperty, xmlWriter);
             }
+            foreach (SafetyProperty safetyProperty in protocol.safetyProperties)
+            {
+                SafetyProperty2Xml(safetyProperty, xmlWriter);
+            }
             xmlWriter.WriteEndElement();
             xmlWriter.Flush();
             xmlWriter.Close();
@@ -81,12 +85,42 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        // SafetyProperty
+        private static void SafetyProperty2Xml(SafetyProperty safetyProperty, XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("SafetyProperty");
+            xmlWriter.WriteAttributeString("name", safetyProperty.Name);
+            foreach (var ivar in safetyProperty.Invariants)
+            {
+                IVAR2Xml(ivar, xmlWriter);
+            }
+            foreach (var ctl in safetyProperty.CTLs)
+            {
+                CTL2Xml(ctl, xmlWriter);
+            }
+            xmlWriter.WriteEndElement();
+        }
+
         // Attribute
         private static void Attr2Xml(Attribute attr, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("Attribute");
             xmlWriter.WriteAttributeString("name", attr.Identifier);
             xmlWriter.WriteAttributeString("type", attr.Type);
+            xmlWriter.WriteEndElement();
+        }
+
+        private static void IVAR2Xml(string ivar, XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("IVAR");
+            xmlWriter.WriteAttributeString("name", ivar);
+            xmlWriter.WriteEndElement();
+        }
+
+        private static void CTL2Xml(string ctl, XmlTextWriter xmlWriter)
+        {
+            xmlWriter.WriteStartElement("CTL");
+            xmlWriter.WriteAttributeString("name", ctl);
             xmlWriter.WriteEndElement();
         }
 

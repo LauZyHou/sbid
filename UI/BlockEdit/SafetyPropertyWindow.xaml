@@ -70,11 +70,7 @@
                 <Grid Grid.Column="1" Margin="10">
                     <ListBox x:Name="CTL_AttrListBox"
                              SelectionChanged="CTL_AttrListBox_SelectionChanged">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Path=ShowString}"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
+                        
                     </ListBox>
                 </Grid>
             </Grid>

@@ -8,8 +8,7 @@ namespace sbid.ViewModel
 {
     public class SafetyPropertyVM : NodeViewModel
     {
-        SafetyProperty safetyProperty = new SafetyProperty();
-        private int id;
+        SafetyProperty safetyProperty = null;
         public SafetyProperty SafetyProperty
         {
             get => safetyProperty;
@@ -17,21 +16,8 @@ namespace sbid.ViewModel
         }
         public SafetyPropertyVM(string name)
         {
-            this.safetyProperty.Name = name;
-            this.Name = "SafetyProperty " + name;
-            this.Name = name;
+            this.safetyProperty = new SafetyProperty(name);
             this.Color = "#FFCCCC"; // 浅粉红
-        }
-        public SafetyPropertyVM(int safetyPropertyId)
-        {
-            this.id = safetyPropertyId;
-            this.Name = "SafetyProperty " + safetyPropertyId;
-            this.Color = "#FFCCCC";
-        }
-        public SafetyPropertyVM()
-        {
-            this.Name = "SafetyProperty";
-            this.Color = "#FFCCCC";
         }
     }
 }
