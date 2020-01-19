@@ -14,6 +14,7 @@ using sbid.ViewModel;
 using sbid.UI;
 using NetworkModel;
 using NetworkUI;
+using sbid.UI.BlockEdit;
 
 namespace sbid.UserControl
 {
@@ -25,6 +26,7 @@ namespace sbid.UserControl
         // 每次创建时自增
         private int processId = 1;
         private int userTypeId = 1;
+        private int safetyPropertyId = 1;
         private int count = 1;
         public GlobalPanel2()
         {
@@ -59,6 +61,13 @@ namespace sbid.UserControl
             this.count++;
         }
 
+        //[按钮]添加SafetyProperty
+        private void Button_Click_SafetyProperty(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.CreateSafetyPropertyVM(safetyPropertyId, new Point(100 + count * 30, 100 + count * 30));
+            this.safetyPropertyId += 1;
+            this.count++;
+        }
         #endregion
 
         #region 命令的执行函数
@@ -94,6 +103,10 @@ namespace sbid.UserControl
                     else if (node is UserTypeVM)
                     {
                         new UserTypeWindow(node.Name).ShowDialog();
+                    }
+                    else if (node is SafetyPropertyVM)
+                    {
+                        new SafetyPropertyWindow((SafetyPropertyVM)node).ShowDialog();
                     }
                     else 
                     {
@@ -176,5 +189,6 @@ namespace sbid.UserControl
         {
 
         }
+
     }
 }

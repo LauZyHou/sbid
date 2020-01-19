@@ -170,7 +170,8 @@ namespace sbid.ViewModel
             //var node = new NodeViewModel(name);
             //var node = new RelationNode(RelationType.AND);
             //var node = new BlockDemo();
-            var node = new ProcessVM();
+            //var node = new ProcessVM();
+            var node = new SafetyPropertyVM();
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -241,6 +242,15 @@ namespace sbid.ViewModel
         public NodeViewModel CreateUserTypeVM(int userTypeIdx, Point nodeLocation)
         {
             var node = new UserTypeVM(userTypeIdx);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
+        public NodeViewModel CreateSafetyPropertyVM(int safetyPropertyIdx, Point nodeLocation)
+        {
+            var node = new SafetyPropertyVM(safetyPropertyIdx);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);
