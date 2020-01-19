@@ -160,6 +160,7 @@ namespace sbid.ViewModel
                 if (node.IsSelected)
                 {
                     node.Condition = "False";
+                    node.IsActive = false;
                 }
             }
         }
@@ -172,6 +173,7 @@ namespace sbid.ViewModel
                 if (node.IsSelected)
                 {
                     node.Condition = "True";
+                    node.IsActive = false;
                 }
             }
         }
@@ -184,6 +186,7 @@ namespace sbid.ViewModel
                 if (node.IsSelected)
                 {
                     node.Condition = "Active";
+                    node.IsActive = true;
                 }
             }
         }
@@ -199,6 +202,8 @@ namespace sbid.ViewModel
             NodeViewModel root = null;
             foreach (var node in nodesCopy)
             {
+                node.ParentNodes.Clear();
+                node.ChildNodes.Clear();
                 if (node.IsSelected)
                 {
                     root = node;
@@ -254,55 +259,62 @@ namespace sbid.ViewModel
             }
         }
 
-
         private bool recursiveCalculate(NodeViewModel root)
         {
             bool ans = false;
-            if (root.condition == NodeViewModel.ConditionType.ACTIVE)
+            if (root.IsActive)
             {
                 var son = root.ChildNodes[0];
                 return recursiveCalculate(son);
             }
-            else if (root.condition == NodeViewModel.ConditionType.TRUE)
+            else
             {
-                return true;
-            }
-            else if (root.condition == NodeViewModel.ConditionType.FALSE)
-            {
-                return false;
-            }
-            else if (root.condition == NodeViewModel.ConditionType.OTHERS)
-            {
-                if (root.Name.Equals("AND"))
+                if (root.condition == NodeViewModel.ConditionType.ACTIVE)
                 {
-                    bool ret = true;
-                    foreach (var c in root.ChildNodes)
+                    var son = root.ChildNodes[0];
+                    return recursiveCalculate(son);
+                }
+                else if (root.condition == NodeViewModel.ConditionType.TRUE)
+                {
+                    return true;
+                }
+                else if (root.condition == NodeViewModel.ConditionType.FALSE)
+                {
+                    return false;
+                }
+                else if (root.condition == NodeViewModel.ConditionType.OTHERS)
+                {
+                    if (root.Name.Equals("AND"))
                     {
-                        if (!recursiveCalculate(c))
+                        bool ret = true;
+                        foreach (var c in root.ChildNodes)
                         {
-                            ret = false;
+                            if (!recursiveCalculate(c))
+                            {
+                                ret = false;
+                            }
                         }
+                        return ret;
                     }
-                    return ret;
-                }
-                if (root.Name.Equals("OR"))
-                {
-                    bool ret = false;
-                    foreach (var c in root.ChildNodes)
+                    if (root.Name.Equals("OR"))
                     {
-                        if (recursiveCalculate(c))
+                        bool ret = false;
+                        foreach (var c in root.ChildNodes)
                         {
-                            ret = true;
+                            if (recursiveCalculate(c))
+                            {
+                                ret = true;
+                            }
                         }
+                        return ret;
                     }
-                    return ret;
-                }
-                if (root.Name.Equals("NEG"))
-                {
-
+                    if (root.Name.Equals("NEG"))
+                    {
+                        var c = root.ChildNodes[0];
+                        return !recursiveCalculate(c);
+                    }
                 }
             }
-
 
             return ans;
         }
@@ -317,7 +329,6 @@ namespace sbid.ViewModel
             // Remove all connections attached to the node.
             //
             this.Network.Connections.RemoveRange(node.AttachedConnections);
-
             //
             // Remove the node from the network.
             //
