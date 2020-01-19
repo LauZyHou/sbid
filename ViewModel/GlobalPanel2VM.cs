@@ -187,7 +187,8 @@ namespace sbid.ViewModel
             //var node = new NodeViewModel(name);
             //var node = new RelationNode(RelationType.AND);
             //var node = new BlockDemo();
-            var node = new ProcessVM();
+            //var node = new ProcessVM();
+            var node = new SafetyPropertyVM();
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
 
@@ -271,6 +272,16 @@ namespace sbid.ViewModel
             SecurityPropertyVM node = new SecurityPropertyVM(_name);
             // 放到全局资源里
             ResourceManager.currentProtocol.securityProperties.Add(node.SecurityProperty);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
+        // 创建SafetyProperty
+        public NodeViewModel CreateSafetyPropertyVM(int safetyPropertyIdx, Point nodeLocation)
+        {
+            var node = new SafetyPropertyVM(safetyPropertyIdx);
             node.X = nodeLocation.X;
             node.Y = nodeLocation.Y;
             this.Network.Nodes.Add(node);

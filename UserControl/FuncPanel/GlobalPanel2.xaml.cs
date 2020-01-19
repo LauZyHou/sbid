@@ -24,6 +24,7 @@ namespace sbid.UserControl
     public partial class GlobalPanel2 : System.Windows.Controls.UserControl
     {
         // 每次创建时自增
+        private int safetyPropertyId = 1;
         private int count = 1;
         public GlobalPanel2()
         {
@@ -68,6 +69,13 @@ namespace sbid.UserControl
             this.count++;
         }
 
+        //[按钮]添加SafetyProperty
+        private void Button_Click_SafetyProperty(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.CreateSafetyPropertyVM(safetyPropertyId, new Point(100 + count * 30, 100 + count * 30));
+            this.safetyPropertyId += 1;
+            this.count++;
+        }
         #endregion
 
         #region 命令的执行函数
@@ -109,6 +117,10 @@ namespace sbid.UserControl
                     {
                         new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();                     
                     }
+                    else if (node is SafetyPropertyVM)
+                    {
+                        new SafetyPropertyWindow((SafetyPropertyVM)node).ShowDialog();
+                    }
                     else 
                     {
                         DemoWindow demoWindow = new DemoWindow();
@@ -118,7 +130,6 @@ namespace sbid.UserControl
                 }
             }
         }
-
 
         /// 编辑状态机第二版(创建并打开相应Tab)
         private void EditStateMachine2_Executed(object sender, ExecutedRoutedEventArgs e)
@@ -219,5 +230,6 @@ namespace sbid.UserControl
         {
 
         }
+
     }
 }
