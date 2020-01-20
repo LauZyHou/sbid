@@ -38,9 +38,11 @@ namespace sbid.Model
         {
             this.name = _name;
         }
+
         public SafetyProperty()
         {
-            this.Name = "未命名" + _id++;
+            this.Name = "未命名" + _id;
+            _id++;
             //Test_Init();
         }
 

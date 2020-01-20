@@ -21,7 +21,7 @@
                         <RowDefinition Height="90*"/>
                         <RowDefinition Height="23*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="变量名称："/>
+                    <TextBlock Grid.Row="0" Text="不变性条件："/>
                     <TextBox x:Name="IVAR_TextBox" Grid.Row="1" Text=""/>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <Button Content="添加" Click="Button_Click_IVAR_Add" 
@@ -55,7 +55,7 @@
                         <RowDefinition Height="90*"/>
                         <RowDefinition Height="23*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="变量名称："/>
+                    <TextBlock Grid.Row="0" Text="CTL公式："/>
                     <TextBox x:Name="CTL_TextBox" Grid.Row="1" Text=""/>
                     <StackPanel Grid.Row="2" Orientation="Horizontal">
                         <Button Content="添加" Click="Button_Click_CTL_Add" 

@@ -279,9 +279,9 @@ namespace sbid.ViewModel
         }
 
         // 创建SafetyProperty
-        public NodeViewModel CreateSafetyPropertyVM(string _name, Point nodeLocation)
+        public NodeViewModel CreateSafetyPropertyVM(Point nodeLocation)
         {
-            SafetyPropertyVM node = new SafetyPropertyVM(_name);
+            SafetyPropertyVM node = new SafetyPropertyVM();
             // 放到全局资源里
             ResourceManager.currentProtocol.safetyProperties.Add(node.SafetyProperty);
             node.X = nodeLocation.X;

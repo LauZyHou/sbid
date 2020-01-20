@@ -50,14 +50,13 @@ namespace sbid.UserControl
         // [按钮]添加进程模板
         private void Button_Click_Process(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreatProcessVM(new Point(100+count*30, 100+count*30));
+            this.ViewModel.CreatProcessVM(new Point(100 + count * 30, 100 + count * 30));
             this.count++;
-
         }
         // [按钮]添加UserType
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateUserType2VM("初始化"+count, new Point(100 + count * 30, 100 + count * 30));
+            this.ViewModel.CreateUserType2VM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
 
@@ -71,7 +70,7 @@ namespace sbid.UserControl
         //[按钮]添加SafetyProperty
         private void Button_Click_SafetyProperty(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateSafetyPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
+            this.ViewModel.CreateSafetyPropertyVM(new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
         #endregion
@@ -98,7 +97,7 @@ namespace sbid.UserControl
         private void Edit_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             // 判断具体是在哪种类图上点击的右键编辑，即判断选中的类图
-            var nodesCopy = this.ViewModel.Network.Nodes.ToArray(); 
+            var nodesCopy = this.ViewModel.Network.Nodes.ToArray();
             foreach (var node in nodesCopy)
             {
                 if (node.IsSelected)
@@ -113,13 +112,13 @@ namespace sbid.UserControl
                     }
                     else if (node is SecurityPropertyVM)
                     {
-                        new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();                     
+                        new SecurityPropertyWindow((SecurityPropertyVM)node).ShowDialog();
                     }
                     else if (node is SafetyPropertyVM)
                     {
                         new SafetyPropertyWindow((SafetyPropertyVM)node).ShowDialog();
                     }
-                    else 
+                    else
                     {
                         DemoWindow demoWindow = new DemoWindow();
                         demoWindow.ShowDialog();
@@ -133,7 +132,7 @@ namespace sbid.UserControl
         private void EditStateMachine2_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             // 越过第一层选项卡
-            CloseableTabItem closeableTabItem1= bigGrid.Parent as CloseableTabItem;
+            CloseableTabItem closeableTabItem1 = bigGrid.Parent as CloseableTabItem;
             TabControl tabControl1 = closeableTabItem1.Parent as TabControl;
 
             // 越过第二层选项卡
@@ -178,7 +177,7 @@ namespace sbid.UserControl
             // todo: 新 / 旧ViewModel
             StateMachineVM stateMachineVM = new StateMachineVM("init", nowProcess);// 构造时写入nowProcess
             // todo:打开新面板 / 跳到旧面板
-            mainWindow.add_new_panel("Process\""+pName+"\"的状态机", 
+            mainWindow.add_new_panel("Process\"" + pName + "\"的状态机",
                 new StateMachinePanel(stateMachineVM).Content as Grid);
         }
 

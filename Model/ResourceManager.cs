@@ -88,17 +88,21 @@ namespace sbid.Model
         // SafetyProperty
         private static void SafetyProperty2Xml(SafetyProperty safetyProperty, XmlTextWriter xmlWriter)
         {
-            xmlWriter.WriteStartElement("SafetyProperty");
-            xmlWriter.WriteAttributeString("name", safetyProperty.Name);
+            //xmlWriter.WriteStartElement("SafetyProperty");
+            //xmlWriter.WriteAttributeString("name", safetyProperty.Name);
             foreach (var ivar in safetyProperty.Invariants)
             {
-                IVAR2Xml(ivar, xmlWriter);
+                xmlWriter.WriteStartElement("IVAR");
+                xmlWriter.WriteAttributeString("expression", ivar);
+                xmlWriter.WriteEndElement();
             }
             foreach (var ctl in safetyProperty.CTLs)
             {
-                CTL2Xml(ctl, xmlWriter);
+                xmlWriter.WriteStartElement("CTL");
+                xmlWriter.WriteAttributeString("expression", ctl);
+                xmlWriter.WriteEndElement();
             }
-            xmlWriter.WriteEndElement();
+            //xmlWriter.WriteEndElement();
         }
 
         // Attribute
@@ -110,19 +114,23 @@ namespace sbid.Model
             xmlWriter.WriteEndElement();
         }
 
+        /*
+        // 不变性
         private static void IVAR2Xml(string ivar, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("IVAR");
-            xmlWriter.WriteAttributeString("name", ivar);
+            xmlWriter.WriteAttributeString("expression", ivar);
             xmlWriter.WriteEndElement();
         }
 
+        // CTL公式
         private static void CTL2Xml(string ctl, XmlTextWriter xmlWriter)
         {
             xmlWriter.WriteStartElement("CTL");
-            xmlWriter.WriteAttributeString("name", ctl);
+            xmlWriter.WriteAttributeString("expression", ctl);
             xmlWriter.WriteEndElement();
         }
+        */
 
         // Method
         private static void Method2Xml(Method method, XmlTextWriter xmlWriter)
