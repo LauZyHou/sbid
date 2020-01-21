@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
-        Title="编辑Axiom模板" Height="300" Width="500">
+        Title="编辑Axiom-" Height="300" Width="500">
     <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <TabItem Header="Method">
             <Grid Background="#FFE5E5E5">

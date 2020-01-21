@@ -1,5 +1,4 @@
 ﻿using sbid.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,23 +20,12 @@ namespace sbid.UI
         private SafetyPropertyVM mySafetyPropertyVM;
 
         public SafetyPropertyVM MySafetyPropertyVM { get => mySafetyPropertyVM; set => mySafetyPropertyVM = value; }
-        
-        public SafetyPropertyWindow()
-        {
-            InitializeComponent();
-        }
 
-        public SafetyPropertyWindow(string suffixName)
+        public SafetyPropertyWindow(SafetyPropertyVM _spvm)
         {
             InitializeComponent();
-            this.Title += suffixName;
-        }
-
-        public SafetyPropertyWindow(SafetyPropertyVM _utm)
-        {
-            InitializeComponent();
-            this.mySafetyPropertyVM = _utm;
-            this.Title = "编辑 " + _utm.SafetyProperty.Name + "窗口";
+            this.mySafetyPropertyVM = _spvm;
+            this.Title += _spvm.SafetyProperty.Name;
             // 有了这个xaml中才能binding到这里的public属性
             this.DataContext = this;
             IVAR_AttrListBox.ItemsSource = mySafetyPropertyVM.SafetyProperty.Invariants;

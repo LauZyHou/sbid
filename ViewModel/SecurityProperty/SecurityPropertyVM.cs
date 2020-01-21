@@ -12,9 +12,9 @@ namespace sbid.ViewModel
 
         public SecurityProperty SecurityProperty { get => securityProperty; set => securityProperty = value; }
 
-        public SecurityPropertyVM(string _name)
+        public SecurityPropertyVM()
         {
-            this.securityProperty = new SecurityProperty(_name);
+            this.securityProperty = new SecurityProperty();
             this.Color = "#FFEBCD";
         }
     }

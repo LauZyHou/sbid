@@ -53,18 +53,18 @@ namespace sbid.UserControl
             this.ViewModel.CreatProcessVM(new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
+
         // [按钮]添加UserType
         private void Button_Click_UserType(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateUserType2VM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
+            this.ViewModel.CreateUserType2VM(new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
 
         // [按钮]添加SecurityProperty
         private void Button_Click_SecurityProperty(object sender, RoutedEventArgs e)
         {
-            this.ViewModel.CreateSecurityPropertyVM("初始化" + count, new Point(100 + count * 30, 100 + count * 30));
-            this.count++;
+            this.ViewModel.CreateSecurityPropertyVM(new Point(100 + count * 30, 100 + count * 30));
         }
 
         //[按钮]添加SafetyProperty
@@ -237,7 +237,5 @@ namespace sbid.UserControl
         {
 
         }
-
-       
     }
 }

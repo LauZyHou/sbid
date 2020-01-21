@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:sbid.UI"
         mc:Ignorable="d"
-        Title="编辑SafetyProperty模板" Height="300" Width="500">
+        Title="编辑SafetyProperty-" Height="300" Width="500">
     <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         <!--Attribute-->
         <TabItem Header="IVAR">

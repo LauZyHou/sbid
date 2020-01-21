@@ -1,6 +1,5 @@
 ﻿using sbid.Model;
 using sbid.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -23,15 +22,11 @@ namespace sbid.UI
 
         public UserType2VM MyUserTypeVM { get => myUserTypeVM; set => myUserTypeVM = value; }
 
-        public UserTypeWindow()
+        public UserTypeWindow(UserType2VM _utvm)
         {
             InitializeComponent();
-        }
-        public UserTypeWindow(UserType2VM _utm)
-        {
-            InitializeComponent();
-            this.myUserTypeVM = _utm;
-            this.Title = "编辑 "+_utm.UserType2.Name+"窗口";
+            this.myUserTypeVM = _utvm;
+            this.Title += _utvm.UserType2.Name;
             // 有了这个xaml中才能binding到这里的public属性
             this.DataContext = this;
             // "int","bool"和所有UserType的Name显示在列表中
@@ -39,13 +34,14 @@ namespace sbid.UI
             AttrListBox.ItemsSource = myUserTypeVM.UserType2.Attributes;
 
         }
+
         private void AttrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
             if (AttrListBox.SelectedItem == null)
                 return;
             // 获取当前选中的Attribute
-            Model.Attribute nowAttr = ((Model.Attribute)AttrListBox.SelectedItem);
+            Attribute nowAttr = ((Attribute)AttrListBox.SelectedItem);
             // 设置左侧显示的变量名
             AttrParamIdtTextBox.Text = nowAttr.Identifier;
             // 设置左侧选中的类型
@@ -68,14 +64,8 @@ namespace sbid.UI
                 return;
             }
             // 添加
-            MyUserTypeVM.UserType2.Attributes.Add(new Model.Attribute(nowType, nowIdt));
+            MyUserTypeVM.UserType2.Attributes.Add(new Attribute(nowType, nowIdt));
         }
-       
-        
-
-      
-
-
 
         private void Button_Click_Attr_Update(object sender, RoutedEventArgs e)
         {
@@ -100,7 +90,7 @@ namespace sbid.UI
                 return;
             }
             // 更新
-            MyUserTypeVM.UserType2.Attributes[idx] = new Model.Attribute(nowType, nowIdt);
+            MyUserTypeVM.UserType2.Attributes[idx] = new Attribute(nowType, nowIdt);
         }
 
         private void Button_Click_Attr_Delete(object sender, RoutedEventArgs e)

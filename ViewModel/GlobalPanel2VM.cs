@@ -254,7 +254,7 @@ namespace sbid.ViewModel
             return node;
         }
 
-        // 创建UserType(第二版)
+        // 创建UserType(指定名称)
         public NodeViewModel CreateUserType2VM(string _name, Point nodeLocation)
         {
             UserType2VM node = new UserType2VM(_name);
@@ -266,10 +266,22 @@ namespace sbid.ViewModel
             return node;
         }
 
-        // 创建SecurityProperty
-        public NodeViewModel CreateSecurityPropertyVM(string _name, Point nodeLocation)
+        // 创建UserType(不指定名称)
+        public NodeViewModel CreateUserType2VM(Point nodeLocation)
         {
-            SecurityPropertyVM node = new SecurityPropertyVM(_name);
+            UserType2VM node = new UserType2VM();
+            // 放到全局资源里
+            ResourceManager.currentProtocol.userType2.Add(node.UserType2);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
+        // 创建SecurityProperty
+        public NodeViewModel CreateSecurityPropertyVM(Point nodeLocation)
+        {
+            SecurityPropertyVM node = new SecurityPropertyVM();
             // 放到全局资源里
             ResourceManager.currentProtocol.securityProperties.Add(node.SecurityProperty);
             node.X = nodeLocation.X;

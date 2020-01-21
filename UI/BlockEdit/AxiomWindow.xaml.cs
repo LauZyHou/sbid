@@ -1,5 +1,4 @@
 ﻿using sbid.ViewModel;
-using System;
 using System.Collections.Generic;
 using sbid.Resources;
 using System.Text;
@@ -21,40 +20,24 @@ namespace sbid.UI
     /// </summary>
     public partial class AxiomWindow : Window
     {
-        private ObservableCollection<Model.Attribute> ownMethodAttrs = new ObservableCollection<Model.Attribute>();
+        private ObservableCollection<Attribute> ownMethodAttrs = new ObservableCollection<Attribute>();
         private AxiomVM axiomVM;
-        public AxiomVM AxiomVM
-        {
-            get
-            {
-                return axiomVM;
-            }
-            set
-            {
-                axiomVM = value;
-            }
-        }
-        public AxiomWindow()
+
+        public AxiomVM AxiomVM { get => axiomVM; set => axiomVM = value; }
+
+        public AxiomWindow(AxiomVM _avm)
         {
             InitializeComponent();
-        }
-        public AxiomWindow(string suffixName){
-            InitializeComponent();
-            this.Title += suffixName;
-        }
-        public AxiomWindow(AxiomVM _utm)
-        {
-            InitializeComponent();
-            this.axiomVM = _utm;
-            this.Title = "编辑 " + _utm.Axiom.Name + "窗口";
+            this.axiomVM = _avm;
+            this.Title += _avm.Axiom.Name;
             // 有了这个xaml中才能binding到这里的public属性
             this.DataContext = this;
             OwnMethodRetTypeComboBox.ItemsSource = ResourceManager.currentProtocol.AllTypes;
             OwnMethodParamTypeComboBox.ItemsSource = ResourceManager.currentProtocol.AllTypes;
             Axiom_AttrListBox.ItemsSource = AxiomVM.Axiom.Ax;
             OwnMethodAttributeListBox.ItemsSource = ownMethodAttrs;
-            //todo method
         }
+
         private void Axiom_AttrListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
@@ -65,6 +48,7 @@ namespace sbid.UI
             // 设置左侧显示的变量名
             Axiom_TextBox.Text = nowAxiom;
         }
+
         private void Button_Click_Axiom_Add(object sender, RoutedEventArgs e)
         {
             if (Axiom_TextBox.Text.Length < 1)
@@ -80,14 +64,15 @@ namespace sbid.UI
             }
             AxiomVM.Axiom.Ax.Add(Axiom_TextBox.Text);
         }
+
         private void Button_Click_Axiom_Update(object sender, RoutedEventArgs e)
         {
             if (Axiom_AttrListBox.SelectedItem == null)
             {
-                MessageBox.Show("请选中你要更新的公理");
+                MessageBox.Show("需要选定 要更新的公理");
                 return;
             }
-            // 右侧选中的CTL的下标
+            // 右侧选中的Axiom的下标
             string nowText = Axiom_TextBox.Text;
             int idx = Axiom_AttrListBox.SelectedIndex;
             if (idx >= AxiomVM.Axiom.Ax.Count)
@@ -98,14 +83,15 @@ namespace sbid.UI
             // 更新
             AxiomVM.Axiom.Ax[idx] = nowText;
         }
+
         private void Button_Click_Axiom_Delete(object sender, RoutedEventArgs e)
         {
             if (Axiom_AttrListBox.SelectedItem == null)
             {
-                MessageBox.Show("需要选中 要删除的公理");
+                MessageBox.Show("需要选定 要删除的公理");
                 return;
             }
-            // 右侧选中的公理的下标
+            // 右侧选中的Axiom的下标
             int idx = Axiom_AttrListBox.SelectedIndex;
             if (idx >= AxiomVM.Axiom.Ax.Count)
             {
@@ -115,6 +101,7 @@ namespace sbid.UI
             // 删除
             AxiomVM.Axiom.Ax.RemoveAt(idx);
         }
+
         private void MethodListBox2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
@@ -127,8 +114,8 @@ namespace sbid.UI
             // 设置函数名称
             OwnMethodIdtTextBox.Text = nowMethod.Identifier;
             // 设置参数列表
-            ownMethodAttrs = new ObservableCollection<Model.Attribute>();
-            foreach (Model.Attribute attribute in nowMethod.Parameters)
+            ownMethodAttrs = new ObservableCollection<Attribute>();
+            foreach (Attribute attribute in nowMethod.Parameters)
             {
                 ownMethodAttrs.Add(attribute);
             }
@@ -139,13 +126,13 @@ namespace sbid.UI
         {
             if (OwnMethodParamTypeComboBox.SelectedItem == null || OwnMethodParamNameTextBox.Text.Length < 1)
             {
-                MessageBox.Show("需要选中 参数类型 并写入 参数名称");
+                MessageBox.Show("需要选择 参数类型 并写入 参数名称");
                 return;
             }
             // todo 判重
             // 添加
             ownMethodAttrs.Add(
-                new Model.Attribute(
+                new Attribute(
                   ResourceManager.currentProtocol.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
                   OwnMethodParamNameTextBox.Text // 参数名称
                 )
@@ -168,7 +155,7 @@ namespace sbid.UI
             // 选中的Attribute的下标
             int attrIdx = OwnMethodAttributeListBox.SelectedIndex;
             // 更新
-            ownMethodAttrs[attrIdx] = new Model.Attribute(
+            ownMethodAttrs[attrIdx] = new Attribute(
                 ResourceManager.currentProtocol.AllTypes[OwnMethodParamTypeComboBox.SelectedIndex], // 参数类型
                 OwnMethodParamNameTextBox.Text // 参数名称
             );
@@ -187,18 +174,20 @@ namespace sbid.UI
             // 删除
             ownMethodAttrs.RemoveAt(attrIdx);
         }
+
         private void OwnMethodAttributeListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // 点其它地方时可能导致这里未选中任何项
             if (OwnMethodAttributeListBox.SelectedItem == null)
                 return;
             // 获取当前选中的Attribute
-            Model.Attribute attribute = ((Model.Attribute)OwnMethodAttributeListBox.SelectedItem);
+            Attribute attribute = ((Attribute)OwnMethodAttributeListBox.SelectedItem);
             // 设置参数类型
             OwnMethodParamTypeComboBox.SelectedItem = OwnMethodParamTypeComboBox.Items[ResourceManager.currentProtocol.AllTypes.IndexOf(attribute.Type)];
             // 设置参数名
             OwnMethodParamNameTextBox.Text = attribute.Identifier;
         }
+
         private void Button_Click_OwnMethod_Add(object sender, RoutedEventArgs e)
         {
             if (OwnMethodRetTypeComboBox.SelectedItem == null)
@@ -218,11 +207,10 @@ namespace sbid.UI
             }
             Method newMethod = new Method(OwnMethodIdtTextBox.Text);
             newMethod.ReturnType = (string)OwnMethodRetTypeComboBox.SelectedItem;
-            foreach (Model.Attribute a in ownMethodAttrs)
+            foreach (Attribute a in ownMethodAttrs)
             {
                 newMethod.Parameters.Add(a);
             }
-
             // todo 判重
             // 添加
             AxiomVM.Axiom.Methods.Add(newMethod);
@@ -253,7 +241,7 @@ namespace sbid.UI
             }
             Method newMethod = new Method(OwnMethodIdtTextBox.Text);
             newMethod.ReturnType = (string)OwnMethodRetTypeComboBox.SelectedItem;
-            foreach (Model.Attribute a in ownMethodAttrs)
+            foreach (Attribute a in ownMethodAttrs)
             {
                 newMethod.Parameters.Add(a);
             }
@@ -277,6 +265,5 @@ namespace sbid.UI
             // 删除
             AxiomVM.Axiom.Methods.RemoveAt(methodIdx);
         }
-
-        }
     }
+}

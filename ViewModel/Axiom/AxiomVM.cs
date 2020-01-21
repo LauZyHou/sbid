@@ -8,24 +8,14 @@ namespace sbid.ViewModel
 {
     public class AxiomVM : NodeViewModel
     {
-        Axiom axiom = null;
+        private Axiom axiom;
 
-        public Axiom Axiom
-        {
-            get => axiom;
-            set => axiom = value;
-        }
-
-        public AxiomVM(string name)
-        {
-            this.axiom = new Axiom(name);
-            this.Color = "#FFCCCC"; // 浅粉红
-        }
+        public Axiom Axiom { get => axiom; set => axiom = value; }
 
         public AxiomVM()
         {
             this.axiom = new Axiom();
-            this.Color = "#FFCCCC"; // 浅粉红
+            this.Color = "#CCFFEE"; // 绿松石绿
         }
     }
 }

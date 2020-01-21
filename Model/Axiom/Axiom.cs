@@ -3,20 +3,32 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
+using Utils;
 
 namespace sbid.Model
 {
-    public class Axiom
+    public class Axiom : AbstractModelBase
     {
-        private int _id = 1;
+        private static int _id = 1;
         private string name;
-        private ObservableCollection<Attribute> attributes = new ObservableCollection<Attribute>();
         private ObservableCollection<Method> methods = new ObservableCollection<Method>();
         private ObservableCollection<string> ax = new ObservableCollection<string>();
-        public event PropertyChangedEventHandler PropertyChanged;
-        public Axiom(string _name)
+
+        public ObservableCollection<Method> Methods { get => methods; set => methods = value; }
+        public ObservableCollection<string> Ax { get => ax; set => ax = value; }
+
+        // Axiom的名称
+        public string Name
         {
-            this.name = _name;
+            get
+            {
+                return name;
+            }
+            set
+            {
+                name = value;
+                OnPropertyChanged("Name");
+            }
         }
 
         public Axiom()
@@ -24,58 +36,6 @@ namespace sbid.Model
             this.Name = "未命名" + _id;
             _id++;
             //Test_Init();
-        }
-        public string Name
-        {
-            get 
-            {
-                return name;
-            }
-            set 
-            {
-                name = value;
-                NotifyPropertyChange("Name");
-            }
-        }
-        public ObservableCollection<Method> Methods
-        {
-            get
-            {
-                return methods;
-            }
-            set
-            {
-                methods = value;
-            }
-        }
-        public ObservableCollection<Attribute> Attributes
-        {
-            get
-            {
-                return attributes;
-            }
-            set
-            {
-                attributes = value;
-            }
-        }
-        public ObservableCollection<string> Ax
-        {
-            get
-            {
-                return ax;
-            }
-            set
-            {
-                ax = value;
-            }
-        }
-        private void NotifyPropertyChange(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
 
         private void Test_Init()
