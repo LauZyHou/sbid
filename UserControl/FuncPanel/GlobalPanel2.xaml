@@ -19,7 +19,7 @@
             <Button Content="测试用" Click="Button_Click_Test"/>
             <Button Content="进程模板" Click="Button_Click_Process"/>
             <Button Content="自定义类型" Click="Button_Click_UserType"/>
-            <Button Content="公理"/>
+            <Button Content="公理" Click="Button_Click_Axiom"/>
             <Button Content="Initial Knowledge"/>
             <Button Content="Safety Property" Click="Button_Click_SafetyProperty"/>
             <Button Content="Security Property" Click="Button_Click_SecurityProperty"/>
@@ -295,6 +295,59 @@
                             <TextBlock Grid.Row="5" Text="[CTL]: "
                                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
                             <ListBox Grid.Row="6" ItemsSource="{Binding SafetyProperty.CTLs}" 
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                            </ListBox>
+
+                            <TextBlock Grid.Row="7"/>
+                        </Grid>
+                        <!--图形上的右键菜单-->
+                        <Grid.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="删除" Command="{StaticResource Commands.DeleteSelectedNodes}" ToolTip="删除类图"/>
+                                <MenuItem Header="编辑" Command="{StaticResource Commands.Edit}" ToolTip="编辑内容"/>
+                            </ContextMenu>
+                        </Grid.ContextMenu>
+                    </Grid>
+                </DataTemplate>
+                
+                <!--Axiom的数据模板-->
+                <DataTemplate DataType="{x:Type vm:AxiomVM}">
+                    <Grid MinWidth="120" MinHeight="120">
+                        <!--显示出来的矩形-->
+                        <Rectangle Stroke="Black" Fill="{Binding Color}" RadiusX="4" RadiusY="4"/>
+                        <!--套着内容的Grid-->
+                        <Grid Margin="-8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20*" MinHeight="20px"/>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="1"/>
+                                <RowDefinition Height="10*"/>
+                                <RowDefinition Height="40*"/>
+                                <RowDefinition Height="10*"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="15,12,11,4">
+                                <TextBlock Text="Axiom " FontWeight="Bold"/>
+                                <TextBox Background="{Binding Color}" Text="{Binding Axiom.Name}" BorderBrush="{Binding Color}" FontWeight="Bold"/>
+                            </StackPanel>
+                            <GridSplitter Grid.Row="1" HorizontalAlignment="Stretch" Background="Black" Margin="12,0,12,0"/>
+                            <TextBlock Grid.Row="2" Text="Method: "
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+                            <ListBox Grid.Row="3" ItemsSource="{Binding Axiom.Methods}" 
+                                     Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Path=ShowString}"/>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <GridSplitter Grid.Row="4" Background="Black" HorizontalAlignment="Stretch" Margin="12,0,12,0"/>
+
+                            <TextBlock Grid.Row="5" Text="Axiom: "
+                               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,2,0,2"/>
+                            <ListBox Grid.Row="6" ItemsSource="{Binding Axiom.Ax}" 
                                      Margin="9,0" Background="{Binding Color}" BorderBrush="{Binding Color}">
                             </ListBox>
 

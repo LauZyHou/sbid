@@ -73,6 +73,12 @@ namespace sbid.UserControl
             this.ViewModel.CreateSafetyPropertyVM(new Point(100 + count * 30, 100 + count * 30));
             this.count++;
         }
+        //[按钮]添加Axiom
+        private void Button_Click_Axiom(object sender, RoutedEventArgs e)
+        {
+            this.ViewModel.CreateAxiomVM(new Point(100 + count * 30, 100 + count * 30));
+            this.count++;
+        }
         #endregion
 
         #region 命令的执行函数
@@ -117,6 +123,10 @@ namespace sbid.UserControl
                     else if (node is SafetyPropertyVM)
                     {
                         new SafetyPropertyWindow((SafetyPropertyVM)node).ShowDialog();
+                    }
+                    else if (node is AxiomVM)
+                    {
+                        new AxiomWindow((AxiomVM)node).ShowDialog();
                     }
                     else
                     {
@@ -228,5 +238,6 @@ namespace sbid.UserControl
 
         }
 
+       
     }
 }

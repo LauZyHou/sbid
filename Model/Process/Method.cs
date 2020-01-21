@@ -46,8 +46,11 @@ namespace sbid.Model
                     list.Add(attr.Type + " " + attr.Identifier);
                 }
                 string paras =  string.Join(", ", list.ToArray());
-
-                return returnType + " " + identifier + "(" + paras + ");[" + cryptoName + "]";
+                string res = returnType + " " + identifier + "(" + paras + ");";
+                if (cryptoName.Equals("")) {
+                    return res;
+                }
+                return res + "[" + cryptoName + "]";
             }
         }
         // 函数头部分:形如形如"Msg enc(Msg m, Key k);的展示串

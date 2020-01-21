@@ -17,6 +17,8 @@ namespace sbid.Model
 
         public List<SafetyProperty> safetyProperties = new List<SafetyProperty>();
 
+        public List<Axiom> axioms = new List<Axiom>();
+
         public string Name { get => name; set => name = value; }
 
         // 用于获取Ptotocal中所有的类型(即"int","bool"加上所有UserType2的Name)

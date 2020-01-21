@@ -290,6 +290,18 @@ namespace sbid.ViewModel
             return node;
         }
 
+        // 创建Axiom
+        public NodeViewModel CreateAxiomVM(Point nodeLocation)
+        {
+            AxiomVM node = new AxiomVM();
+            // 放到全局资源里
+            ResourceManager.currentProtocol.axioms.Add(node.Axiom);
+            node.X = nodeLocation.X;
+            node.Y = nodeLocation.Y;
+            this.Network.Nodes.Add(node);
+            return node;
+        }
+
         public void Test_Node()
         {
             NodeViewModel node1 = CreatProcessVM(new Point(30, 30));
