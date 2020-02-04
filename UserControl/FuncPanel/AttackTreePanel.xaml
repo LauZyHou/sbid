@@ -84,13 +84,15 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
 
                             <!--中间居中放Node的Name属性-->
                             <TextBox Grid.Column="1" Grid.Row="1" Name="textBox" Text="{Binding Name}" Background="{Binding Color}"
                                HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Condition}"/>
+                            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Condition}" 
+                                       HorizontalAlignment="Center"/>
 
                             <!--绑定锚点数组中的锚点-->
                             <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="0"
@@ -99,11 +101,11 @@
                                              DataContext="{Binding Connectors[1]}"/>
                             <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="0"
                                              DataContext="{Binding Connectors[2]}"/>
-                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="2"
+                            <NetworkUI:ConnectorItem Grid.Column="0" Grid.Row="3"
                                              DataContext="{Binding Connectors[3]}"/>
-                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="2"
+                            <NetworkUI:ConnectorItem Grid.Column="1" Grid.Row="3"
                                              DataContext="{Binding Connectors[4]}"/>
-                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="2"
+                            <NetworkUI:ConnectorItem Grid.Column="2" Grid.Row="3"
                                              DataContext="{Binding Connectors[5]}"/>
                         </Grid>
                     </Grid>
